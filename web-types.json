@@ -1,6 +1,6 @@
 {
   "framework": "vue",
-  "name": "@tager/admin-fields",
+  "name": "@tager/admin-dynamic-field",
   "version": "0.1.0",
   "contributions": {
     "html": {

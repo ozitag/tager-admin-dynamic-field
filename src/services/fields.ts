@@ -347,7 +347,7 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
     return field.value.map((entity) =>
       entity.value.map((entityField) => {
         return {
-          name: field.config.name,
+          name: entityField.config.name,
           // eslint-disable-next-line @typescript-eslint/no-use-before-define
           value: universalFieldUtils.getOutgoingValue(entityField),
         };
