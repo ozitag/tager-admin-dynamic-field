@@ -1,0 +1,118 @@
+{
+  "framework": "vue",
+  "name": "@tager/admin-fields",
+  "version": "0.1.0",
+  "contributions": {
+    "html": {
+      "description-markup": "markdown",
+      "types-syntax": "typescript",
+      "tags": [
+        {
+          "name": "DynamicField",
+          "description": "",
+          "attributes": [
+            {
+              "name": "field",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              }
+            },
+            {
+              "name": "isLabelHidden",
+              "value": {
+                "kind": "expression",
+                "type": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "source": {
+            "module": "./src\\components\\DynamicField\\DynamicField.vue",
+            "symbol": "default"
+          }
+        },
+        {
+          "name": "RepeatedItem",
+          "description": "",
+          "attributes": [
+            {
+              "name": "components",
+              "description": "Here we use hack: (https://github.com/vuejs/vue/issues/7492#issuecomment-369507267)\nbecause vue don't understand functional component in \"components\" option",
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              },
+              "default": "{\r\n  DynamicField,\r\n}"
+            },
+            {
+              "name": "item",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              }
+            },
+            {
+              "name": "parentField",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              }
+            },
+            {
+              "name": "index",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "number"
+              }
+            }
+          ],
+          "source": {
+            "module": "./src\\components\\DynamicField\\components\\RepeatedItem\\RepeatedItem.vue",
+            "symbol": "default"
+          }
+        },
+        {
+          "name": "RepeatedItemTable",
+          "description": "",
+          "attributes": [
+            {
+              "name": "field",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              }
+            }
+          ],
+          "source": {
+            "module": "./src\\components\\DynamicField\\components\\RepeatedItemTable.vue",
+            "symbol": "default"
+          }
+        },
+        {
+          "name": "RepeatedItemTree",
+          "description": "",
+          "attributes": [
+            {
+              "name": "field",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              }
+            }
+          ],
+          "source": {
+            "module": "./src\\components\\DynamicField\\components\\RepeatedItemTree\\RepeatedItemTree.vue",
+            "symbol": "default"
+          }
+        }
+      ]
+    }
+  }
+}
