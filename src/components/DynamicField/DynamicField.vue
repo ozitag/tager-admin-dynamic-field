@@ -5,6 +5,7 @@ import {
   FormField,
   FormFieldFileInput,
   FormFieldRichTextInput,
+  FormFieldNumberInput,
 } from '@tager/admin-ui';
 
 import { FieldUnion } from '../../typings/model';
@@ -55,6 +56,16 @@ export default Vue.extend<Props>({
               input: handleChange,
             },
           });
+        case 'NUMBER':
+          return h(FormFieldNumberInput, {
+            props: {
+              ...commonProps,
+            },
+            on: {
+              ...context.listeners,
+              input: handleChange,
+            },
+          });
         case 'TEXT':
           return h(FormField, {
             props: {
@@ -84,6 +95,7 @@ export default Vue.extend<Props>({
             },
             attrs: {
               fileType: 'image',
+              scenario: field.config.meta.scenario,
             },
             on: {
               ...context.listeners,
@@ -100,6 +112,8 @@ export default Vue.extend<Props>({
             attrs: {
               fileType: 'image',
               multiple: true,
+              scenario: field.config.meta.scenario,
+              withCaptions: field.config.meta.withCaptions,
             },
             on: {
               ...context.listeners,
@@ -119,8 +133,10 @@ export default Vue.extend<Props>({
         case 'REPEATER':
           return h(RepeatedItemTree, { props: { field } });
 
-        default:
-          return h('div', `Unknown field with type: ${field.config.type}`);
+        default: {
+          const unknownFieldType = field.config.type;
+          return h('div', `Unknown field with type: ${unknownFieldType}`);
+        }
       }
     }
 
