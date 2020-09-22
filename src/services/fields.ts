@@ -1,4 +1,4 @@
-import { createId, Nullish } from '@tager/admin-services';
+import { createId, isNotNullish, Nullish } from '@tager/admin-services';
 
 import {
   DateField,
@@ -55,6 +55,18 @@ import {
   NumberFieldConfig,
   NumberField,
   NumberOutgoingValue,
+  BooleanIncomingValue,
+  BooleanFieldConfig,
+  BooleanField,
+  BooleanOutgoingValue,
+  SelectIncomingValue,
+  SelectFieldConfig,
+  SelectField,
+  SelectOutgoingValue,
+  ColorIncomingValue,
+  ColorFieldConfig,
+  ColorField,
+  ColorOutgoingValue,
 } from '../typings/model';
 
 interface FieldUtils<
@@ -64,11 +76,8 @@ interface FieldUtils<
   OutgoingValue
 > {
   type: Config['type'];
-  getUnknownFormFieldValue(): F['value'];
-  createFormField(
-    fieldConfig: Config,
-    incomingValueValue: Nullish<IncomingValue>
-  ): F;
+  getDefaultFormFieldValue(): F['value'];
+  createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
   getOutgoingValue(field: F): OutgoingValue;
 }
 
@@ -81,14 +90,14 @@ type StringFieldUtilsType = FieldUtils<
 
 const stringFieldUtils: StringFieldUtilsType = {
   type: 'STRING',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -105,14 +114,14 @@ type UrlFieldUtilsType = FieldUtils<
 
 const urlFieldUtils: UrlFieldUtilsType = {
   type: 'URL',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -129,14 +138,14 @@ type DateFieldUtilsType = FieldUtils<
 
 const dateFieldUtils: DateFieldUtilsType = {
   type: 'DATE',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -153,14 +162,14 @@ type DateTimeFieldUtilsType = FieldUtils<
 
 const dateTimeFieldUtils: DateTimeFieldUtilsType = {
   type: 'DATETIME',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -177,14 +186,14 @@ type TextFieldUtilsType = FieldUtils<
 
 const textFieldUtils: TextFieldUtilsType = {
   type: 'TEXT',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -201,14 +210,92 @@ type NumberFieldUtilsType = FieldUtils<
 
 const numberFieldUtils: NumberFieldUtilsType = {
   type: 'NUMBER',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: isNotNullish(incomingValue)
+        ? String(incomingValue)
+        : this.getDefaultFormFieldValue(),
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value;
+  },
+};
+
+type BooleanFieldUtilsType = FieldUtils<
+  BooleanIncomingValue,
+  BooleanFieldConfig,
+  BooleanField,
+  BooleanOutgoingValue
+>;
+
+const booleanFieldUtils: BooleanFieldUtilsType = {
+  type: 'TRUE_FALSE',
+  getDefaultFormFieldValue() {
+    return false;
+  },
+  createFormField(fieldConfig, incomingValue) {
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: Boolean(incomingValue),
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value;
+  },
+};
+
+type SelectFieldUtilsType = FieldUtils<
+  SelectIncomingValue,
+  SelectFieldConfig,
+  SelectField,
+  SelectOutgoingValue
+>;
+
+const selectFieldUtils: SelectFieldUtilsType = {
+  type: 'SELECT',
+  getDefaultFormFieldValue() {
+    return null;
+  },
+  createFormField(fieldConfig, incomingValue) {
+    const foundOption = fieldConfig.meta.options.find(
+      (option) => option.value === incomingValue
+    );
+
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: foundOption ?? this.getDefaultFormFieldValue(),
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value?.value ?? null;
+  },
+};
+
+type ColorFieldUtilsType = FieldUtils<
+  ColorIncomingValue,
+  ColorFieldConfig,
+  ColorField,
+  ColorOutgoingValue
+>;
+
+const colorFieldUtils: ColorFieldUtilsType = {
+  type: 'COLOR',
+  getDefaultFormFieldValue() {
+    return '#000000';
+  },
+  createFormField(fieldConfig, incomingValue) {
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -225,14 +312,14 @@ type HtmlFieldUtilsType = FieldUtils<
 
 const htmlFieldUtils: HtmlFieldUtilsType = {
   type: 'HTML',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return '';
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue ?? this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -249,7 +336,7 @@ type ImageFieldUtilsType = FieldUtils<
 
 const imageFieldUtils: ImageFieldUtilsType = {
   type: 'IMAGE',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return null;
   },
   createFormField(fieldConfig, incomingValue) {
@@ -258,7 +345,7 @@ const imageFieldUtils: ImageFieldUtilsType = {
       config: fieldConfig,
       value: incomingValue
         ? { id: createId(), file: incomingValue, caption: null }
-        : this.getUnknownFormFieldValue(),
+        : this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -275,7 +362,7 @@ type FileFieldUtilsType = FieldUtils<
 
 const fileFieldUtils: FileFieldUtilsType = {
   type: 'FILE',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return null;
   },
   createFormField(fieldConfig, incomingValue) {
@@ -284,7 +371,7 @@ const fileFieldUtils: FileFieldUtilsType = {
       config: fieldConfig,
       value: incomingValue
         ? { id: createId(), file: incomingValue, caption: null }
-        : this.getUnknownFormFieldValue(),
+        : this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -301,18 +388,27 @@ type GalleryFieldUtilsType = FieldUtils<
 
 const galleryFieldUtils: GalleryFieldUtilsType = {
   type: 'GALLERY',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return [];
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: incomingValue ?? this.getUnknownFormFieldValue(),
+      value: incomingValue
+        ? incomingValue.map(({ file, caption }) => ({
+            id: createId(),
+            file,
+            caption,
+          }))
+        : this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
-    return field.value.map((image) => image.file.id);
+    return field.value.map((imageEntry) => ({
+      id: imageEntry.file.id,
+      caption: imageEntry.caption ?? null,
+    }));
   },
 };
 
@@ -325,7 +421,7 @@ type RepeaterFieldUtilsType = FieldUtils<
 
 const repeaterFieldUtils: RepeaterFieldUtilsType = {
   type: 'REPEATER',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return [];
   },
   createFormField(fieldConfig, incomingValue) {
@@ -370,7 +466,7 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
       config: fieldConfig,
       value: incomingValue
         ? createNestedFieldArray(fieldConfig.fields, incomingValue)
-        : this.getUnknownFormFieldValue(),
+        : this.getDefaultFormFieldValue(),
     };
   },
   getOutgoingValue(field) {
@@ -395,7 +491,7 @@ type UnknownFieldUtilsType = FieldUtils<
 
 const unknownFieldUtils: UnknownFieldUtilsType = {
   type: 'UNKNOWN',
-  getUnknownFormFieldValue() {
+  getDefaultFormFieldValue() {
     return null;
   },
   createFormField(fieldConfig) {
@@ -421,6 +517,9 @@ const FIELD_UTILS_LIST = [
   galleryFieldUtils,
   dateFieldUtils,
   dateTimeFieldUtils,
+  booleanFieldUtils,
+  selectFieldUtils,
+  colorFieldUtils,
   repeaterFieldUtils,
   unknownFieldUtils,
 ];

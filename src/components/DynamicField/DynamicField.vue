@@ -6,6 +6,9 @@ import {
   FormFieldFileInput,
   FormFieldRichTextInput,
   FormFieldNumberInput,
+  FormFieldCheckbox,
+  FormFieldSelect,
+  FormFieldColorInput,
 } from '@tager/admin-ui';
 
 import { FieldUnion } from '../../typings/model';
@@ -56,6 +59,18 @@ export default Vue.extend<Props>({
               input: handleChange,
             },
           });
+        case 'DATE':
+        case 'DATETIME':
+          return h(FormField, {
+            props: {
+              ...commonProps,
+              type: 'date',
+            },
+            on: {
+              ...context.listeners,
+              input: handleChange,
+            },
+          });
         case 'NUMBER':
           return h(FormFieldNumberInput, {
             props: {
@@ -86,6 +101,43 @@ export default Vue.extend<Props>({
             on: {
               ...context.listeners,
               input: handleChange,
+            },
+          });
+        case 'TRUE_FALSE':
+          return h(FormFieldCheckbox, {
+            props: {
+              label: commonProps.label,
+              name: commonProps.name,
+              checked: field.value,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
+            },
+          });
+        case 'SELECT':
+          return h(FormFieldSelect, {
+            props: {
+              label: commonProps.label,
+              name: commonProps.name,
+            },
+            attrs: {
+              value: commonProps.value,
+              options: field.config.meta.options,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
+            },
+          });
+        case 'COLOR':
+          return h(FormFieldColorInput, {
+            props: {
+              ...commonProps,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
             },
           });
         case 'IMAGE':
@@ -135,6 +187,7 @@ export default Vue.extend<Props>({
 
         default: {
           const unknownFieldType = field.config.type;
+          console.warn('Cannot render Component for field', field.config);
           return h('div', `Unknown field with type: ${unknownFieldType}`);
         }
       }

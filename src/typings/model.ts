@@ -1,5 +1,5 @@
 import { Nullable, FileType } from '@tager/admin-services';
-import { SingleFileInputValueType } from '@tager/admin-ui';
+import { OptionType, SingleFileInputValueType } from '@tager/admin-ui';
 
 /** Common */
 export interface FieldConfig {
@@ -89,7 +89,7 @@ export interface NumberFieldConfig extends FieldConfig {
   type: 'NUMBER';
 }
 export type NumberField = Field<NumberFieldConfig, string>;
-export type NumberIncomingValue = Nullable<string>;
+export type NumberIncomingValue = Nullable<number>;
 export type NumberOutgoingValue = string;
 
 /** IMAGE */
@@ -120,8 +120,14 @@ export type GalleryField = Field<
   GalleryFieldConfig,
   Array<SingleFileInputValueType>
 >;
-export type GalleryIncomingValue = Array<FileType>;
-export type GalleryOutgoingValue = Array<number>;
+export type GalleryIncomingValue = Array<{
+  file: FileType;
+  caption: Nullable<string>;
+}>;
+export type GalleryOutgoingValue = Array<{
+  id: number;
+  caption: Nullable<string>;
+}>;
 
 /** FILE */
 
@@ -134,6 +140,36 @@ export type FileField = Field<
 >;
 export type FileIncomingValue = Nullable<FileType>;
 export type FileOutgoingValue = Nullable<number>;
+
+/** BOOLEAN */
+
+export interface BooleanFieldConfig extends FieldConfig {
+  type: 'TRUE_FALSE';
+}
+export type BooleanField = Field<BooleanFieldConfig, boolean>;
+export type BooleanIncomingValue = Nullable<boolean>;
+export type BooleanOutgoingValue = boolean;
+
+/** SELECT */
+
+export interface SelectFieldConfig extends FieldConfig {
+  type: 'SELECT';
+  meta: {
+    options: Array<OptionType>;
+  };
+}
+export type SelectField = Field<SelectFieldConfig, Nullable<OptionType>>;
+export type SelectIncomingValue = Nullable<string>;
+export type SelectOutgoingValue = Nullable<string>;
+
+/** COLOR */
+
+export interface ColorFieldConfig extends FieldConfig {
+  type: 'COLOR';
+}
+export type ColorField = Field<ColorFieldConfig, string>;
+export type ColorIncomingValue = Nullable<string>;
+export type ColorOutgoingValue = string;
 
 /** REPEATER */
 
@@ -165,6 +201,9 @@ export type FieldConfigUnion =
   | ImageFieldConfig
   | GalleryFieldConfig
   | FileFieldConfig
+  | BooleanFieldConfig
+  | SelectFieldConfig
+  | ColorFieldConfig
   | RepeaterFieldConfig;
 
 export type FieldUnion =
@@ -178,6 +217,9 @@ export type FieldUnion =
   | ImageField
   | GalleryField
   | FileField
+  | BooleanField
+  | SelectField
+  | ColorField
   | RepeaterField
   | UnknownField;
 
@@ -192,6 +234,9 @@ export type IncomingValueUnion =
   | ImageIncomingValue
   | GalleryIncomingValue
   | FileIncomingValue
+  | BooleanIncomingValue
+  | SelectIncomingValue
+  | ColorIncomingValue
   | RepeaterIncomingValue
   | UnknownIncomingValue;
 
@@ -206,5 +251,8 @@ export type OutgoingValueUnion =
   | ImageOutgoingValue
   | GalleryOutgoingValue
   | FileOutgoingValue
+  | BooleanOutgoingValue
+  | SelectOutgoingValue
+  | ColorOutgoingValue
   | RepeaterOutgoingValue
   | UnknownOutgoingValue;
