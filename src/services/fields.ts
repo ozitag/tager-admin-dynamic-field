@@ -265,7 +265,7 @@ const selectFieldUtils: SelectFieldUtilsType = {
   },
   createFormField(fieldConfig, incomingValue) {
     const foundOption = fieldConfig.meta.options.find(
-      (option) => option.value === incomingValue
+      (option) => String(option.value) === String(incomingValue)
     );
 
     return {
