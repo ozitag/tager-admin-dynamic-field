@@ -171,6 +171,21 @@ export type ColorField = Field<ColorFieldConfig, string>;
 export type ColorIncomingValue = Nullable<string>;
 export type ColorOutgoingValue = string;
 
+/** BUTTON */
+
+type ButtonFieldValue = Nullable<{
+  label: Nullable<string>;
+  link: Nullable<string>;
+  isNewTab: boolean;
+}>;
+
+export interface ButtonFieldConfig extends FieldConfig {
+  type: 'BUTTON';
+}
+export type ButtonField = Field<ButtonFieldConfig, ButtonFieldValue>;
+export type ButtonIncomingValue = Nullable<ButtonFieldValue>;
+export type ButtonOutgoingValue = ButtonFieldValue;
+
 /** REPEATER */
 
 export interface RepeaterFieldConfig extends FieldConfig {
@@ -204,6 +219,7 @@ export type FieldConfigUnion =
   | BooleanFieldConfig
   | SelectFieldConfig
   | ColorFieldConfig
+  | ButtonFieldConfig
   | RepeaterFieldConfig;
 
 export type FieldUnion =
@@ -220,6 +236,7 @@ export type FieldUnion =
   | BooleanField
   | SelectField
   | ColorField
+  | ButtonField
   | RepeaterField
   | UnknownField;
 
@@ -237,6 +254,7 @@ export type IncomingValueUnion =
   | BooleanIncomingValue
   | SelectIncomingValue
   | ColorIncomingValue
+  | ButtonIncomingValue
   | RepeaterIncomingValue
   | UnknownIncomingValue;
 
@@ -254,5 +272,6 @@ export type OutgoingValueUnion =
   | BooleanOutgoingValue
   | SelectOutgoingValue
   | ColorOutgoingValue
+  | ButtonOutgoingValue
   | RepeaterOutgoingValue
   | UnknownOutgoingValue;

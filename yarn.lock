@@ -1605,19 +1605,19 @@
     vue-docgen-loader "^1.5.0"
     webpack "^4.43.0"
 
-"@tager/admin-services@^0.2.11":
-  version "0.2.11"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.11.tgz#d19a1729d5e83f6341722afe17c410cb2942b5ce"
-  integrity sha512-mtXt2bAL4O74okO0QxBIOmx0rHlrcPdfXSvcFTT3YlFgYxaAPZhqlkdKxVCFcj+6bd4FZbGeDRbxWesTXOHVyQ==
+"@tager/admin-services@^0.2.12":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.12.tgz#b173de72f299bba8edeafc1ee3469ea9cfdd4da4"
+  integrity sha512-A7kBoPPqKmRUFhAMfnU8oJjkH9hqWlp8yZAJVOGc9XMohVfCgttYaxrNFNu4Fasd1uKrBP8aFK3Oxadh+F+9UQ==
   dependencies:
     i18next "^19.7.0"
     nanoid "^3.1.12"
-    zod "^1.11.8"
+    zod "^1.11.9"
 
-"@tager/admin-ui@^0.7.5":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.7.5.tgz#8a24b96ac1a9c8803197b86795b1312510637eff"
-  integrity sha512-OlvoTjBaiwecMzomX1ZATp0B70CwHEuBDrT2eyFjGvguaarsI9CMEz9+S0Eof+T+zOQaqsbzuCc3tDcHQppZjw==
+"@tager/admin-ui@^0.7.9":
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.7.9.tgz#92fc5c9bc6ec6c035c96dcb669d7acb62bf4f816"
+  integrity sha512-vnx7o7YFc/bcMkMOuEXlexehF3kahv+B/GSxhSOz6UUfu4mqLRXZXGv2xxZ3yJ1IoGBfCwyswspGqRCPLKKbHQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"
@@ -10908,7 +10908,7 @@ yorkie@^2.0.0:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-zod@^1.11.8:
-  version "1.11.8"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-1.11.8.tgz#5e6b2eb3114c73d5043889fa9dfbab0b60a93ff6"
-  integrity sha512-iusmIB00ll0Fxzyhrp8EJPaJDTSyQMKMCwk2hH2XrtgY/QcygPJTX13fSof/r7b4hL5cBeN5aeVl6WN1xpr90g==
+zod@^1.11.9:
+  version "1.11.9"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-1.11.9.tgz#c6c503804d394f8ef009d44ce464bbf8aa3c1bd6"
+  integrity sha512-qZjs9DkvPYHOiOUdAtNcxOC0u5cv7tx9DCmlNZN0MxWeFvgqyr3XkXFqUlaSpmTiZ4A4YVkB2s1Zw2ENJ9/fSg==

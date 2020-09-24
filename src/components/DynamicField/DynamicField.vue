@@ -9,6 +9,8 @@ import {
   FormFieldCheckbox,
   FormFieldSelect,
   FormFieldColorInput,
+  ButtonField,
+  DateTimeInput,
 } from '@tager/admin-ui';
 
 import { FieldUnion } from '../../typings/model';
@@ -60,7 +62,6 @@ export default Vue.extend<Props>({
             },
           });
         case 'DATE':
-        case 'DATETIME':
           return h(FormField, {
             props: {
               ...commonProps,
@@ -69,6 +70,16 @@ export default Vue.extend<Props>({
             on: {
               ...context.listeners,
               input: handleChange,
+            },
+          });
+        case 'DATETIME':
+          return h(DateTimeInput, {
+            props: {
+              ...commonProps,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
             },
           });
         case 'NUMBER':
@@ -132,6 +143,16 @@ export default Vue.extend<Props>({
           });
         case 'COLOR':
           return h(FormFieldColorInput, {
+            props: {
+              ...commonProps,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
+            },
+          });
+        case 'BUTTON':
+          return h(ButtonField, {
             props: {
               ...commonProps,
             },

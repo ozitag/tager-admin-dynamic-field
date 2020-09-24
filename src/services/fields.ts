@@ -67,6 +67,10 @@ import {
   ColorFieldConfig,
   ColorField,
   ColorOutgoingValue,
+  ButtonIncomingValue,
+  ButtonFieldConfig,
+  ButtonField,
+  ButtonOutgoingValue,
 } from '../typings/model';
 
 interface FieldUtils<
@@ -303,6 +307,30 @@ const colorFieldUtils: ColorFieldUtilsType = {
   },
 };
 
+type ButtonFieldUtilsType = FieldUtils<
+  ButtonIncomingValue,
+  ButtonFieldConfig,
+  ButtonField,
+  ButtonOutgoingValue
+>;
+
+const buttonFieldUtils: ButtonFieldUtilsType = {
+  type: 'BUTTON',
+  getDefaultFormFieldValue() {
+    return null;
+  },
+  createFormField(fieldConfig, incomingValue) {
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: incomingValue,
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value;
+  },
+};
+
 type HtmlFieldUtilsType = FieldUtils<
   HtmlIncomingValue,
   HtmlFieldConfig,
@@ -520,6 +548,7 @@ const FIELD_UTILS_LIST = [
   booleanFieldUtils,
   selectFieldUtils,
   colorFieldUtils,
+  buttonFieldUtils,
   repeaterFieldUtils,
   unknownFieldUtils,
 ];
