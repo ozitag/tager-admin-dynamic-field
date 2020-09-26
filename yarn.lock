@@ -1614,14 +1614,15 @@
     nanoid "^3.1.12"
     zod "^1.11.9"
 
-"@tager/admin-ui@^0.7.9":
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.7.9.tgz#92fc5c9bc6ec6c035c96dcb669d7acb62bf4f816"
-  integrity sha512-vnx7o7YFc/bcMkMOuEXlexehF3kahv+B/GSxhSOz6UUfu4mqLRXZXGv2xxZ3yJ1IoGBfCwyswspGqRCPLKKbHQ==
+"@tager/admin-ui@^0.7.11":
+  version "0.7.11"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.7.11.tgz#918bd8a47bc03c3ccb94a3fd7f508bda329814a3"
+  integrity sha512-mMscIQ+zgfnGNEhaCj6fzdjWjhm+XtDFp79pjl/b426rmh3QdaFj4vn7KeA0C6qtCvjX4KHJLmdGuiYEgatAzw==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"
     "@tager/admin-wysiwyg" "^0.1.0"
+    leaflet "^1.7.1"
     lodash.get "^4.4.2"
     lodash.kebabcase "^4.1.1"
     vue-color "^2.7.1"
@@ -6787,6 +6788,11 @@ lazy-universal-dotenv@^3.0.1:
     core-js "^3.0.4"
     dotenv "^8.0.0"
     dotenv-expand "^5.1.0"
+
+leaflet@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
+  integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
 
 less@^3.9.0:
   version "3.12.2"

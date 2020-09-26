@@ -11,6 +11,7 @@ import {
   FormFieldColorInput,
   ButtonField,
   DateTimeInput,
+  MapField,
 } from '@tager/admin-ui';
 
 import { FieldUnion } from '../../typings/model';
@@ -153,6 +154,16 @@ export default Vue.extend<Props>({
           });
         case 'BUTTON':
           return h(ButtonField, {
+            props: {
+              ...commonProps,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
+            },
+          });
+        case 'MAP':
+          return h(MapField, {
             props: {
               ...commonProps,
             },

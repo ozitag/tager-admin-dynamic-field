@@ -71,6 +71,10 @@ import {
   ButtonFieldConfig,
   ButtonField,
   ButtonOutgoingValue,
+  MapIncomingValue,
+  MapFieldConfig,
+  MapField,
+  MapOutgoingValue,
 } from '../typings/model';
 
 interface FieldUtils<
@@ -331,6 +335,30 @@ const buttonFieldUtils: ButtonFieldUtilsType = {
   },
 };
 
+type MapFieldUtilsType = FieldUtils<
+  MapIncomingValue,
+  MapFieldConfig,
+  MapField,
+  MapOutgoingValue
+>;
+
+const mapFieldUtils: MapFieldUtilsType = {
+  type: 'MAP',
+  getDefaultFormFieldValue() {
+    return null;
+  },
+  createFormField(fieldConfig, incomingValue) {
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: incomingValue,
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value;
+  },
+};
+
 type HtmlFieldUtilsType = FieldUtils<
   HtmlIncomingValue,
   HtmlFieldConfig,
@@ -549,6 +577,7 @@ const FIELD_UTILS_LIST = [
   selectFieldUtils,
   colorFieldUtils,
   buttonFieldUtils,
+  mapFieldUtils,
   repeaterFieldUtils,
   unknownFieldUtils,
 ];

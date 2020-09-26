@@ -186,6 +186,20 @@ export type ButtonField = Field<ButtonFieldConfig, ButtonFieldValue>;
 export type ButtonIncomingValue = Nullable<ButtonFieldValue>;
 export type ButtonOutgoingValue = ButtonFieldValue;
 
+/** MAP */
+
+type MapFieldValue = Nullable<{
+  latitude: number;
+  longitude: number;
+}>;
+
+export interface MapFieldConfig extends FieldConfig {
+  type: 'MAP';
+}
+export type MapField = Field<MapFieldConfig, MapFieldValue>;
+export type MapIncomingValue = Nullable<MapFieldValue>;
+export type MapOutgoingValue = MapFieldValue;
+
 /** REPEATER */
 
 export interface RepeaterFieldConfig extends FieldConfig {
@@ -220,6 +234,7 @@ export type FieldConfigUnion =
   | SelectFieldConfig
   | ColorFieldConfig
   | ButtonFieldConfig
+  | MapFieldConfig
   | RepeaterFieldConfig;
 
 export type FieldUnion =
@@ -237,6 +252,7 @@ export type FieldUnion =
   | SelectField
   | ColorField
   | ButtonField
+  | MapField
   | RepeaterField
   | UnknownField;
 
@@ -255,6 +271,7 @@ export type IncomingValueUnion =
   | SelectIncomingValue
   | ColorIncomingValue
   | ButtonIncomingValue
+  | MapIncomingValue
   | RepeaterIncomingValue
   | UnknownIncomingValue;
 
@@ -273,5 +290,6 @@ export type OutgoingValueUnion =
   | SelectOutgoingValue
   | ColorOutgoingValue
   | ButtonOutgoingValue
+  | MapOutgoingValue
   | RepeaterOutgoingValue
   | UnknownOutgoingValue;

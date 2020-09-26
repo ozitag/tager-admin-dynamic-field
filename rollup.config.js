@@ -19,7 +19,6 @@ export default {
     '@tager/admin-services',
     '@tager/admin-ui',
     'lodash.kebabcase',
-    'nanoid',
   ],
   plugins: [
     /**

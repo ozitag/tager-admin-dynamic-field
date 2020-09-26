@@ -38,11 +38,11 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
-import { nanoid } from 'nanoid';
+
+import { createId } from '@tager/admin-services';
 
 import { RepeaterField } from '../../../../typings/model';
 import { universalFieldUtils } from '../../../../services/fields';
-
 import RepeatedItem from '../RepeatedItem/RepeatedItem.vue';
 import RepeatedItemTable from '../RepeatedItemTable.vue';
 
@@ -68,7 +68,7 @@ export default defineComponent<Props>({
 
     function addElement() {
       const newNestedField = {
-        id: nanoid(),
+        id: createId(),
         value: props.field.config.fields.map((nestedFieldConfig) =>
           universalFieldUtils.createFormField(nestedFieldConfig, null)
         ),
