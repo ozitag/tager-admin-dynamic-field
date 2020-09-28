@@ -1,13 +1,18 @@
 <template>
   <div class="repeated-field">
-    <div class="title-row" @click="toggleChildren">
+    <button
+      type="button"
+      class="title-button"
+      :title="isOpen ? 'Collapse' : 'Expand'"
+      @click="toggleChildren"
+    >
       <span class="title">
         {{ field.config.label }} ({{ field.value.length }})
       </span>
-      <base-button variant="icon" :title="isOpen ? 'Collapse' : 'Expand'">
+      <span class="icon-container">
         <svg-icon :name="isOpen ? 'expandLess' : 'expandMore'" />
-      </base-button>
-    </div>
+      </span>
+    </button>
 
     <div v-show="isOpen" class="content">
       <RepeatedItemTable v-if="isTable" :field="field" />
@@ -95,20 +100,31 @@ export default defineComponent<Props>({
 }
 
 .repeated-field {
-  .title-row {
+  margin-bottom: 1rem;
+
+  .title-button {
     display: inline-flex;
     align-items: center;
+    color: inherit;
 
     &:hover {
       cursor: pointer;
     }
   }
 
-  .title {
-    font-size: 1.2rem;
+  .icon-container {
+    padding: 0.375rem;
+    border-radius: 50%;
+    color: var(--secondary);
 
     &:hover {
-      color: #888;
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    svg {
+      display: block;
+      fill: currentColor;
+      transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     }
   }
 
