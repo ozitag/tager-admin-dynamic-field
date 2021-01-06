@@ -1605,24 +1605,26 @@
     vue-docgen-loader "^1.5.0"
     webpack "^4.43.0"
 
-"@tager/admin-services@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.12.tgz#b173de72f299bba8edeafc1ee3469ea9cfdd4da4"
-  integrity sha512-A7kBoPPqKmRUFhAMfnU8oJjkH9hqWlp8yZAJVOGc9XMohVfCgttYaxrNFNu4Fasd1uKrBP8aFK3Oxadh+F+9UQ==
+"@tager/admin-services@^0.2.14":
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.14.tgz#e388078914825e781807a499909c518efe27d9c6"
+  integrity sha512-3gzP4UpEIz8eW7Lyzoi3TR6ts+sdrzNCT/x9UFy/J5vCkbdmDNorlBUCikANWgYvpIGLHmvCQr8gVm4BIVBE+w==
   dependencies:
     i18next "^19.7.0"
     nanoid "^3.1.12"
     zod "^1.11.9"
 
-"@tager/admin-ui@^0.7.11":
-  version "0.7.11"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.7.11.tgz#918bd8a47bc03c3ccb94a3fd7f508bda329814a3"
-  integrity sha512-mMscIQ+zgfnGNEhaCj6fzdjWjhm+XtDFp79pjl/b426rmh3QdaFj4vn7KeA0C6qtCvjX4KHJLmdGuiYEgatAzw==
+"@tager/admin-ui@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.0.tgz#8a20d60ff9c88e26fbcca22d1f17266babfbaf3a"
+  integrity sha512-VXPRAR0pqYGWMw7yN6TGXsGDvIq0gqVXgrlQhXXB6nIC82GL2j2+gMOQCL1r+tGdJMbeoBN9ZaEKf/cVySy4Og==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"
     "@tager/admin-wysiwyg" "^0.1.0"
+    autosize "^4.0.2"
     leaflet "^1.7.1"
+    lodash.debounce "^4.0.8"
     lodash.get "^4.4.2"
     lodash.kebabcase "^4.1.1"
     vue-color "^2.7.1"
@@ -2734,6 +2736,11 @@ autoprefixer@^9.7.2:
     num2fraction "^1.2.2"
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
+
+autosize@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-4.0.2.tgz#073cfd07c8bf45da4b9fd153437f5bafbba1e4c9"
+  integrity sha512-jnSyH2d+qdfPGpWlcuhGiHmqBJ6g3X+8T+iRwFrHPLVcdoGJE/x6Qicm6aDHfTsbgZKxyV8UU/YB2p4cjKDRRA==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -6913,6 +6920,11 @@ lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
 lodash.get@^4.4.2:
   version "4.4.2"
