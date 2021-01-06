@@ -51,6 +51,7 @@ import { defineComponent, ref } from '@vue/composition-api';
 
 import { RepeaterField } from '../../../../typings/model';
 import DynamicField from '../../DynamicField.vue';
+
 import { moveItem, removeItem } from './RepeatedItem.helpers';
 
 type Props = Readonly<{

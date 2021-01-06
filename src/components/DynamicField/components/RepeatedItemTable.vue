@@ -3,10 +3,16 @@ import Vue from 'vue';
 import kebabCase from 'lodash.kebabcase';
 import { ScopedSlot } from 'vue/types/vnode';
 
-import { BaseButton, ColumnDefinition, SvgIcon, Table } from '@tager/admin-ui';
+import {
+  BaseButton,
+  ColumnDefinition,
+  SvgIcon,
+  BaseTable,
+} from '@tager/admin-ui';
 
 import { FieldUnion, RepeaterField } from '../../../typings/model';
 import DynamicField from '../DynamicField.vue';
+
 import { moveItem, removeItem } from './RepeatedItem';
 
 type Props = Readonly<{
@@ -83,7 +89,7 @@ export default Vue.extend<Props>({
       moveItem(context.props.field, index, direction);
     }
 
-    return h(Table, {
+    return h(BaseTable, {
       props: { columnDefs, enumerable: true, rowData: rowData },
       class: 'repeated-field-table',
       scopedSlots: {
