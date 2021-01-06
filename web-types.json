@@ -1,7 +1,7 @@
 {
   "framework": "vue",
   "name": "@tager/admin-dynamic-field",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "contributions": {
     "html": {
       "description-markup": "markdown",
