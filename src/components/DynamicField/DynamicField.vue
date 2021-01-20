@@ -8,6 +8,7 @@ import {
   FormFieldNumberInput,
   FormFieldCheckbox,
   FormFieldSelect,
+  FormFieldMultiSelect,
   FormFieldColorInput,
   ButtonField,
   DateTimeInput,
@@ -135,6 +136,21 @@ export default Vue.extend<Props>({
             },
             attrs: {
               value: commonProps.value,
+              options: field.config.meta.options,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
+            },
+          });
+        case 'MULTI_SELECT':
+          return h(FormFieldMultiSelect, {
+            props: {
+              label: commonProps.label,
+              name: commonProps.name,
+            },
+            attrs: {
+              selectedOptions: commonProps.value,
               options: field.config.meta.options,
             },
             on: {

@@ -62,6 +62,7 @@ import {
   SelectIncomingValue,
   SelectFieldConfig,
   SelectField,
+  MultiSelectField,
   SelectOutgoingValue,
   ColorIncomingValue,
   ColorFieldConfig,
@@ -75,6 +76,9 @@ import {
   MapFieldConfig,
   MapField,
   MapOutgoingValue,
+  MultiSelectIncomingValue,
+  MultiSelectFieldConfig,
+  MultiSelectOutgoingValue,
 } from '../typings/model';
 
 interface FieldUtils<
@@ -272,18 +276,51 @@ const selectFieldUtils: SelectFieldUtilsType = {
     return null;
   },
   createFormField(fieldConfig, incomingValue) {
-    const foundOption = fieldConfig.meta.options.find(
-      (option) => String(option.value) === String(incomingValue)
+    const options = fieldConfig.meta.options ?? [];
+
+    const selectedOption = options.find(
+      (option) => option.value === incomingValue
     );
 
     return {
       id: createId(),
       config: fieldConfig,
-      value: foundOption ?? this.getDefaultFormFieldValue(),
+      value: selectedOption ?? null,
     };
   },
   getOutgoingValue(field) {
     return field.value?.value ?? null;
+  },
+};
+
+type MultiSelectFieldUtilsType = FieldUtils<
+  MultiSelectIncomingValue,
+  MultiSelectFieldConfig,
+  MultiSelectField,
+  MultiSelectOutgoingValue
+>;
+
+const multiSelectFieldUtils: MultiSelectFieldUtilsType = {
+  type: 'MULTI_SELECT',
+  getDefaultFormFieldValue() {
+    return [];
+  },
+  createFormField(fieldConfig, incomingValue) {
+    const options = fieldConfig.meta.options ?? [];
+    const selectedValues = incomingValue ?? [];
+
+    const selectedOptions = options.filter((option) =>
+      selectedValues.includes(option.value)
+    );
+
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: selectedOptions,
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value.map((option) => option.value);
   },
 };
 
@@ -575,6 +612,7 @@ const FIELD_UTILS_LIST = [
   dateTimeFieldUtils,
   booleanFieldUtils,
   selectFieldUtils,
+  multiSelectFieldUtils,
   colorFieldUtils,
   buttonFieldUtils,
   mapFieldUtils,
