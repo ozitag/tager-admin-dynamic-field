@@ -152,15 +152,35 @@ export type BooleanOutgoingValue = boolean;
 
 /** SELECT */
 
+export type OptionValueType = number | string;
+export type CommonOptionType = OptionType<OptionValueType>;
+
 export interface SelectFieldConfig extends FieldConfig {
   type: 'SELECT';
   meta: {
-    options: Array<OptionType>;
+    options: Nullable<Array<CommonOptionType>>;
   };
 }
-export type SelectField = Field<SelectFieldConfig, Nullable<OptionType>>;
-export type SelectIncomingValue = Nullable<string>;
-export type SelectOutgoingValue = Nullable<string>;
+
+export type SelectField = Field<SelectFieldConfig, Nullable<CommonOptionType>>;
+export type SelectIncomingValue = Nullable<OptionValueType>;
+export type SelectOutgoingValue = Nullable<OptionValueType>;
+
+/** MULTI_SELECT */
+
+export interface MultiSelectFieldConfig extends FieldConfig {
+  type: 'MULTI_SELECT';
+  meta: {
+    options: Nullable<Array<CommonOptionType>>;
+  };
+}
+
+export type MultiSelectField = Field<
+  MultiSelectFieldConfig,
+  Array<CommonOptionType>
+>;
+export type MultiSelectIncomingValue = Nullable<Array<OptionValueType>>;
+export type MultiSelectOutgoingValue = Array<OptionValueType>;
 
 /** COLOR */
 
@@ -232,6 +252,7 @@ export type FieldConfigUnion =
   | FileFieldConfig
   | BooleanFieldConfig
   | SelectFieldConfig
+  | MultiSelectFieldConfig
   | ColorFieldConfig
   | ButtonFieldConfig
   | MapFieldConfig
@@ -250,6 +271,7 @@ export type FieldUnion =
   | FileField
   | BooleanField
   | SelectField
+  | MultiSelectField
   | ColorField
   | ButtonField
   | MapField
@@ -269,6 +291,7 @@ export type IncomingValueUnion =
   | FileIncomingValue
   | BooleanIncomingValue
   | SelectIncomingValue
+  | MultiSelectIncomingValue
   | ColorIncomingValue
   | ButtonIncomingValue
   | MapIncomingValue
@@ -288,6 +311,7 @@ export type OutgoingValueUnion =
   | FileOutgoingValue
   | BooleanOutgoingValue
   | SelectOutgoingValue
+  | MultiSelectOutgoingValue
   | ColorOutgoingValue
   | ButtonOutgoingValue
   | MapOutgoingValue
