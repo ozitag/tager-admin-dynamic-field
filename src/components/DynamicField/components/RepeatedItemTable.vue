@@ -33,14 +33,18 @@ export default Vue.extend<Props>({
 
     type RowData = Record<string, FieldUnion>;
 
-    const columnDefs: Array<ColumnDefinition<
-      RowData
-    >> = repeaterField.config.fields.map((fieldConfig, index) => ({
-      id: index + 1,
-      name: fieldConfig.label,
-      field: fieldConfig.name,
-      useCustomDataCell: true,
-    }));
+    const filteredFields = repeaterField.config.fields.filter(
+      (fieldConfig) => !fieldConfig.meta.hidden
+    );
+
+    const columnDefs: Array<ColumnDefinition<RowData>> = filteredFields.map(
+      (fieldConfig, index) => ({
+        id: index + 1,
+        name: fieldConfig.label,
+        field: fieldConfig.name,
+        useCustomDataCell: true,
+      })
+    );
 
     columnDefs.push({
       id: columnDefs.length + 1,
@@ -56,30 +60,30 @@ export default Vue.extend<Props>({
       )
     );
 
-    const columnWidth = `calc(100% / ${repeaterField.config.fields.length})`;
+    const columnWidth = `calc(100% / ${filteredFields.length})`;
 
-    const scopedSlots: Record<
-      string,
-      ScopedSlot
-    > = repeaterField.config.fields.reduce((scopedSlots, fieldConfig) => {
-      const slotName = `cell(${kebabCase(fieldConfig.name)})`;
+    const scopedSlots: Record<string, ScopedSlot> = filteredFields.reduce(
+      (scopedSlots, fieldConfig) => {
+        const slotName = `cell(${kebabCase(fieldConfig.name)})`;
 
-      return {
-        ...scopedSlots,
-        [slotName]: (props: {
-          row: RowData;
-          column: ColumnDefinition<RowData>;
-        }) =>
-          h('td', { style: { width: columnWidth } }, [
-            h(DynamicField, {
-              props: {
-                field: props.row[fieldConfig.name],
-                isLabelHidden: true,
-              },
-            }),
-          ]),
-      };
-    }, {});
+        return {
+          ...scopedSlots,
+          [slotName]: (props: {
+            row: RowData;
+            column: ColumnDefinition<RowData>;
+          }) =>
+            h('td', { style: { width: columnWidth } }, [
+              h(DynamicField, {
+                props: {
+                  field: props.row[fieldConfig.name],
+                  isLabelHidden: true,
+                },
+              }),
+            ]),
+        };
+      },
+      {}
+    );
 
     function handleItemRemove(index: number) {
       removeItem(context.props.field, index);
