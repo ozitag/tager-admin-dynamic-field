@@ -53,6 +53,7 @@ import RepeatedItemTable from '../RepeatedItemTable.vue';
 
 type Props = Readonly<{
   field: RepeaterField;
+  defaultIsOpen: boolean;
 }>;
 
 export default defineComponent<Props>({
@@ -63,9 +64,13 @@ export default defineComponent<Props>({
       type: Object,
       required: true,
     },
+    defaultIsOpen: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
-    const isOpen = ref<boolean>(false);
+    const isOpen = ref<boolean>(props.defaultIsOpen);
 
     function toggleChildren() {
       isOpen.value = !isOpen.value;
