@@ -98,7 +98,7 @@ export default Vue.extend<Props>({
       class: 'repeated-field-table',
       scopedSlots: {
         ...scopedSlots,
-        'cell(actions)': ({ rowIndex }) =>
+        'cell(actions)': ({ row, rowIndex }) =>
           h('td', { style: { width: '140px', whiteSpace: 'nowrap' } }, [
             h(
               BaseButton,
@@ -119,14 +119,16 @@ export default Vue.extend<Props>({
               },
               [h(SvgIcon, { props: { name: 'south' } })]
             ),
-            h(
-              BaseButton,
-              {
-                props: { variant: 'icon' },
-                on: { click: () => handleItemRemove(rowIndex) },
-              },
-              [h(SvgIcon, { props: { name: 'delete' } })]
-            ),
+            row.canBeDeleted?.value
+              ? h(
+                  BaseButton,
+                  {
+                    props: { variant: 'icon' },
+                    on: { click: () => handleItemRemove(rowIndex) },
+                  },
+                  [h(SvgIcon, { props: { name: 'delete' } })]
+                )
+              : null,
           ]),
       },
     });
