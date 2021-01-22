@@ -105,6 +105,14 @@
                 "kind": "expression",
                 "type": "object"
               }
+            },
+            {
+              "name": "defaultIsOpen",
+              "value": {
+                "kind": "expression",
+                "type": "boolean"
+              },
+              "default": "false"
             }
           ],
           "source": {

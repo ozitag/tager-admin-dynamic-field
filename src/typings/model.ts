@@ -225,7 +225,7 @@ export type MapOutgoingValue = MapFieldValue;
 export interface RepeaterFieldConfig extends FieldConfig {
   type: 'REPEATER';
   fields: Array<FieldConfigUnion>;
-  meta: { view?: 'TABLE' };
+  meta: { view?: 'TABLE'; defaultIsOpen?: boolean };
 }
 export type RepeaterField = Field<
   RepeaterFieldConfig,
