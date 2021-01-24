@@ -69,7 +69,7 @@ export default defineComponent<Props>({
       default: false,
     },
   },
-  setup(props) {
+  setup(props: Props) {
     const isOpen = ref<boolean>(props.defaultIsOpen);
 
     function toggleChildren() {
@@ -79,9 +79,18 @@ export default defineComponent<Props>({
     function addElement() {
       const newNestedField = {
         id: createId(),
-        value: props.field.config.fields.map((nestedFieldConfig) =>
-          universalFieldUtils.createFormField(nestedFieldConfig, null)
-        ),
+        value: props.field.config.fields.map((nestedFieldConfig) => {
+          const incomingValue =
+            nestedFieldConfig.type === 'TRUE_FALSE' &&
+            nestedFieldConfig.name === 'canBeDeleted'
+              ? true
+              : null;
+
+          return universalFieldUtils.createFormField(
+            nestedFieldConfig,
+            incomingValue
+          );
+        }),
       };
 
       props.field.value.push(newNestedField);

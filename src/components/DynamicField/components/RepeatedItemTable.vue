@@ -119,16 +119,17 @@ export default Vue.extend<Props>({
               },
               [h(SvgIcon, { props: { name: 'south' } })]
             ),
-            row.canBeDeleted?.value
-              ? h(
-                  BaseButton,
-                  {
-                    props: { variant: 'icon' },
-                    on: { click: () => handleItemRemove(rowIndex) },
-                  },
-                  [h(SvgIcon, { props: { name: 'delete' } })]
-                )
-              : null,
+            h(
+              BaseButton,
+              {
+                props: {
+                  variant: 'icon',
+                  disabled: row.canBeDeleted ? !row.canBeDeleted.value : false,
+                },
+                on: { click: () => handleItemRemove(rowIndex) },
+              },
+              [h(SvgIcon, { props: { name: 'delete' } })]
+            ),
           ]),
       },
     });
