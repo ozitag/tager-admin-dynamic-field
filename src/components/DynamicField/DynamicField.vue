@@ -133,6 +133,7 @@ export default Vue.extend<Props>({
             props: {
               label: commonProps.label,
               name: commonProps.name,
+              searchable: field.config.meta.searchable,
             },
             attrs: {
               value: commonProps.value,

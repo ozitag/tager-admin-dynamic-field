@@ -192,6 +192,7 @@ export interface SelectFieldConfig extends FieldConfig {
   meta: {
     options: Nullable<Array<CommonOptionType>>;
     hidden?: boolean;
+    searchable?: boolean;
   };
 }
 
