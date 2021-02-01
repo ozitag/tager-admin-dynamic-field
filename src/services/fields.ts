@@ -88,7 +88,7 @@ interface FieldUtils<
   OutgoingValue
 > {
   type: Config['type'];
-  getDefaultFormFieldValue(): F['value'];
+  getDefaultFormFieldValue(config?: Config): F['value'];
   createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
   getOutgoingValue(field: F): OutgoingValue;
 }
@@ -248,14 +248,14 @@ type BooleanFieldUtilsType = FieldUtils<
 
 const booleanFieldUtils: BooleanFieldUtilsType = {
   type: 'TRUE_FALSE',
-  getDefaultFormFieldValue() {
-    return false;
+  getDefaultFormFieldValue(config) {
+    return config?.meta.defaultValue ?? false;
   },
   createFormField(fieldConfig, incomingValue) {
     return {
       id: createId(),
       config: fieldConfig,
-      value: Boolean(incomingValue),
+      value: incomingValue ?? this.getDefaultFormFieldValue(fieldConfig),
     };
   },
   getOutgoingValue(field) {

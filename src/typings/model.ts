@@ -176,6 +176,7 @@ export interface BooleanFieldConfig extends FieldConfig {
   type: 'TRUE_FALSE';
   meta: {
     hidden?: boolean;
+    defaultValue?: boolean;
   };
 }
 export type BooleanField = Field<BooleanFieldConfig, boolean>;
