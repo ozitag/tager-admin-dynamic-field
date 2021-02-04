@@ -13,6 +13,7 @@ import {
   ButtonField,
   DateTimeInput,
   MapField,
+  AjaxSelect,
 } from '@tager/admin-ui';
 
 import { FieldUnion } from '../../typings/model';
@@ -138,6 +139,21 @@ export default Vue.extend<Props>({
             attrs: {
               value: commonProps.value,
               options: field.config.meta.options,
+            },
+            on: {
+              ...context.listeners,
+              change: handleChange,
+            },
+          });
+        case 'AJAX_SELECT':
+          return h(AjaxSelect, {
+            props: {
+              requestUrl: field.config.meta.requestUrl,
+              valueField: field.config.meta.valueField,
+              labelField: field.config.meta.labelField,
+            },
+            attrs: {
+              value: commonProps.value,
             },
             on: {
               ...context.listeners,

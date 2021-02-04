@@ -1206,6 +1206,11 @@
   dependencies:
     mkdirp "^1.0.4"
 
+"@popperjs/core@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
+  integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
+
 "@reach/router@^1.3.3":
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.3.4.tgz#d2574b19370a70c80480ed91f3da840136d10f8c"
@@ -1605,28 +1610,30 @@
     vue-docgen-loader "^1.5.0"
     webpack "^4.43.0"
 
-"@tager/admin-services@^0.2.14":
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.14.tgz#e388078914825e781807a499909c518efe27d9c6"
-  integrity sha512-3gzP4UpEIz8eW7Lyzoi3TR6ts+sdrzNCT/x9UFy/J5vCkbdmDNorlBUCikANWgYvpIGLHmvCQr8gVm4BIVBE+w==
+"@tager/admin-services@^0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@tager/admin-services/-/admin-services-0.2.18.tgz#f5e9baac71f4fb7cdcc22ed88aef317cdbaf0b44"
+  integrity sha512-Cxqai8fxeL/rhQXROsEGJwhall6RVKXf0MX0lKGHxzmQYM3hRI8GJvv9iQ3bgoZwAkNG7hcKLavwt2MDhWK9Ww==
   dependencies:
     i18next "^19.7.0"
     nanoid "^3.1.12"
     zod "^1.11.9"
 
-"@tager/admin-ui@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.0.tgz#8a20d60ff9c88e26fbcca22d1f17266babfbaf3a"
-  integrity sha512-VXPRAR0pqYGWMw7yN6TGXsGDvIq0gqVXgrlQhXXB6nIC82GL2j2+gMOQCL1r+tGdJMbeoBN9ZaEKf/cVySy4Og==
+"@tager/admin-ui@^0.8.23":
+  version "0.8.23"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.23.tgz#dc5978139fc420fc2d923999bdd59817a19a8d27"
+  integrity sha512-HP1E+asVWi6+YiRrFV3iPgSjTJq88ikHNONkSl0G7zeCAfNwCNs20+kKZlqapekYKdeEkb7t8nSkQhMaa+BMPQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"
+    "@popperjs/core" "^2.6.0"
     "@tager/admin-wysiwyg" "^0.1.0"
     autosize "^4.0.2"
     leaflet "^1.7.1"
     lodash.debounce "^4.0.8"
     lodash.get "^4.4.2"
     lodash.kebabcase "^4.1.1"
+    smoothscroll-polyfill "^0.4.4"
     vue-color "^2.7.1"
 
 "@tager/admin-wysiwyg@^0.1.0":
@@ -9481,6 +9488,11 @@ slice-ansi@^2.1.0:
     ansi-styles "^3.2.0"
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
+
+smoothscroll-polyfill@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
+  integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
