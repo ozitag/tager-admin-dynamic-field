@@ -79,6 +79,10 @@ import {
   MultiSelectIncomingValue,
   MultiSelectFieldConfig,
   MultiSelectOutgoingValue,
+  AjaxSelectIncomingValue,
+  AjaxSelectFieldConfig,
+  AjaxSelectOutgoingValue,
+  AjaxSelectField,
 } from '../typings/model';
 
 interface FieldUtils<
@@ -286,6 +290,30 @@ const selectFieldUtils: SelectFieldUtilsType = {
       id: createId(),
       config: fieldConfig,
       value: selectedOption ?? null,
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value?.value ?? null;
+  },
+};
+
+type AjaxSelectFieldUtilsType = FieldUtils<
+  AjaxSelectIncomingValue,
+  AjaxSelectFieldConfig,
+  AjaxSelectField,
+  AjaxSelectOutgoingValue
+>;
+
+const ajaxSelectFieldUtils: AjaxSelectFieldUtilsType = {
+  type: 'AJAX_SELECT',
+  getDefaultFormFieldValue() {
+    return null;
+  },
+  createFormField(fieldConfig, incomingValue) {
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: incomingValue,
     };
   },
   getOutgoingValue(field) {
@@ -612,6 +640,7 @@ const FIELD_UTILS_LIST = [
   dateTimeFieldUtils,
   booleanFieldUtils,
   selectFieldUtils,
+  ajaxSelectFieldUtils,
   multiSelectFieldUtils,
   colorFieldUtils,
   buttonFieldUtils,

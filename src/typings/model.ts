@@ -201,6 +201,25 @@ export type SelectField = Field<SelectFieldConfig, Nullable<CommonOptionType>>;
 export type SelectIncomingValue = Nullable<OptionValueType>;
 export type SelectOutgoingValue = Nullable<OptionValueType>;
 
+/** AJAX_SELECT */
+
+export interface AjaxSelectFieldConfig extends FieldConfig {
+  type: 'AJAX_SELECT';
+  meta: {
+    valueField?: string;
+    labelField?: string;
+    requestUrl: string;
+    hidden?: boolean;
+  };
+}
+
+export type AjaxSelectField = Field<
+  AjaxSelectFieldConfig,
+  Nullable<CommonOptionType>
+>;
+export type AjaxSelectIncomingValue = Nullable<CommonOptionType>;
+export type AjaxSelectOutgoingValue = Nullable<OptionValueType>;
+
 /** MULTI_SELECT */
 
 export interface MultiSelectFieldConfig extends FieldConfig {
@@ -301,6 +320,7 @@ export type FieldConfigUnion =
   | FileFieldConfig
   | BooleanFieldConfig
   | SelectFieldConfig
+  | AjaxSelectFieldConfig
   | MultiSelectFieldConfig
   | ColorFieldConfig
   | ButtonFieldConfig
@@ -320,6 +340,7 @@ export type FieldUnion =
   | FileField
   | BooleanField
   | SelectField
+  | AjaxSelectField
   | MultiSelectField
   | ColorField
   | ButtonField
@@ -340,6 +361,7 @@ export type IncomingValueUnion =
   | FileIncomingValue
   | BooleanIncomingValue
   | SelectIncomingValue
+  | AjaxSelectIncomingValue
   | MultiSelectIncomingValue
   | ColorIncomingValue
   | ButtonIncomingValue
@@ -360,6 +382,7 @@ export type OutgoingValueUnion =
   | FileOutgoingValue
   | BooleanOutgoingValue
   | SelectOutgoingValue
+  | AjaxSelectOutgoingValue
   | MultiSelectOutgoingValue
   | ColorOutgoingValue
   | ButtonOutgoingValue
