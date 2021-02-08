@@ -1,7 +1,7 @@
 {
   "framework": "vue",
   "name": "@tager/admin-dynamic-field",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "contributions": {
     "html": {
       "description-markup": "markdown",
@@ -30,6 +30,32 @@
           ],
           "source": {
             "module": "./src\\components\\DynamicField\\DynamicField.vue",
+            "symbol": "default"
+          }
+        },
+        {
+          "name": "FieldGroup",
+          "description": "",
+          "attributes": [
+            {
+              "name": "field",
+              "required": true,
+              "value": {
+                "kind": "expression",
+                "type": "object"
+              }
+            },
+            {
+              "name": "defaultIsOpen",
+              "value": {
+                "kind": "expression",
+                "type": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "source": {
+            "module": "./src\\components\\DynamicField\\components\\FieldGroup\\FieldGroup.vue",
             "symbol": "default"
           }
         },
@@ -117,6 +143,14 @@
           ],
           "source": {
             "module": "./src\\components\\DynamicField\\components\\RepeatedItemTree\\RepeatedItemTree.vue",
+            "symbol": "default"
+          }
+        },
+        {
+          "name": "WrapperDynamicField",
+          "description": "",
+          "source": {
+            "module": "./src\\components\\DynamicField\\components\\Wrapper.vue",
             "symbol": "default"
           }
         }

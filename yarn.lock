@@ -1619,10 +1619,10 @@
     nanoid "^3.1.12"
     zod "^1.11.9"
 
-"@tager/admin-ui@^0.8.23":
-  version "0.8.23"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.23.tgz#dc5978139fc420fc2d923999bdd59817a19a8d27"
-  integrity sha512-HP1E+asVWi6+YiRrFV3iPgSjTJq88ikHNONkSl0G7zeCAfNwCNs20+kKZlqapekYKdeEkb7t8nSkQhMaa+BMPQ==
+"@tager/admin-ui@^0.8.24":
+  version "0.8.24"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-0.8.24.tgz#a50235381380e740ef8a203fe647f197727f3a53"
+  integrity sha512-yPzO2FeCKAHZ7jVJ12k+wivIlGmvn9UQK6fBGdlvJ9eoKwCXz57WIPlXW6xk7GJX2IANs5N4SelUNiLClQVnCA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@ckeditor/ckeditor5-vue" "^1.0.2"

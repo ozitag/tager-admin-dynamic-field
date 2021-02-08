@@ -83,6 +83,10 @@ import {
   AjaxSelectFieldConfig,
   AjaxSelectOutgoingValue,
   AjaxSelectField,
+  GroupIncomingValue,
+  GroupFieldConfig,
+  GroupField,
+  GroupOutgoingValue,
 } from '../typings/model';
 
 interface FieldUtils<
@@ -96,6 +100,8 @@ interface FieldUtils<
   createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
   getOutgoingValue(field: F): OutgoingValue;
 }
+
+/** STRING **/
 
 type StringFieldUtilsType = FieldUtils<
   StringIncomingValue,
@@ -121,6 +127,8 @@ const stringFieldUtils: StringFieldUtilsType = {
   },
 };
 
+/** URL **/
+
 type UrlFieldUtilsType = FieldUtils<
   UrlIncomingValue,
   UrlFieldConfig,
@@ -144,6 +152,8 @@ const urlFieldUtils: UrlFieldUtilsType = {
     return field.value;
   },
 };
+
+/** DATE **/
 
 type DateFieldUtilsType = FieldUtils<
   DateIncomingValue,
@@ -169,6 +179,8 @@ const dateFieldUtils: DateFieldUtilsType = {
   },
 };
 
+/** DATETIME **/
+
 type DateTimeFieldUtilsType = FieldUtils<
   DateTimeIncomingValue,
   DateTimeFieldConfig,
@@ -193,6 +205,8 @@ const dateTimeFieldUtils: DateTimeFieldUtilsType = {
   },
 };
 
+/** TEXT **/
+
 type TextFieldUtilsType = FieldUtils<
   TextIncomingValue,
   TextFieldConfig,
@@ -216,6 +230,8 @@ const textFieldUtils: TextFieldUtilsType = {
     return field.value;
   },
 };
+
+/** NUMBER **/
 
 type NumberFieldUtilsType = FieldUtils<
   NumberIncomingValue,
@@ -242,6 +258,8 @@ const numberFieldUtils: NumberFieldUtilsType = {
     return field.value;
   },
 };
+
+/** TRUE_FALSE **/
 
 type BooleanFieldUtilsType = FieldUtils<
   BooleanIncomingValue,
@@ -274,6 +292,8 @@ type SelectFieldUtilsType = FieldUtils<
   SelectOutgoingValue
 >;
 
+/** SELECT **/
+
 const selectFieldUtils: SelectFieldUtilsType = {
   type: 'SELECT',
   getDefaultFormFieldValue() {
@@ -296,6 +316,8 @@ const selectFieldUtils: SelectFieldUtilsType = {
     return field.value?.value ?? null;
   },
 };
+
+/** AJAX_SELECT **/
 
 type AjaxSelectFieldUtilsType = FieldUtils<
   AjaxSelectIncomingValue,
@@ -320,6 +342,8 @@ const ajaxSelectFieldUtils: AjaxSelectFieldUtilsType = {
     return field.value?.value ?? null;
   },
 };
+
+/** MULTI_SELECT **/
 
 type MultiSelectFieldUtilsType = FieldUtils<
   MultiSelectIncomingValue,
@@ -352,6 +376,8 @@ const multiSelectFieldUtils: MultiSelectFieldUtilsType = {
   },
 };
 
+/** COLOR **/
+
 type ColorFieldUtilsType = FieldUtils<
   ColorIncomingValue,
   ColorFieldConfig,
@@ -375,6 +401,8 @@ const colorFieldUtils: ColorFieldUtilsType = {
     return field.value;
   },
 };
+
+/** BUTTON **/
 
 type ButtonFieldUtilsType = FieldUtils<
   ButtonIncomingValue,
@@ -400,6 +428,8 @@ const buttonFieldUtils: ButtonFieldUtilsType = {
   },
 };
 
+/** MAP **/
+
 type MapFieldUtilsType = FieldUtils<
   MapIncomingValue,
   MapFieldConfig,
@@ -424,6 +454,8 @@ const mapFieldUtils: MapFieldUtilsType = {
   },
 };
 
+/** HTML **/
+
 type HtmlFieldUtilsType = FieldUtils<
   HtmlIncomingValue,
   HtmlFieldConfig,
@@ -447,6 +479,8 @@ const htmlFieldUtils: HtmlFieldUtilsType = {
     return field.value;
   },
 };
+
+/** IMAGE **/
 
 type ImageFieldUtilsType = FieldUtils<
   ImageIncomingValue,
@@ -474,6 +508,8 @@ const imageFieldUtils: ImageFieldUtilsType = {
   },
 };
 
+/** FILE **/
+
 type FileFieldUtilsType = FieldUtils<
   FileIncomingValue,
   FileFieldConfig,
@@ -499,6 +535,8 @@ const fileFieldUtils: FileFieldUtilsType = {
     return field.value ? field.value.file.id : null;
   },
 };
+
+/** GALLERY **/
 
 type GalleryFieldUtilsType = FieldUtils<
   GalleryIncomingValue,
@@ -532,6 +570,8 @@ const galleryFieldUtils: GalleryFieldUtilsType = {
     }));
   },
 };
+
+/** REPEATER **/
 
 type RepeaterFieldUtilsType = FieldUtils<
   RepeaterIncomingValue,
@@ -603,6 +643,65 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
   },
 };
 
+/** GROUP **/
+
+type GroupFieldUtilsType = FieldUtils<
+  GroupIncomingValue,
+  GroupFieldConfig,
+  GroupField,
+  GroupOutgoingValue
+>;
+
+const groupFieldUtils: GroupFieldUtilsType = {
+  type: 'GROUP',
+  getDefaultFormFieldValue() {
+    return [];
+  },
+  createFormField(fieldConfig, incomingValue) {
+    function createNestedFieldArray(
+      fieldConfigList: GroupFieldConfig['fields'],
+      incomingFieldList: GroupIncomingValue
+    ): GroupField['value'] {
+      const nestedFieldList: GroupField['value'] = [];
+
+      for (let j = 0; j < fieldConfigList.length; j++) {
+        const nestedFieldConfig = fieldConfigList[j];
+
+        const foundNestedIncomingField = incomingFieldList.find(
+          (field) => field.name === nestedFieldConfig.name
+        );
+
+        const field = universalFieldUtils.createFormField(
+          nestedFieldConfig,
+          foundNestedIncomingField?.value
+        );
+
+        nestedFieldList.push(field);
+      }
+
+      return nestedFieldList;
+    }
+
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: incomingValue
+        ? createNestedFieldArray(fieldConfig.fields, incomingValue)
+        : this.getDefaultFormFieldValue(),
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value.map((entityField) => {
+      return {
+        name: entityField.config.name,
+        value: universalFieldUtils.getOutgoingValue(entityField),
+      };
+    });
+  },
+};
+
+/** UNKNOWN **/
+
 type UnknownFieldUtilsType = FieldUtils<
   UnknownIncomingValue,
   UnknownFieldConfig,
@@ -646,6 +745,7 @@ const FIELD_UTILS_LIST = [
   buttonFieldUtils,
   mapFieldUtils,
   repeaterFieldUtils,
+  groupFieldUtils,
   unknownFieldUtils,
 ];
 

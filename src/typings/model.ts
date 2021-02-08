@@ -306,6 +306,21 @@ export type RepeaterOutgoingValue = Array<
   Array<FieldShortType<OutgoingValueUnion>>
 >;
 
+/** GROUP **/
+
+export interface GroupFieldConfig extends FieldConfig {
+  type: 'GROUP';
+  fields: Array<FieldConfigUnion>;
+  meta: {
+    defaultIsOpen?: boolean;
+    hidden?: boolean;
+  };
+}
+
+export type GroupField = Field<GroupFieldConfig, Array<FieldUnion>>;
+export type GroupIncomingValue = Array<FieldShortType<IncomingValueUnion>>;
+export type GroupOutgoingValue = Array<FieldShortType<OutgoingValueUnion>>;
+
 /** All */
 export type FieldConfigUnion =
   | StringFieldConfig
@@ -325,7 +340,8 @@ export type FieldConfigUnion =
   | ColorFieldConfig
   | ButtonFieldConfig
   | MapFieldConfig
-  | RepeaterFieldConfig;
+  | RepeaterFieldConfig
+  | GroupFieldConfig;
 
 export type FieldUnion =
   | StringField
@@ -346,6 +362,7 @@ export type FieldUnion =
   | ButtonField
   | MapField
   | RepeaterField
+  | GroupField
   | UnknownField;
 
 export type IncomingValueUnion =
@@ -367,6 +384,7 @@ export type IncomingValueUnion =
   | ButtonIncomingValue
   | MapIncomingValue
   | RepeaterIncomingValue
+  | GroupIncomingValue
   | UnknownIncomingValue;
 
 export type OutgoingValueUnion =
@@ -388,4 +406,5 @@ export type OutgoingValueUnion =
   | ButtonOutgoingValue
   | MapOutgoingValue
   | RepeaterOutgoingValue
+  | GroupOutgoingValue
   | UnknownOutgoingValue;
