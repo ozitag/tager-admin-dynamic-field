@@ -1,7 +1,7 @@
 {
   "framework": "vue",
   "name": "@tager/admin-dynamic-field",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "contributions": {
     "html": {
       "description-markup": "markdown",
@@ -143,14 +143,6 @@
           ],
           "source": {
             "module": "./src\\components\\DynamicField\\components\\RepeatedItemTree\\RepeatedItemTree.vue",
-            "symbol": "default"
-          }
-        },
-        {
-          "name": "WrapperDynamicField",
-          "description": "",
-          "source": {
-            "module": "./src\\components\\DynamicField\\components\\Wrapper.vue",
             "symbol": "default"
           }
         }
