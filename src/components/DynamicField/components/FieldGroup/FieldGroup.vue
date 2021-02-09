@@ -1,10 +1,10 @@
 <template>
-  <div class="repeated-field">
+  <div class="group-field">
     <button
       type="button"
       :class="['title-button', isOpen ? 'collapse' : 'expand']"
       :title="isOpen ? 'Collapse' : 'Expand'"
-      @click="toggleChildren"
+      @click="handleToggleClick"
     >
       <span
         role="img"
@@ -14,33 +14,16 @@
       </span>
 
       <span class="title">
-        {{ field.config.label }} ({{ field.value.length }})
+        {{ field.config.label }}
       </span>
     </button>
 
     <div v-show="isOpen" class="content">
-      <RepeatedItemTable v-if="isTable" :field="field" />
-      <ul v-else class="nested-element-list">
-        <li
-          v-for="(nestedElement, index) of field.value"
-          :key="nestedElement.id"
-          class="nested-element-container"
-        >
-          <RepeatedItem
-            :item="nestedElement"
-            :index="index"
-            :parent-field="field"
-            v-on="$listeners"
-          />
-        </li>
-      </ul>
-      <base-button
-        variant="outline-primary"
-        title="Add item"
-        @click="addElement"
-      >
-        Add item
-      </base-button>
+      <DynamicField
+        v-for="field in field.value"
+        :key="field.config.name"
+        :field="field"
+      />
     </div>
   </div>
 </template>
@@ -48,21 +31,18 @@
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
 
-import { createId } from '@tager/admin-services';
+import { GroupField } from '../../../../typings/model';
 
-import { RepeaterField } from '../../../../typings/model';
-import { universalFieldUtils } from '../../../../services/fields';
-import RepeatedItem from '../RepeatedItem/RepeatedItem.vue';
-import RepeatedItemTable from '../RepeatedItemTable.vue';
-
-type Props = Readonly<{
-  field: RepeaterField;
+interface Props {
+  field: GroupField;
   defaultIsOpen: boolean;
-}>;
+}
 
 export default defineComponent<Props>({
-  name: 'RepeatedItemTree',
-  components: { RepeatedItem, RepeatedItemTable },
+  name: 'FieldGroup',
+  components: {
+    DynamicField: async () => (await import('../../DynamicField.vue')).default,
+  },
   props: {
     field: {
       type: Object,
@@ -73,42 +53,23 @@ export default defineComponent<Props>({
       default: false,
     },
   },
-  setup(props) {
+  setup(props: Props) {
     const isOpen = ref<boolean>(props.defaultIsOpen);
 
-    function toggleChildren() {
+    function handleToggleClick() {
       isOpen.value = !isOpen.value;
     }
 
-    function addElement() {
-      const newNestedField = {
-        id: createId(),
-        value: props.field.config.fields.map((nestedFieldConfig) =>
-          universalFieldUtils.createFormField(nestedFieldConfig, null)
-        ),
-      };
-
-      props.field.value.push(newNestedField);
-    }
-
     return {
-      addElement,
-      toggleChildren,
       isOpen,
-      isTable: props.field.config.meta.view === 'TABLE',
+      handleToggleClick,
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
-.repeated-field-table {
-  ::v-deep .form-group {
-    margin-bottom: 0;
-  }
-}
-
-.repeated-field {
+.group-field {
   margin-bottom: 1rem;
 
   .title-button {
@@ -154,13 +115,5 @@ export default defineComponent<Props>({
     margin: 1rem 0 2rem 0;
     padding: 0 1.5rem;
   }
-}
-
-.nested-element-list {
-  padding-left: 2rem;
-}
-
-.nested-element-container {
-  margin-bottom: 0.7rem;
 }
 </style>

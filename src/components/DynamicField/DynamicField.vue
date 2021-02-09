@@ -19,6 +19,7 @@ import {
 import { FieldUnion } from '../../typings/model';
 
 import RepeatedItemTree from './components/RepeatedItemTree';
+import FieldGroup from './components/FieldGroup';
 
 type Props = Readonly<{
   field: FieldUnion;
@@ -249,6 +250,10 @@ export default Vue.extend<Props>({
           });
         case 'REPEATER':
           return h(RepeatedItemTree, {
+            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen },
+          });
+        case 'GROUP':
+          return h(FieldGroup, {
             props: { field, defaultIsOpen: field.config.meta.defaultIsOpen },
           });
 
