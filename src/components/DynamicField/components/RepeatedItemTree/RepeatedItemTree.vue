@@ -46,9 +46,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
 import { createId } from '@tager/admin-services';
+import { useLocalStorage } from '@tager/admin-ui';
 
 import { RepeaterField } from '../../../../typings/model';
 import { universalFieldUtils } from '../../../../services/fields';
@@ -74,10 +75,17 @@ export default defineComponent<Props>({
     },
   },
   setup(props) {
-    const isOpen = ref<boolean>(props.defaultIsOpen);
+    const pseudoUniqueKey = props.field.config.fields
+      .map((field) => field.name)
+      .join('').length;
+
+    const [isOpen, setIsOpen] = useLocalStorage<boolean>(
+      `is_${props.field.config.name}_${pseudoUniqueKey}_open`,
+      props.defaultIsOpen
+    );
 
     function toggleChildren() {
-      isOpen.value = !isOpen.value;
+      setIsOpen(!isOpen.value);
     }
 
     function addElement() {
