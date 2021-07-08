@@ -29,7 +29,7 @@
             }
           ],
           "source": {
-            "module": "./src\\components\\DynamicField\\DynamicField.vue",
+            "module": "./src/components/DynamicField/DynamicField.vue",
             "symbol": "default"
           }
         },
@@ -55,7 +55,7 @@
             }
           ],
           "source": {
-            "module": "./src\\components\\DynamicField\\components\\FieldGroup\\FieldGroup.vue",
+            "module": "./src/components/DynamicField/components/FieldGroup/FieldGroup.vue",
             "symbol": "default"
           }
         },
@@ -70,7 +70,7 @@
                 "kind": "expression",
                 "type": "object"
               },
-              "default": "{\r\n  DynamicField,\r\n}"
+              "default": "{\n  DynamicField,\n}"
             },
             {
               "name": "item",
@@ -98,7 +98,7 @@
             }
           ],
           "source": {
-            "module": "./src\\components\\DynamicField\\components\\RepeatedItem\\RepeatedItem.vue",
+            "module": "./src/components/DynamicField/components/RepeatedItem/RepeatedItem.vue",
             "symbol": "default"
           }
         },
@@ -116,7 +116,7 @@
             }
           ],
           "source": {
-            "module": "./src\\components\\DynamicField\\components\\RepeatedItemTable.vue",
+            "module": "./src/components/DynamicField/components/RepeatedItemTable.vue",
             "symbol": "default"
           }
         },
@@ -142,7 +142,7 @@
             }
           ],
           "source": {
-            "module": "./src\\components\\DynamicField\\components\\RepeatedItemTree\\RepeatedItemTree.vue",
+            "module": "./src/components/DynamicField/components/RepeatedItemTree/RepeatedItemTree.vue",
             "symbol": "default"
           }
         }
