@@ -166,6 +166,7 @@ export default Vue.extend<Props>({
             props: {
               label: commonProps.label,
               name: commonProps.name,
+              maxSelectedCount: field.config.meta.maximumItemsCount,
             },
             attrs: {
               selectedOptions: commonProps.value,
