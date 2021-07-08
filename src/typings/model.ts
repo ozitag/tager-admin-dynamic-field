@@ -299,6 +299,7 @@ export interface RepeaterFieldConfig extends FieldConfig {
     view?: 'TABLE';
     defaultIsOpen?: boolean;
     hidden?: boolean;
+    maximumItemsCount?: number;
   };
 }
 
