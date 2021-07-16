@@ -243,6 +243,10 @@ export default Vue.extend<Props>({
             props: {
               ...commonProps,
             },
+            attrs: {
+              fileType: 'file',
+              scenario: field.config.meta.scenario,
+            },
             on: {
               ...context.listeners,
               change: handleChange,

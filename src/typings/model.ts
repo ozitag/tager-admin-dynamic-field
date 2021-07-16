@@ -160,6 +160,7 @@ export type GalleryOutgoingValue = Array<{
 export interface FileFieldConfig extends FieldConfig {
   type: 'FILE';
   meta: {
+    scenario?: Nullable<string>;
     hidden?: boolean;
   };
 }
