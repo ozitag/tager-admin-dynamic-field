@@ -40,6 +40,7 @@ export interface StringFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type StringField = Field<StringFieldConfig, string>;
 export type StringIncomingValue = Nullable<string>;
 export type StringOutgoingValue = string;
@@ -52,6 +53,7 @@ export interface UrlFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type UrlField = Field<UrlFieldConfig, string>;
 export type UrlIncomingValue = Nullable<string>;
 export type UrlOutgoingValue = string;
@@ -64,6 +66,7 @@ export interface DateFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type DateField = Field<DateFieldConfig, string>;
 export type DateIncomingValue = Nullable<string>;
 export type DateOutgoingValue = string;
@@ -76,6 +79,7 @@ export interface DateTimeFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type DateTimeField = Field<DateTimeFieldConfig, string>;
 export type DateTimeIncomingValue = Nullable<string>;
 export type DateTimeOutgoingValue = string;
@@ -88,6 +92,7 @@ export interface TextFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type TextField = Field<TextFieldConfig, string>;
 export type TextIncomingValue = Nullable<string>;
 export type TextOutgoingValue = string;
@@ -100,6 +105,7 @@ export interface HtmlFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type HtmlField = Field<HtmlFieldConfig, string>;
 export type HtmlIncomingValue = Nullable<string>;
 export type HtmlOutgoingValue = string;
@@ -112,6 +118,7 @@ export interface NumberFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type NumberField = Field<NumberFieldConfig, string>;
 export type NumberIncomingValue = Nullable<number>;
 export type NumberOutgoingValue = string;
@@ -125,10 +132,9 @@ export interface ImageFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
-export type ImageField = Field<
-  ImageFieldConfig,
-  Nullable<SingleFileInputValueType>
->;
+
+export type ImageField = Field<ImageFieldConfig,
+  Nullable<SingleFileInputValueType>>;
 export type ImageIncomingValue = Nullable<FileType>;
 export type ImageOutgoingValue = Nullable<number>;
 
@@ -142,10 +148,9 @@ export interface GalleryFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
-export type GalleryField = Field<
-  GalleryFieldConfig,
-  Array<SingleFileInputValueType>
->;
+
+export type GalleryField = Field<GalleryFieldConfig,
+  Array<SingleFileInputValueType>>;
 export type GalleryIncomingValue = Array<{
   file: FileType;
   caption: Nullable<string>;
@@ -164,10 +169,9 @@ export interface FileFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
-export type FileField = Field<
-  FileFieldConfig,
-  Nullable<SingleFileInputValueType>
->;
+
+export type FileField = Field<FileFieldConfig,
+  Nullable<SingleFileInputValueType>>;
 export type FileIncomingValue = Nullable<FileType>;
 export type FileOutgoingValue = Nullable<number>;
 
@@ -180,6 +184,7 @@ export interface BooleanFieldConfig extends FieldConfig {
     defaultValue?: boolean;
   };
 }
+
 export type BooleanField = Field<BooleanFieldConfig, boolean>;
 export type BooleanIncomingValue = Nullable<boolean>;
 export type BooleanOutgoingValue = boolean;
@@ -214,10 +219,8 @@ export interface AjaxSelectFieldConfig extends FieldConfig {
   };
 }
 
-export type AjaxSelectField = Field<
-  AjaxSelectFieldConfig,
-  Nullable<CommonOptionType>
->;
+export type AjaxSelectField = Field<AjaxSelectFieldConfig,
+  Nullable<CommonOptionType>>;
 export type AjaxSelectIncomingValue = Nullable<CommonOptionType>;
 export type AjaxSelectOutgoingValue = Nullable<OptionValueType>;
 
@@ -228,13 +231,12 @@ export interface MultiSelectFieldConfig extends FieldConfig {
   meta: {
     options: Nullable<Array<CommonOptionType>>;
     hidden?: boolean;
+    maximumItemsCount?: number;
   };
 }
 
-export type MultiSelectField = Field<
-  MultiSelectFieldConfig,
-  Array<CommonOptionType>
->;
+export type MultiSelectField = Field<MultiSelectFieldConfig,
+  Array<CommonOptionType>>;
 export type MultiSelectIncomingValue = Nullable<Array<OptionValueType>>;
 export type MultiSelectOutgoingValue = Array<OptionValueType>;
 
@@ -246,6 +248,7 @@ export interface ColorFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type ColorField = Field<ColorFieldConfig, string>;
 export type ColorIncomingValue = Nullable<string>;
 export type ColorOutgoingValue = string;
@@ -264,6 +267,7 @@ export interface ButtonFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type ButtonField = Field<ButtonFieldConfig, ButtonFieldValue>;
 export type ButtonIncomingValue = Nullable<ButtonFieldValue>;
 export type ButtonOutgoingValue = ButtonFieldValue;
@@ -281,6 +285,7 @@ export interface MapFieldConfig extends FieldConfig {
     hidden?: boolean;
   };
 }
+
 export type MapField = Field<MapFieldConfig, MapFieldValue>;
 export type MapIncomingValue = Nullable<MapFieldValue>;
 export type MapOutgoingValue = MapFieldValue;
@@ -294,18 +299,14 @@ export interface RepeaterFieldConfig extends FieldConfig {
     view?: 'TABLE';
     defaultIsOpen?: boolean;
     hidden?: boolean;
+    maximumItemsCount?: number;
   };
 }
-export type RepeaterField = Field<
-  RepeaterFieldConfig,
-  Array<{ id: string; value: Array<FieldUnion> }>
->;
-export type RepeaterIncomingValue = Array<
-  Array<FieldShortType<IncomingValueUnion>>
->;
-export type RepeaterOutgoingValue = Array<
-  Array<FieldShortType<OutgoingValueUnion>>
->;
+
+export type RepeaterField = Field<RepeaterFieldConfig,
+  Array<{ id: string; value: Array<FieldUnion> }>>;
+export type RepeaterIncomingValue = Array<Array<FieldShortType<IncomingValueUnion>>>;
+export type RepeaterOutgoingValue = Array<Array<FieldShortType<OutgoingValueUnion>>>;
 
 /** GROUP **/
 

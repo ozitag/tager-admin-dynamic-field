@@ -1,51 +1,57 @@
 <template>
-  <div class="repeated-field">
+  <div class='repeated-field'>
     <button
-      type="button"
+      type='button'
       :class="['title-button', isOpen ? 'collapse' : 'expand']"
       :title="isOpen ? 'Collapse' : 'Expand'"
-      @click="toggleChildren"
+      @click='toggleChildren'
     >
       <span
-        role="img"
+        role='img'
         :class="['icon-chevron-right', { 'icon-expand-more': isOpen }]"
       >
-        <svg-icon name="chevronRight" />
+        <svg-icon name='chevronRight' />
       </span>
 
-      <span class="title">
+      <span class='title'>
         {{ field.config.label }} ({{ field.value.length }})
       </span>
     </button>
 
-    <div v-show="isOpen" class="content">
-      <RepeatedItemTable v-if="isTable" :field="field" />
-      <ul v-else class="nested-element-list">
+    <div v-show='isOpen' class='content'>
+      <RepeatedItemTable v-if='isTable' :field='field' />
+      <ul v-else class='nested-element-list'>
         <li
-          v-for="(nestedElement, index) of field.value"
-          :key="nestedElement.id"
-          class="nested-element-container"
+          v-for='(nestedElement, index) of field.value'
+          :key='nestedElement.id'
+          class='nested-element-container'
         >
           <RepeatedItem
-            :item="nestedElement"
-            :index="index"
-            :parent-field="field"
-            v-on="$listeners"
+            :item='nestedElement'
+            :index='index'
+            :parent-field='field'
+            v-on='$listeners'
           />
         </li>
       </ul>
-      <base-button
-        variant="outline-primary"
-        title="Add item"
-        @click="addElement"
-      >
-        Add item
-      </base-button>
+      <div class='button-row'>
+        <base-button
+          variant='outline-primary'
+          title='Add item'
+          :disabled='maxItemsCount && field.value.length >= maxItemsCount'
+          @click='addElement'
+        >
+          Add item
+        </base-button>
+        <span v-if='maxItemsCount && field.value.length >= maxItemsCount'>
+          Maximum items count: <b>{{ maxItemsCount }}</b>
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from '@vue/composition-api';
 
 import { createId } from '@tager/admin-services';
@@ -59,6 +65,7 @@ import RepeatedItemTable from '../RepeatedItemTable.vue';
 type Props = Readonly<{
   field: RepeaterField;
   defaultIsOpen: boolean;
+  maxItemsCount?: number;
 }>;
 
 export default defineComponent<Props>({
@@ -67,12 +74,16 @@ export default defineComponent<Props>({
   props: {
     field: {
       type: Object,
-      required: true,
+      required: true
     },
     defaultIsOpen: {
       type: Boolean,
-      default: false,
+      default: false
     },
+    maxItemsCount: {
+      type: Number,
+      required: false
+    }
   },
   setup(props) {
     const pseudoUniqueKey = props.field.config.fields
@@ -93,7 +104,7 @@ export default defineComponent<Props>({
         id: createId(),
         value: props.field.config.fields.map((nestedFieldConfig) =>
           universalFieldUtils.createFormField(nestedFieldConfig, null)
-        ),
+        )
       };
 
       props.field.value.push(newNestedField);
@@ -103,13 +114,13 @@ export default defineComponent<Props>({
       addElement,
       toggleChildren,
       isOpen,
-      isTable: props.field.config.meta.view === 'TABLE',
+      isTable: props.field.config.meta.view === 'TABLE'
     };
-  },
+  }
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .repeated-field-table {
   ::v-deep .form-group {
     margin-bottom: 0;
@@ -164,11 +175,18 @@ export default defineComponent<Props>({
   }
 }
 
-.nested-element-list {
-  padding-left: 2rem;
-}
-
 .nested-element-container {
   margin-bottom: 0.7rem;
 }
+
+.button-row {
+  display: flex;
+  align-items: center;
+
+  span {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
 </style>

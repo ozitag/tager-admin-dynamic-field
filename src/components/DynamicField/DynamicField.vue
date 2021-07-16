@@ -166,6 +166,7 @@ export default Vue.extend<Props>({
             props: {
               label: commonProps.label,
               name: commonProps.name,
+              maxSelectedCount: field.config.meta.maximumItemsCount,
             },
             attrs: {
               selectedOptions: commonProps.value,
@@ -254,7 +255,7 @@ export default Vue.extend<Props>({
           });
         case 'REPEATER':
           return h(RepeatedItemTree, {
-            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen },
+            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen, maxItemsCount: field.config.meta.maximumItemsCount },
           });
         case 'GROUP':
           return h(FieldGroup, {

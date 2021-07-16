@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-dynamic-field",
-  "version": "0.1.15",
+  "version": "0.1.17",
   "license": "MIT",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
+    "lodash.kebabcase": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
