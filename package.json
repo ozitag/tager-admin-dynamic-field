@@ -20,7 +20,7 @@
     "yalc:clean": "yalc remove --all"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
+    "@babel/runtime": "^7.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
