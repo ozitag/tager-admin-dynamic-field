@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-dynamic-field",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
