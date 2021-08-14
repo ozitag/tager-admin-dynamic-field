@@ -90,15 +90,28 @@ import {
 } from '../typings/model';
 
 interface FieldUtils<
-  IncomingValue,
-  Config extends FieldConfig,
-  F extends Field<Config>,
-  OutgoingValue
-> {
+    IncomingValue,
+    Config extends FieldConfig,
+    F extends Field<Config>,
+    OutgoingValue
+    > {
   type: Config['type'];
   getDefaultFormFieldValue(config?: Config): F['value'];
   createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
   getOutgoingValue(field: F): OutgoingValue;
+}
+
+interface RepeaterFieldUtils<
+    IncomingValue,
+    Config extends FieldConfig,
+    F extends Field<Config>,
+    OutgoingValue
+    > {
+  type: Config['type'];
+  getDefaultFormFieldValue(config?: Config): F['value'];
+  createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
+  getOutgoingValue(field: F): OutgoingValue;
+  getOutgoingValueAsSingleArray(field: F): any[];
 }
 
 /** STRING **/
@@ -573,7 +586,7 @@ const galleryFieldUtils: GalleryFieldUtilsType = {
 
 /** REPEATER **/
 
-type RepeaterFieldUtilsType = FieldUtils<
+type RepeaterFieldUtilsType = RepeaterFieldUtils<
   RepeaterIncomingValue,
   RepeaterFieldConfig,
   RepeaterField,
@@ -641,6 +654,9 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
       })
     );
   },
+  getOutgoingValueAsSingleArray(field){
+    return field.value.map((entity) => entity.value[0].value);
+  }
 };
 
 /** GROUP **/
@@ -767,6 +783,7 @@ interface UniversalFieldUtils {
     incomingValue: Nullish<IncomingValueUnion>
   ): FieldUnion;
   getOutgoingValue(field: FieldUnion): OutgoingValueUnion;
+  getOutgoingRepeaterValueAsSingleArray<ValueType>(field: FieldUnion): ValueType[];
 }
 
 export const universalFieldUtils: UniversalFieldUtils = {
@@ -784,7 +801,14 @@ export const universalFieldUtils: UniversalFieldUtils = {
   getOutgoingValue(field: FieldUnion): OutgoingValueUnion {
     const foundFieldUtils = getFieldUtilsByType(field.config.type);
     return (foundFieldUtils.getOutgoingValue as UniversalFieldUtils['getOutgoingValue'])(
-      field
+        field
+    );
+  },
+  getOutgoingRepeaterValueAsSingleArray<ValueType>(
+    field: FieldUnion
+  ): ValueType[] {
+    return repeaterFieldUtils.getOutgoingValueAsSingleArray(
+      field as RepeaterField
     );
   },
 };
