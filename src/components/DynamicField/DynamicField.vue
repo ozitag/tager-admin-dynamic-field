@@ -1,5 +1,5 @@
 <script lang="ts">
-import Vue, { VNode } from 'vue';
+import Vue, {VNode} from 'vue';
 
 import {
   FormField,
@@ -16,7 +16,7 @@ import {
   AjaxSelect,
 } from '@tager/admin-ui';
 
-import { FieldUnion } from '../../typings/model';
+import {FieldUnion} from '../../typings/model';
 
 import RepeatedItemTree from './components/RepeatedItemTree';
 import FieldGroup from './components/FieldGroup';
@@ -24,6 +24,7 @@ import FieldGroup from './components/FieldGroup';
 type Props = Readonly<{
   field: FieldUnion;
   isLabelHidden?: boolean;
+  nameSuffix?: string;
 }>;
 
 export default Vue.extend<Props>({
@@ -38,6 +39,10 @@ export default Vue.extend<Props>({
       type: Boolean,
       default: false,
     },
+    nameSuffix: {
+      type: String,
+      default: '',
+    }
   },
   render(h, context) {
     const isLabelHidden = context.props.isLabelHidden;
@@ -45,7 +50,7 @@ export default Vue.extend<Props>({
     function renderField(field: FieldUnion): VNode {
       const commonProps = {
         label: isLabelHidden ? null : field.config.label,
-        name: field.config.name,
+        name: field.config.name + context.props.nameSuffix,
         value: field.value,
       };
 
@@ -255,11 +260,16 @@ export default Vue.extend<Props>({
           });
         case 'REPEATER':
           return h(RepeatedItemTree, {
-            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen, maxItemsCount: field.config.meta.maximumItemsCount },
+            props: {
+              field,
+              nameSuffix: context.props.nameSuffix,
+              defaultIsOpen: field.config.meta.defaultIsOpen,
+              maxItemsCount: field.config.meta.maximumItemsCount
+            },
           });
         case 'GROUP':
           return h(FieldGroup, {
-            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen },
+            props: {field, defaultIsOpen: field.config.meta.defaultIsOpen},
           });
 
         default: {

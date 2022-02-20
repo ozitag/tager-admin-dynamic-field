@@ -19,7 +19,7 @@
     </button>
 
     <div v-show='isOpen' class='content'>
-      <RepeatedItemTable v-if='isTable' :field='field' />
+      <RepeatedItemTable v-if='isTable' :field='field' :name-suffix='nameSuffixValue' />
       <ul v-else class='nested-element-list'>
         <li
           v-for='(nestedElement, index) of field.value'
@@ -30,6 +30,7 @@
             :item='nestedElement'
             :index='index'
             :parent-field='field'
+            :name-suffix='nameSuffixValue'
             v-on='$listeners'
           />
         </li>
@@ -66,6 +67,7 @@ type Props = Readonly<{
   field: RepeaterField;
   defaultIsOpen: boolean;
   maxItemsCount?: number;
+  nameSuffix?: string;
 }>;
 
 export default defineComponent<Props>({
@@ -83,6 +85,10 @@ export default defineComponent<Props>({
     maxItemsCount: {
       type: Number,
       required: false
+    },
+    nameSuffix: {
+      type: String,
+      default: ''
     }
   },
   setup(props) {
@@ -113,6 +119,7 @@ export default defineComponent<Props>({
     return {
       addElement,
       toggleChildren,
+      nameSuffixValue: props.nameSuffix,
       isOpen,
       isTable: props.field.config.meta.view === 'TABLE'
     };

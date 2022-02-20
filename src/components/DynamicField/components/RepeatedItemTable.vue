@@ -1,7 +1,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import kebabCase from 'lodash.kebabcase';
-import { ScopedSlot } from 'vue/types/vnode';
+import {ScopedSlot} from 'vue/types/vnode';
 
 import {
   BaseButton,
@@ -10,13 +10,14 @@ import {
   BaseTable,
 } from '@tager/admin-ui';
 
-import { FieldUnion, RepeaterField } from '../../../typings/model';
+import {FieldUnion, RepeaterField} from '../../../typings/model';
 import DynamicField from '../DynamicField.vue';
 
-import { moveItem, removeItem } from './RepeatedItem';
+import {moveItem, removeItem} from './RepeatedItem';
 
 type Props = Readonly<{
   field: RepeaterField;
+  nameSuffix?: string;
 }>;
 
 export default Vue.extend<Props>({
@@ -27,6 +28,10 @@ export default Vue.extend<Props>({
       type: Object,
       required: true,
     },
+    nameSuffix: {
+      type: String,
+      default: '',
+    }
   },
   render(h, context) {
     const repeaterField = context.props.field;
@@ -34,16 +39,16 @@ export default Vue.extend<Props>({
     type RowData = Record<string, FieldUnion>;
 
     const filteredFields = repeaterField.config.fields.filter(
-      (fieldConfig) => !fieldConfig.meta.hidden
+        (fieldConfig) => !fieldConfig.meta.hidden
     );
 
     const columnDefs: Array<ColumnDefinition<RowData>> = filteredFields.map(
-      (fieldConfig, index) => ({
-        id: index + 1,
-        name: fieldConfig.label,
-        field: fieldConfig.name,
-        useCustomDataCell: true,
-      })
+        (fieldConfig, index) => ({
+          id: index + 1,
+          name: fieldConfig.label,
+          field: fieldConfig.name,
+          useCustomDataCell: true,
+        })
     );
 
     columnDefs.push({
@@ -54,35 +59,37 @@ export default Vue.extend<Props>({
     });
 
     const rowData: Array<RowData> = repeaterField.value.map((entity) =>
-      entity.value.reduce(
-        (row, field) => ({ ...row, [field.config.name]: field }),
-        {}
-      )
+        entity.value.reduce(
+            (row, field) => ({...row, [field.config.name]: field}),
+            {}
+        )
     );
 
     const columnWidth = `calc(100% / ${filteredFields.length})`;
 
     const scopedSlots: Record<string, ScopedSlot> = filteredFields.reduce(
-      (scopedSlots, fieldConfig) => {
-        const slotName = `cell(${kebabCase(fieldConfig.name)})`;
+        (scopedSlots, fieldConfig) => {
+          const slotName = `cell(${kebabCase(fieldConfig.name)})`;
 
-        return {
-          ...scopedSlots,
-          [slotName]: (props: {
-            row: RowData;
-            column: ColumnDefinition<RowData>;
-          }) =>
-            h('td', { style: { width: columnWidth } }, [
-              h(DynamicField, {
-                props: {
-                  field: props.row[fieldConfig.name],
-                  isLabelHidden: true,
-                },
-              }),
-            ]),
-        };
-      },
-      {}
+          return {
+            ...scopedSlots,
+            [slotName]: (props: {
+              row: RowData;
+              column: ColumnDefinition<RowData>;
+              rowIndex: number;
+            }) =>
+                h('td', {style: {width: columnWidth}}, [
+                  h(DynamicField, {
+                    props: {
+                      field: props.row[fieldConfig.name],
+                      isLabelHidden: true,
+                      nameSuffix: context.props.nameSuffix + "__" + props.rowIndex,
+                    },
+                  }),
+                ]),
+          };
+        },
+        {}
     );
 
     function handleItemRemove(index: number) {
@@ -94,43 +101,43 @@ export default Vue.extend<Props>({
     }
 
     return h(BaseTable, {
-      props: { columnDefs, enumerable: true, rowData: rowData },
+      props: {columnDefs, enumerable: true, rowData: rowData},
       class: 'repeated-field-table',
       scopedSlots: {
         ...scopedSlots,
-        'cell(actions)': ({ row, rowIndex }) =>
-          h('td', { style: { width: '140px', whiteSpace: 'nowrap' } }, [
-            h(
-              BaseButton,
-              {
-                props: { variant: 'icon', disabled: rowIndex === 0 },
-                on: { click: () => handleItemMove(rowIndex, 'up') },
-              },
-              [h(SvgIcon, { props: { name: 'north' } })]
-            ),
-            h(
-              BaseButton,
-              {
-                props: {
-                  variant: 'icon',
-                  disabled: rowIndex === repeaterField.value.length - 1,
-                },
-                on: { click: () => handleItemMove(rowIndex, 'down') },
-              },
-              [h(SvgIcon, { props: { name: 'south' } })]
-            ),
-            h(
-              BaseButton,
-              {
-                props: {
-                  variant: 'icon',
-                  disabled: row.canBeDeleted ? !row.canBeDeleted.value : false,
-                },
-                on: { click: () => handleItemRemove(rowIndex) },
-              },
-              [h(SvgIcon, { props: { name: 'delete' } })]
-            ),
-          ]),
+        'cell(actions)': ({row, rowIndex}) =>
+            h('td', {style: {width: '140px', whiteSpace: 'nowrap'}}, [
+              h(
+                  BaseButton,
+                  {
+                    props: {variant: 'icon', disabled: rowIndex === 0},
+                    on: {click: () => handleItemMove(rowIndex, 'up')},
+                  },
+                  [h(SvgIcon, {props: {name: 'north'}})]
+              ),
+              h(
+                  BaseButton,
+                  {
+                    props: {
+                      variant: 'icon',
+                      disabled: rowIndex === repeaterField.value.length - 1,
+                    },
+                    on: {click: () => handleItemMove(rowIndex, 'down')},
+                  },
+                  [h(SvgIcon, {props: {name: 'south'}})]
+              ),
+              h(
+                  BaseButton,
+                  {
+                    props: {
+                      variant: 'icon',
+                      disabled: row.canBeDeleted ? !row.canBeDeleted.value : false,
+                    },
+                    on: {click: () => handleItemRemove(rowIndex)},
+                  },
+                  [h(SvgIcon, {props: {name: 'delete'}})]
+              ),
+            ]),
       },
     });
   },
