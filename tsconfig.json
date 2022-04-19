@@ -1,34 +1,34 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "allowJs": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "preserveValueImports": true,
+    "sourceMap": true,
     "declaration": true,
-    "types": [
-      "webpack-env"
-    ],
+    "declarationDir": "dist",
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "files": [
-    "src/typings/shims-vue.d.ts"
+    "src/**/*.vue",
+    "custom-types"
   ],
   "exclude": [
-    "node_modules/**"
+    "node_modules",
+    "src/**/*.stories.ts"
   ]
 }

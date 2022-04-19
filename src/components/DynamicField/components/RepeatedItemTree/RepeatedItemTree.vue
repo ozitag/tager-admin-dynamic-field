@@ -1,50 +1,54 @@
 <template>
-  <div class='repeated-field'>
+  <div class="repeated-field">
     <button
-      type='button'
+      type="button"
       :class="['title-button', isOpen ? 'collapse' : 'expand']"
       :title="isOpen ? 'Collapse' : 'Expand'"
-      @click='toggleChildren'
+      @click="toggleChildren"
     >
       <span
-        role='img'
+        role="img"
         :class="['icon-chevron-right', { 'icon-expand-more': isOpen }]"
       >
-        <svg-icon name='chevronRight' />
+        <svg-icon name="chevronRight" />
       </span>
 
-      <span class='title'>
+      <span class="title">
         {{ field.config.label }} ({{ field.value.length }})
       </span>
     </button>
 
-    <div v-show='isOpen' class='content'>
-      <RepeatedItemTable v-if='isTable' :field='field' :name-suffix='nameSuffixValue' />
-      <ul v-else class='nested-element-list'>
+    <div v-show="isOpen" class="content">
+      <RepeatedItemTable
+        v-if="isTable"
+        :field="field"
+        :name-suffix="nameSuffixValue"
+      />
+      <ul v-else class="nested-element-list">
         <li
-          v-for='(nestedElement, index) of field.value'
-          :key='nestedElement.id'
-          class='nested-element-container'
+          v-for="(nestedElement, index) of field.value"
+          :key="nestedElement.id"
+          class="nested-element-container"
         >
           <RepeatedItem
-            :item='nestedElement'
-            :index='index'
-            :parent-field='field'
-            :name-suffix='nameSuffixValue'
-            v-on='$listeners'
+            :item="nestedElement"
+            :index="index"
+            :parent-field="field"
+            :name-suffix="nameSuffixValue"
+            v-on="$listeners"
           />
         </li>
       </ul>
-      <div class='button-row'>
+      <div class="button-row">
         <base-button
-          variant='outline-primary'
-          title='Add item'
-          :disabled='maxItemsCount && field.value.length >= maxItemsCount'
-          @click='addElement'
+          variant="outline-primary"
+          title="Add item"
+          :disabled="maxItemsCount && field.value.length >= maxItemsCount"
+          @click="addElement"
         >
           Add item
         </base-button>
-        <span v-if='maxItemsCount && field.value.length >= maxItemsCount'>
+        <span v-if="maxItemsCount && field.value.length >= maxItemsCount">
           Maximum items count: <b>{{ maxItemsCount }}</b>
         </span>
       </div>
@@ -52,16 +56,16 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from '@vue/composition-api';
+<script lang="ts">
+import { defineComponent } from "vue";
 
-import { createId } from '@tager/admin-services';
-import { useLocalStorage } from '@tager/admin-ui';
+import { createId } from "@tager/admin-services";
+import { useLocalStorage } from "@tager/admin-ui";
 
-import { RepeaterField } from '../../../../typings/model';
-import { universalFieldUtils } from '../../../../services/fields';
-import RepeatedItem from '../RepeatedItem/RepeatedItem.vue';
-import RepeatedItemTable from '../RepeatedItemTable.vue';
+import { RepeaterField } from "../../../../typings/model";
+import { universalFieldUtils } from "../../../../services/fields";
+import RepeatedItem from "../RepeatedItem/RepeatedItem.vue";
+import RepeatedItemTable from "../RepeatedItemTable.vue";
 
 type Props = Readonly<{
   field: RepeaterField;
@@ -71,30 +75,30 @@ type Props = Readonly<{
 }>;
 
 export default defineComponent<Props>({
-  name: 'RepeatedItemTree',
+  name: "RepeatedItemTree",
   components: { RepeatedItem, RepeatedItemTable },
   props: {
     field: {
       type: Object,
-      required: true
+      required: true,
     },
     defaultIsOpen: {
       type: Boolean,
-      default: false
+      default: false,
     },
     maxItemsCount: {
       type: Number,
-      required: false
+      required: false,
     },
     nameSuffix: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
   setup(props) {
     const pseudoUniqueKey = props.field.config.fields
       .map((field) => field.name)
-      .join('').length;
+      .join("").length;
 
     const [isOpen, setIsOpen] = useLocalStorage<boolean>(
       `is_${props.field.config.name}_${pseudoUniqueKey}_open`,
@@ -110,7 +114,7 @@ export default defineComponent<Props>({
         id: createId(),
         value: props.field.config.fields.map((nestedFieldConfig) =>
           universalFieldUtils.createFormField(nestedFieldConfig, null)
-        )
+        ),
       };
 
       props.field.value.push(newNestedField);
@@ -121,13 +125,13 @@ export default defineComponent<Props>({
       toggleChildren,
       nameSuffixValue: props.nameSuffix,
       isOpen,
-      isTable: props.field.config.meta.view === 'TABLE'
+      isTable: props.field.config.meta.view === "TABLE",
     };
-  }
+  },
 });
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .repeated-field-table {
   ::v-deep .form-group {
     margin-bottom: 0;
@@ -195,5 +199,4 @@ export default defineComponent<Props>({
     margin-left: 10px;
   }
 }
-
 </style>

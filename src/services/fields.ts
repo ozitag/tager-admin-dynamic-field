@@ -1,4 +1,4 @@
-import { createId, isNotNullish, Nullish } from '@tager/admin-services';
+import { createId, isNotNullish, Nullish } from "@tager/admin-services";
 
 import {
   DateField,
@@ -87,28 +87,28 @@ import {
   GroupFieldConfig,
   GroupField,
   GroupOutgoingValue,
-} from '../typings/model';
+} from "../typings/model";
 
 interface FieldUtils<
-    IncomingValue,
-    Config extends FieldConfig,
-    F extends Field<Config>,
-    OutgoingValue
-    > {
-  type: Config['type'];
-  getDefaultFormFieldValue(config?: Config): F['value'];
+  IncomingValue,
+  Config extends FieldConfig,
+  F extends Field<Config>,
+  OutgoingValue
+> {
+  type: Config["type"];
+  getDefaultFormFieldValue(config?: Config): F["value"];
   createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
   getOutgoingValue(field: F): OutgoingValue;
 }
 
 interface RepeaterFieldUtils<
-    IncomingValue,
-    Config extends FieldConfig,
-    F extends Field<Config>,
-    OutgoingValue
-    > {
-  type: Config['type'];
-  getDefaultFormFieldValue(config?: Config): F['value'];
+  IncomingValue,
+  Config extends FieldConfig,
+  F extends Field<Config>,
+  OutgoingValue
+> {
+  type: Config["type"];
+  getDefaultFormFieldValue(config?: Config): F["value"];
   createFormField(fieldConfig: Config, incomingValueValue: IncomingValue): F;
   getOutgoingValue(field: F): OutgoingValue;
   getOutgoingValueAsSingleArray(field: F): any[];
@@ -124,9 +124,9 @@ type StringFieldUtilsType = FieldUtils<
 >;
 
 const stringFieldUtils: StringFieldUtilsType = {
-  type: 'STRING',
+  type: "STRING",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -150,9 +150,9 @@ type UrlFieldUtilsType = FieldUtils<
 >;
 
 const urlFieldUtils: UrlFieldUtilsType = {
-  type: 'URL',
+  type: "URL",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -176,9 +176,9 @@ type DateFieldUtilsType = FieldUtils<
 >;
 
 const dateFieldUtils: DateFieldUtilsType = {
-  type: 'DATE',
+  type: "DATE",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -202,9 +202,9 @@ type DateTimeFieldUtilsType = FieldUtils<
 >;
 
 const dateTimeFieldUtils: DateTimeFieldUtilsType = {
-  type: 'DATETIME',
+  type: "DATETIME",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -228,9 +228,9 @@ type TextFieldUtilsType = FieldUtils<
 >;
 
 const textFieldUtils: TextFieldUtilsType = {
-  type: 'TEXT',
+  type: "TEXT",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -254,9 +254,9 @@ type NumberFieldUtilsType = FieldUtils<
 >;
 
 const numberFieldUtils: NumberFieldUtilsType = {
-  type: 'NUMBER',
+  type: "NUMBER",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -282,7 +282,7 @@ type BooleanFieldUtilsType = FieldUtils<
 >;
 
 const booleanFieldUtils: BooleanFieldUtilsType = {
-  type: 'TRUE_FALSE',
+  type: "TRUE_FALSE",
   getDefaultFormFieldValue(config) {
     return config?.meta.defaultValue ?? false;
   },
@@ -308,7 +308,7 @@ type SelectFieldUtilsType = FieldUtils<
 /** SELECT **/
 
 const selectFieldUtils: SelectFieldUtilsType = {
-  type: 'SELECT',
+  type: "SELECT",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -340,7 +340,7 @@ type AjaxSelectFieldUtilsType = FieldUtils<
 >;
 
 const ajaxSelectFieldUtils: AjaxSelectFieldUtilsType = {
-  type: 'AJAX_SELECT',
+  type: "AJAX_SELECT",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -366,7 +366,7 @@ type MultiSelectFieldUtilsType = FieldUtils<
 >;
 
 const multiSelectFieldUtils: MultiSelectFieldUtilsType = {
-  type: 'MULTI_SELECT',
+  type: "MULTI_SELECT",
   getDefaultFormFieldValue() {
     return [];
   },
@@ -399,9 +399,9 @@ type ColorFieldUtilsType = FieldUtils<
 >;
 
 const colorFieldUtils: ColorFieldUtilsType = {
-  type: 'COLOR',
+  type: "COLOR",
   getDefaultFormFieldValue() {
-    return '#000000';
+    return "#000000";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -425,7 +425,7 @@ type ButtonFieldUtilsType = FieldUtils<
 >;
 
 const buttonFieldUtils: ButtonFieldUtilsType = {
-  type: 'BUTTON',
+  type: "BUTTON",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -451,7 +451,7 @@ type MapFieldUtilsType = FieldUtils<
 >;
 
 const mapFieldUtils: MapFieldUtilsType = {
-  type: 'MAP',
+  type: "MAP",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -477,9 +477,9 @@ type HtmlFieldUtilsType = FieldUtils<
 >;
 
 const htmlFieldUtils: HtmlFieldUtilsType = {
-  type: 'HTML',
+  type: "HTML",
   getDefaultFormFieldValue() {
-    return '';
+    return "";
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -503,7 +503,7 @@ type ImageFieldUtilsType = FieldUtils<
 >;
 
 const imageFieldUtils: ImageFieldUtilsType = {
-  type: 'IMAGE',
+  type: "IMAGE",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -531,7 +531,7 @@ type FileFieldUtilsType = FieldUtils<
 >;
 
 const fileFieldUtils: FileFieldUtilsType = {
-  type: 'FILE',
+  type: "FILE",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -559,7 +559,7 @@ type GalleryFieldUtilsType = FieldUtils<
 >;
 
 const galleryFieldUtils: GalleryFieldUtilsType = {
-  type: 'GALLERY',
+  type: "GALLERY",
   getDefaultFormFieldValue() {
     return [];
   },
@@ -594,21 +594,21 @@ type RepeaterFieldUtilsType = RepeaterFieldUtils<
 >;
 
 const repeaterFieldUtils: RepeaterFieldUtilsType = {
-  type: 'REPEATER',
+  type: "REPEATER",
   getDefaultFormFieldValue() {
     return [];
   },
   createFormField(fieldConfig, incomingValue) {
     function createNestedFieldArray(
-      fieldConfigList: RepeaterFieldConfig['fields'],
+      fieldConfigList: RepeaterFieldConfig["fields"],
       incomingFieldList: RepeaterIncomingValue
-    ): RepeaterField['value'] {
-      const nestedFieldList: RepeaterField['value'] = [];
+    ): RepeaterField["value"] {
+      const nestedFieldList: RepeaterField["value"] = [];
 
       for (let i = 0; i < incomingFieldList.length; i++) {
         const nestedIncomingFieldList = incomingFieldList[i];
 
-        const nestedField: RepeaterField['value'][number] = {
+        const nestedField: RepeaterField["value"][number] = {
           id: createId(),
           value: [],
         };
@@ -654,9 +654,9 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
       })
     );
   },
-  getOutgoingValueAsSingleArray(field){
+  getOutgoingValueAsSingleArray(field) {
     return field.value.map((entity) => entity.value[0].value);
-  }
+  },
 };
 
 /** GROUP **/
@@ -669,16 +669,16 @@ type GroupFieldUtilsType = FieldUtils<
 >;
 
 const groupFieldUtils: GroupFieldUtilsType = {
-  type: 'GROUP',
+  type: "GROUP",
   getDefaultFormFieldValue() {
     return [];
   },
   createFormField(fieldConfig, incomingValue) {
     function createNestedFieldArray(
-      fieldConfigList: GroupFieldConfig['fields'],
+      fieldConfigList: GroupFieldConfig["fields"],
       incomingFieldList: GroupIncomingValue
-    ): GroupField['value'] {
-      const nestedFieldList: GroupField['value'] = [];
+    ): GroupField["value"] {
+      const nestedFieldList: GroupField["value"] = [];
 
       for (let j = 0; j < fieldConfigList.length; j++) {
         const nestedFieldConfig = fieldConfigList[j];
@@ -726,7 +726,7 @@ type UnknownFieldUtilsType = FieldUtils<
 >;
 
 const unknownFieldUtils: UnknownFieldUtilsType = {
-  type: 'UNKNOWN',
+  type: "UNKNOWN",
   getDefaultFormFieldValue() {
     return null;
   },
@@ -771,7 +771,7 @@ function getFieldUtilsByType(type: string): FieldUtilsUnion {
   const foundUtils = FIELD_UTILS_LIST.find((utils) => utils.type === type);
 
   if (!foundUtils) {
-    console.warn('Cannot find utils for type: ', type);
+    console.warn("Cannot find utils for type: ", type);
   }
 
   return foundUtils ?? unknownFieldUtils;
@@ -783,7 +783,9 @@ interface UniversalFieldUtils {
     incomingValue: Nullish<IncomingValueUnion>
   ): FieldUnion;
   getOutgoingValue(field: FieldUnion): OutgoingValueUnion;
-  getOutgoingRepeaterValueAsSingleArray<ValueType>(field: FieldUnion): ValueType[];
+  getOutgoingRepeaterValueAsSingleArray<ValueType>(
+    field: FieldUnion
+  ): ValueType[];
 }
 
 export const universalFieldUtils: UniversalFieldUtils = {
@@ -793,16 +795,15 @@ export const universalFieldUtils: UniversalFieldUtils = {
   ): FieldUnion {
     const foundFieldUtils = getFieldUtilsByType(fieldConfig.type);
 
-    return (foundFieldUtils.createFormField as UniversalFieldUtils['createFormField'])(
-      fieldConfig,
-      incomingValue
-    );
+    return (
+      foundFieldUtils.createFormField as UniversalFieldUtils["createFormField"]
+    )(fieldConfig, incomingValue);
   },
   getOutgoingValue(field: FieldUnion): OutgoingValueUnion {
     const foundFieldUtils = getFieldUtilsByType(field.config.type);
-    return (foundFieldUtils.getOutgoingValue as UniversalFieldUtils['getOutgoingValue'])(
-        field
-    );
+    return (
+      foundFieldUtils.getOutgoingValue as UniversalFieldUtils["getOutgoingValue"]
+    )(field);
   },
   getOutgoingRepeaterValueAsSingleArray<ValueType>(
     field: FieldUnion

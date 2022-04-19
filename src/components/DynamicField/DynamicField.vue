@@ -1,5 +1,5 @@
 <script lang="ts">
-import Vue, {VNode} from 'vue';
+import { defineComponent, VNode } from "vue";
 
 import {
   FormField,
@@ -14,22 +14,21 @@ import {
   DateTimeInput,
   MapField,
   AjaxSelect,
-} from '@tager/admin-ui';
+} from "@tager/admin-ui";
 
-import {FieldUnion} from '../../typings/model';
+import { FieldUnion } from "../../typings/model";
 
-import RepeatedItemTree from './components/RepeatedItemTree';
-import FieldGroup from './components/FieldGroup';
+import RepeatedItemTree from "./components/RepeatedItemTree";
+import FieldGroup from "./components/FieldGroup";
 
-type Props = Readonly<{
+interface Props {
   field: FieldUnion;
   isLabelHidden?: boolean;
   nameSuffix?: string;
-}>;
+}
 
-export default Vue.extend<Props>({
-  name: 'DynamicField',
-  functional: true,
+export default defineComponent({
+  name: "DynamicField",
   props: {
     field: {
       type: Object,
@@ -41,8 +40,8 @@ export default Vue.extend<Props>({
     },
     nameSuffix: {
       type: String,
-      default: '',
-    }
+      default: "",
+    },
   },
   render(h, context) {
     const isLabelHidden = context.props.isLabelHidden;
@@ -54,13 +53,13 @@ export default Vue.extend<Props>({
         value: field.value,
       };
 
-      function handleChange(event: FieldUnion['value']) {
+      function handleChange(event: FieldUnion["value"]) {
         field.value = event;
       }
 
       switch (field.config.type) {
-        case 'URL':
-        case 'STRING':
+        case "URL":
+        case "STRING":
           return h(FormField, {
             props: {
               ...commonProps,
@@ -70,18 +69,18 @@ export default Vue.extend<Props>({
               input: handleChange,
             },
           });
-        case 'DATE':
+        case "DATE":
           return h(FormField, {
             props: {
               ...commonProps,
-              type: 'date',
+              type: "date",
             },
             on: {
               ...context.listeners,
               input: handleChange,
             },
           });
-        case 'DATETIME':
+        case "DATETIME":
           return h(DateTimeInput, {
             props: {
               ...commonProps,
@@ -91,7 +90,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'NUMBER':
+        case "NUMBER":
           return h(FormFieldNumberInput, {
             props: {
               ...commonProps,
@@ -101,11 +100,11 @@ export default Vue.extend<Props>({
               input: handleChange,
             },
           });
-        case 'TEXT':
+        case "TEXT":
           return h(FormField, {
             props: {
               ...commonProps,
-              type: 'textarea',
+              type: "textarea",
               rows: 4,
             },
             on: {
@@ -113,7 +112,7 @@ export default Vue.extend<Props>({
               input: handleChange,
             },
           });
-        case 'HTML':
+        case "HTML":
           return h(FormFieldRichTextInput, {
             props: {
               ...commonProps,
@@ -123,7 +122,7 @@ export default Vue.extend<Props>({
               input: handleChange,
             },
           });
-        case 'TRUE_FALSE':
+        case "TRUE_FALSE":
           return h(FormFieldCheckbox, {
             props: {
               label: commonProps.label,
@@ -135,7 +134,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'SELECT':
+        case "SELECT":
           return h(FormFieldSelect, {
             props: {
               label: commonProps.label,
@@ -151,7 +150,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'AJAX_SELECT':
+        case "AJAX_SELECT":
           return h(AjaxSelect, {
             props: {
               requestUrl: field.config.meta.requestUrl,
@@ -166,7 +165,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'MULTI_SELECT':
+        case "MULTI_SELECT":
           return h(FormFieldMultiSelect, {
             props: {
               label: commonProps.label,
@@ -182,7 +181,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'COLOR':
+        case "COLOR":
           return h(FormFieldColorInput, {
             props: {
               ...commonProps,
@@ -192,7 +191,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'BUTTON':
+        case "BUTTON":
           return h(ButtonField, {
             props: {
               ...commonProps,
@@ -202,7 +201,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'MAP':
+        case "MAP":
           return h(MapField, {
             props: {
               ...commonProps,
@@ -212,13 +211,13 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'IMAGE':
+        case "IMAGE":
           return h(FormFieldFileInput, {
             props: {
               ...commonProps,
             },
             attrs: {
-              fileType: 'image',
+              fileType: "image",
               scenario: field.config.meta.scenario,
             },
             on: {
@@ -226,7 +225,7 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'GALLERY':
+        case "GALLERY":
           return h(FormFieldFileInput, {
             props: {
               label: isLabelHidden ? null : field.config.label,
@@ -234,7 +233,7 @@ export default Vue.extend<Props>({
               value: field.value,
             },
             attrs: {
-              fileType: 'image',
+              fileType: "image",
               multiple: true,
               scenario: field.config.meta.scenario,
               withCaptions: field.config.meta.withCaptions,
@@ -244,13 +243,13 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'FILE':
+        case "FILE":
           return h(FormFieldFileInput, {
             props: {
               ...commonProps,
             },
             attrs: {
-              fileType: 'file',
+              fileType: "file",
               scenario: field.config.meta.scenario,
             },
             on: {
@@ -258,24 +257,24 @@ export default Vue.extend<Props>({
               change: handleChange,
             },
           });
-        case 'REPEATER':
+        case "REPEATER":
           return h(RepeatedItemTree, {
             props: {
               field,
               nameSuffix: context.props.nameSuffix,
               defaultIsOpen: field.config.meta.defaultIsOpen,
-              maxItemsCount: field.config.meta.maximumItemsCount
+              maxItemsCount: field.config.meta.maximumItemsCount,
             },
           });
-        case 'GROUP':
+        case "GROUP":
           return h(FieldGroup, {
-            props: {field, defaultIsOpen: field.config.meta.defaultIsOpen},
+            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen },
           });
 
         default: {
           const unknownFieldType = field.config.type;
-          console.warn('Cannot render Component for field', field.config);
-          return h('div', `Unknown field with type: ${unknownFieldType}`);
+          console.warn("Cannot render Component for field", field.config);
+          return h("div", `Unknown field with type: ${unknownFieldType}`);
         }
       }
     }

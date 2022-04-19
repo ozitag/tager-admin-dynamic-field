@@ -10,7 +10,7 @@
         role="img"
         :class="['icon-chevron-right', { 'icon-expand-more': isOpen }]"
       >
-        <svg-icon name="chevronRight" />
+        <ChevronRightIcon />
       </span>
 
       <span class="title">
@@ -20,34 +20,36 @@
 
     <div v-show="isOpen" class="content">
       <DynamicField
-        v-for="field in field.value"
-        :key="field.config.name"
-        :field="field"
+        v-for="nestedField in field.value"
+        :key="nestedField.config.name"
+        :field="nestedField"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, PropType } from "vue";
 
-import { useLocalStorage } from '@tager/admin-ui';
+import { useLocalStorage, ChevronRightIcon } from "@tager/admin-ui";
 
-import { GroupField } from '../../../../typings/model';
+import { GroupField } from "../../../../typings/model";
+import DynamicField from "../../DynamicField.vue";
 
 interface Props {
   field: GroupField;
   defaultIsOpen: boolean;
 }
 
-export default defineComponent<Props>({
-  name: 'FieldGroup',
+export default defineComponent({
+  name: "FieldGroup",
   components: {
-    DynamicField: async () => (await import('../../DynamicField.vue')).default,
+    ChevronRightIcon,
+    DynamicField,
   },
   props: {
     field: {
-      type: Object,
+      type: Object as PropType<Props["field"]>,
       required: true,
     },
     defaultIsOpen: {
@@ -58,9 +60,9 @@ export default defineComponent<Props>({
   setup(props: Props) {
     const pseudoUniqueKey = props.field.config.fields
       .map((field) => field.name)
-      .join('').length;
+      .join("").length;
 
-    const [isOpen, setIsOpen] = useLocalStorage<boolean>(
+    const [isOpen, setIsOpen] = useLocalStorage(
       `is_${props.field.config.name}_${pseudoUniqueKey}_open`,
       props.defaultIsOpen
     );
