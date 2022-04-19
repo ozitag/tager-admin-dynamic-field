@@ -49,11 +49,10 @@
 
 <script lang="ts">
 import {
-  Component,
+  type Component,
   defineAsyncComponent,
-  DefineComponent,
   defineComponent,
-  PropType,
+  type PropType,
   ref,
 } from "vue";
 
@@ -66,7 +65,7 @@ import {
   DeleteIcon,
 } from "@tager/admin-ui";
 
-import { RepeaterField } from "../../../../typings/model";
+import type { RepeaterField } from "../../../../typings/model";
 
 import { moveItem, removeItem } from "./RepeatedItem.helpers";
 

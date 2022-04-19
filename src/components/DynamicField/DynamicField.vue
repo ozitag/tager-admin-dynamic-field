@@ -1,115 +1,131 @@
 <template>
   <FormField
     v-if="is('STRING', 'URL')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <FormField
     v-else-if="is('DATE')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
     type="date"
+    @update:value="handleUpdate"
   />
   <DateTimeInput
     v-else-if="is('DATETIME')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <FormFieldNumberInput
     v-else-if="is('NUMBER')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <FormField
     v-else-if="is('TEXT')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
     type="textarea"
     :rows="4"
+    @update:value="handleUpdate"
   />
   <FormFieldRichTextInput
     v-else-if="is('HTML')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <FormFieldCheckbox
     v-else-if="is('TRUE_FALSE')"
-    v-model:checked="field.value"
+    :checked="field.value"
     :label="label"
     :name="name"
+    @update:checked="handleUpdate"
   />
   <FormFieldSelect
     v-else-if="is('SELECT')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
     :searchable="field.config.meta.searchable"
     :options="field.config.meta.options"
+    @update:value="handleUpdate"
   />
   <AjaxSelect
     v-else-if="is('AJAX_SELECT')"
-    v-model:value="field.value"
+    :value="field.value"
     :request-url="field.config.meta.requestUrl"
     :value-field="field.config.meta.valueField"
     :label-field="field.config.meta.labelField"
+    @update:value="handleUpdate"
   />
   <FormFieldMultiSelect
     v-else-if="is('MULTI_SELECT')"
-    v-model:selected-options="field.value"
+    :selected-options="field.value"
     :label="label"
     :name="name"
     :max-selected-count="field.config.meta.maximumItemsCount"
     :options="field.config.meta.options"
+    @update:selected-options="handleUpdate"
   />
   <FormFieldColorInput
     v-else-if="is('COLOR')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <ButtonField
     v-else-if="is('BUTTON')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <MapField
     v-else-if="is('MAP')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
+    @update:value="handleUpdate"
   />
   <FormFieldFileInput
     v-else-if="is('IMAGE')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
     file-type="image"
     :scenario="field.config.meta.scenario"
+    @update:value="handleUpdate"
   />
   <FormFieldFileInput
     v-else-if="is('GALLERY')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
     file-type="image"
     multiple
     :scenario="field.config.meta.scenario"
     :with-captions="field.config.meta.withCaptions"
+    @update:value="handleUpdate"
   />
   <FormFieldFileInput
     v-else-if="is('FILE')"
-    v-model:value="field.value"
+    :value="field.value"
     :label="label"
     :name="name"
     file-type="file"
     :scenario="field.config.meta.scenario"
+    @update:value="handleUpdate"
   />
   <RepeatedItemTree
     v-else-if="is('REPEATER')"
@@ -127,7 +143,7 @@
   <div v-else>Unknown field with type: {{ field.config.type }}</div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue";
+import { computed, defineComponent, type PropType } from "vue";
 
 import {
   FormField,
@@ -144,7 +160,7 @@ import {
   AjaxSelect,
 } from "@tager/admin-ui";
 
-import { FieldUnion } from "../../typings/model";
+import type { FieldUnion } from "../../typings/model";
 
 import RepeatedItemTree from "./components/RepeatedItemTree";
 import FieldGroup from "./components/FieldGroup";
@@ -198,7 +214,12 @@ export default defineComponent({
       return types.includes(props.field.config.type);
     }
 
-    return { label, name, is };
+    function handleUpdate(newValue: unknown) {
+      // eslint-disable-next-line vue/no-mutating-props
+      props.field.value = newValue as FieldUnion["value"];
+    }
+
+    return { label, name, is, handleUpdate };
   },
 });
 </script>

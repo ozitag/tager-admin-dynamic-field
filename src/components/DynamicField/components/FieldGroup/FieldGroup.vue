@@ -30,15 +30,15 @@
 
 <script lang="ts">
 import {
-  Component,
+  type Component,
   defineAsyncComponent,
   defineComponent,
-  PropType,
+  type PropType,
 } from "vue";
 
 import { useLocalStorage, ChevronRightIcon } from "@tager/admin-ui";
 
-import { GroupField } from "../../../../typings/model";
+import type { GroupField } from "../../../../typings/model";
 
 interface Props {
   field: GroupField;

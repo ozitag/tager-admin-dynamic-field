@@ -56,12 +56,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 import { createId } from "@tager/admin-services";
 import { useLocalStorage, ChevronRightIcon, BaseButton } from "@tager/admin-ui";
 
-import { RepeaterField } from "../../../../typings/model";
+import type { RepeaterField } from "../../../../typings/model";
 import { universalFieldUtils } from "../../../../services/fields";
 import RepeatedItem from "../RepeatedItem/RepeatedItem.vue";
 import RepeatedItemTable from "../RepeatedItemTable.vue";

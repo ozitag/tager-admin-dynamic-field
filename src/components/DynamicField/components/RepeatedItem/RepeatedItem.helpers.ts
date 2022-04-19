@@ -1,4 +1,4 @@
-import { RepeaterField } from "../../../../typings/model";
+import type { RepeaterField } from "../../../../typings/model";
 
 export function removeItem(
   parentField: RepeaterField,

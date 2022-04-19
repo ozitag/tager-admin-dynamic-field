@@ -48,24 +48,24 @@
 </template>
 <script lang="ts">
 import {
-  Component,
+  type Component,
   computed,
   defineAsyncComponent,
   defineComponent,
-  PropType,
+  type PropType,
 } from "vue";
 import kebabCase from "lodash.kebabcase";
 
 import {
   BaseButton,
-  ColumnDefinition,
+  type ColumnDefinition,
   BaseTable,
   NorthIcon,
   SouthIcon,
   DeleteIcon,
 } from "@tager/admin-ui";
 
-import {
+import type {
   FieldConfigUnion,
   FieldUnion,
   RepeaterField,

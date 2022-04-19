@@ -1,4 +1,4 @@
-import { BaseOptionType } from "@tager/admin-ui";
+import type { BaseOptionType } from "@tager/admin-ui";
 
 export const brandOptions: Array<BaseOptionType> = [
   { value: "null", label: "disabled brand", disabled: true },

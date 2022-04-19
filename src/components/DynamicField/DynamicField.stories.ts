@@ -1,9 +1,9 @@
 import { defineComponent, ref } from "vue";
-import { Story } from "@storybook/vue3";
+import type { Story } from "@storybook/vue3";
 
 import { createId } from "@tager/admin-services";
 
-import {
+import type {
   AjaxSelectField,
   BooleanField,
   ButtonField,

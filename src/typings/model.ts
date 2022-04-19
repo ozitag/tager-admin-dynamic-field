@@ -1,5 +1,5 @@
-import { Nullable, FileType } from "@tager/admin-services";
-import { OptionType, SingleFileInputValueType } from "@tager/admin-ui";
+import type { Nullable, FileType } from "@tager/admin-services";
+import type { OptionType, SingleFileInputValueType } from "@tager/admin-ui";
 
 /** Common */
 export interface FieldConfig {
@@ -138,7 +138,7 @@ export type ImageField = Field<
   Nullable<SingleFileInputValueType>
 >;
 export type ImageIncomingValue = Nullable<FileType>;
-export type ImageOutgoingValue = Nullable<number>;
+export type ImageOutgoingValue = Nullable<string>;
 
 /** GALLERY */
 
@@ -160,7 +160,7 @@ export type GalleryIncomingValue = Array<{
   caption: Nullable<string>;
 }>;
 export type GalleryOutgoingValue = Array<{
-  id: number;
+  id: string;
   caption: Nullable<string>;
 }>;
 
@@ -179,7 +179,7 @@ export type FileField = Field<
   Nullable<SingleFileInputValueType>
 >;
 export type FileIncomingValue = Nullable<FileType>;
-export type FileOutgoingValue = Nullable<number>;
+export type FileOutgoingValue = Nullable<string>;
 
 /** BOOLEAN */
 
