@@ -19,12 +19,20 @@
     "emit-declarations": "vue-tsc --project tsconfig.json --emitDeclarationOnly",
     "tager:update": "yarn upgrade --latest --scope @tager",
     "yalc:clean": "yalc remove --all",
-    "prepare": "yarn build:package"
+    "prepare": "yarn build:package",
+    "storybook": "start-storybook --port 3000"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.2",
+    "@storybook/addon-essentials": "^6.4.21",
+    "@storybook/addon-links": "^6.4.21",
+    "@storybook/builder-webpack5": "^6.4.21",
+    "@storybook/manager-webpack5": "^6.4.21",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/vue3": "^6.4.21",
     "@tager/admin-services": "^1.0.0-rc.25",
-    "@tager/admin-ui": "^1.0.0-rc.11",
+    "@tager/admin-ui": "^1.0.0-rc.13",
+    "@types/lodash.kebabcase": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "@vitejs/plugin-vue": "^2.3.1",
@@ -36,6 +44,8 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.6.0",
+    "msw": "^0.39.2",
+    "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.6.2",
     "sass": "^1.50.0",
     "sass-loader": "^12.6.0",
@@ -54,5 +64,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "lodash.kebabcase": "^4.1.1"
   }
 }

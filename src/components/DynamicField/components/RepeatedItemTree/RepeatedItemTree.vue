@@ -10,7 +10,7 @@
         role="img"
         :class="['icon-chevron-right', { 'icon-expand-more': isOpen }]"
       >
-        <svg-icon name="chevronRight" />
+        <ChevronRightIcon />
       </span>
 
       <span class="title">
@@ -35,19 +35,18 @@
             :index="index"
             :parent-field="field"
             :name-suffix="nameSuffixValue"
-            v-on="$listeners"
           />
         </li>
       </ul>
       <div class="button-row">
-        <base-button
+        <BaseButton
           variant="outline-primary"
           title="Add item"
           :disabled="maxItemsCount && field.value.length >= maxItemsCount"
           @click="addElement"
         >
           Add item
-        </base-button>
+        </BaseButton>
         <span v-if="maxItemsCount && field.value.length >= maxItemsCount">
           Maximum items count: <b>{{ maxItemsCount }}</b>
         </span>
@@ -57,29 +56,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 import { createId } from "@tager/admin-services";
-import { useLocalStorage } from "@tager/admin-ui";
+import { useLocalStorage, ChevronRightIcon, BaseButton } from "@tager/admin-ui";
 
 import { RepeaterField } from "../../../../typings/model";
 import { universalFieldUtils } from "../../../../services/fields";
 import RepeatedItem from "../RepeatedItem/RepeatedItem.vue";
 import RepeatedItemTable from "../RepeatedItemTable.vue";
 
-type Props = Readonly<{
+interface Props {
   field: RepeaterField;
   defaultIsOpen: boolean;
   maxItemsCount?: number;
   nameSuffix?: string;
-}>;
+}
 
-export default defineComponent<Props>({
+export default defineComponent({
   name: "RepeatedItemTree",
-  components: { RepeatedItem, RepeatedItemTable },
+  components: { RepeatedItem, RepeatedItemTable, ChevronRightIcon, BaseButton },
   props: {
     field: {
-      type: Object,
+      type: Object as PropType<Props["field"]>,
       required: true,
     },
     defaultIsOpen: {
@@ -88,14 +87,14 @@ export default defineComponent<Props>({
     },
     maxItemsCount: {
       type: Number,
-      required: false,
+      default: 0,
     },
     nameSuffix: {
       type: String,
       default: "",
     },
   },
-  setup(props) {
+  setup(props: Props) {
     const pseudoUniqueKey = props.field.config.fields
       .map((field) => field.name)
       .join("").length;
@@ -117,6 +116,7 @@ export default defineComponent<Props>({
         ),
       };
 
+      // eslint-disable-next-line vue/no-mutating-props
       props.field.value.push(newNestedField);
     }
 
@@ -133,7 +133,7 @@ export default defineComponent<Props>({
 
 <style scoped lang="scss">
 .repeated-field-table {
-  ::v-deep .form-group {
+  :deep(.form-group) {
     margin-bottom: 0;
   }
 }

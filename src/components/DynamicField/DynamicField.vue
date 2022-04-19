@@ -1,5 +1,133 @@
+<template>
+  <FormField
+    v-if="is('STRING', 'URL')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <FormField
+    v-else-if="is('DATE')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+    type="date"
+  />
+  <DateTimeInput
+    v-else-if="is('DATETIME')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <FormFieldNumberInput
+    v-else-if="is('NUMBER')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <FormField
+    v-else-if="is('TEXT')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+    type="textarea"
+    :rows="4"
+  />
+  <FormFieldRichTextInput
+    v-else-if="is('HTML')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <FormFieldCheckbox
+    v-else-if="is('TRUE_FALSE')"
+    v-model:checked="field.value"
+    :label="label"
+    :name="name"
+  />
+  <FormFieldSelect
+    v-else-if="is('SELECT')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+    :searchable="field.config.meta.searchable"
+    :options="field.config.meta.options"
+  />
+  <AjaxSelect
+    v-else-if="is('AJAX_SELECT')"
+    v-model:value="field.value"
+    :request-url="field.config.meta.requestUrl"
+    :value-field="field.config.meta.valueField"
+    :label-field="field.config.meta.labelField"
+  />
+  <FormFieldMultiSelect
+    v-else-if="is('MULTI_SELECT')"
+    v-model:selected-options="field.value"
+    :label="label"
+    :name="name"
+    :max-selected-count="field.config.meta.maximumItemsCount"
+    :options="field.config.meta.options"
+  />
+  <FormFieldColorInput
+    v-else-if="is('COLOR')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <ButtonField
+    v-else-if="is('BUTTON')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <MapField
+    v-else-if="is('MAP')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+  />
+  <FormFieldFileInput
+    v-else-if="is('IMAGE')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+    file-type="image"
+    :scenario="field.config.meta.scenario"
+  />
+  <FormFieldFileInput
+    v-else-if="is('GALLERY')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+    file-type="image"
+    multiple
+    :scenario="field.config.meta.scenario"
+    :with-captions="field.config.meta.withCaptions"
+  />
+  <FormFieldFileInput
+    v-else-if="is('FILE')"
+    v-model:value="field.value"
+    :label="label"
+    :name="name"
+    file-type="file"
+    :scenario="field.config.meta.scenario"
+  />
+  <RepeatedItemTree
+    v-else-if="is('REPEATER')"
+    :field="field"
+    :name-suffix="nameSuffix"
+    :name="name"
+    :default-is-open="field.config.meta.defaultIsOpen"
+    :max-items-count="field.config.meta.maximumItemsCount"
+  />
+  <FieldGroup
+    v-else-if="is('GROUP')"
+    :field="field"
+    :default-is-open="field.config.meta.defaultIsOpen"
+  />
+  <div v-else>Unknown field with type: {{ field.config.type }}</div>
+</template>
 <script lang="ts">
-import { defineComponent, VNode } from "vue";
+import { computed, defineComponent, PropType } from "vue";
 
 import {
   FormField,
@@ -29,9 +157,25 @@ interface Props {
 
 export default defineComponent({
   name: "DynamicField",
+  components: {
+    FormField,
+    FormFieldFileInput,
+    FormFieldRichTextInput,
+    FormFieldNumberInput,
+    FormFieldCheckbox,
+    FormFieldSelect,
+    FormFieldMultiSelect,
+    FormFieldColorInput,
+    ButtonField,
+    DateTimeInput,
+    MapField,
+    AjaxSelect,
+    RepeatedItemTree,
+    FieldGroup,
+  },
   props: {
     field: {
-      type: Object,
+      type: Object as PropType<Props["field"]>,
       required: true,
     },
     isLabelHidden: {
@@ -43,243 +187,18 @@ export default defineComponent({
       default: "",
     },
   },
-  render(h, context) {
-    const isLabelHidden = context.props.isLabelHidden;
+  setup(props: Props) {
+    const label = computed(() =>
+      props.isLabelHidden ? null : props.field.config.label
+    );
 
-    function renderField(field: FieldUnion): VNode {
-      const commonProps = {
-        label: isLabelHidden ? null : field.config.label,
-        name: field.config.name + context.props.nameSuffix,
-        value: field.value,
-      };
+    const name = computed(() => props.field.config.name + props.nameSuffix);
 
-      function handleChange(event: FieldUnion["value"]) {
-        field.value = event;
-      }
-
-      switch (field.config.type) {
-        case "URL":
-        case "STRING":
-          return h(FormField, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              input: handleChange,
-            },
-          });
-        case "DATE":
-          return h(FormField, {
-            props: {
-              ...commonProps,
-              type: "date",
-            },
-            on: {
-              ...context.listeners,
-              input: handleChange,
-            },
-          });
-        case "DATETIME":
-          return h(DateTimeInput, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "NUMBER":
-          return h(FormFieldNumberInput, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              input: handleChange,
-            },
-          });
-        case "TEXT":
-          return h(FormField, {
-            props: {
-              ...commonProps,
-              type: "textarea",
-              rows: 4,
-            },
-            on: {
-              ...context.listeners,
-              input: handleChange,
-            },
-          });
-        case "HTML":
-          return h(FormFieldRichTextInput, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              input: handleChange,
-            },
-          });
-        case "TRUE_FALSE":
-          return h(FormFieldCheckbox, {
-            props: {
-              label: commonProps.label,
-              name: commonProps.name,
-              checked: field.value,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "SELECT":
-          return h(FormFieldSelect, {
-            props: {
-              label: commonProps.label,
-              name: commonProps.name,
-              searchable: field.config.meta.searchable,
-            },
-            attrs: {
-              value: commonProps.value,
-              options: field.config.meta.options,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "AJAX_SELECT":
-          return h(AjaxSelect, {
-            props: {
-              requestUrl: field.config.meta.requestUrl,
-              valueField: field.config.meta.valueField,
-              labelField: field.config.meta.labelField,
-            },
-            attrs: {
-              value: commonProps.value,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "MULTI_SELECT":
-          return h(FormFieldMultiSelect, {
-            props: {
-              label: commonProps.label,
-              name: commonProps.name,
-              maxSelectedCount: field.config.meta.maximumItemsCount,
-            },
-            attrs: {
-              selectedOptions: commonProps.value,
-              options: field.config.meta.options,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "COLOR":
-          return h(FormFieldColorInput, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "BUTTON":
-          return h(ButtonField, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "MAP":
-          return h(MapField, {
-            props: {
-              ...commonProps,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "IMAGE":
-          return h(FormFieldFileInput, {
-            props: {
-              ...commonProps,
-            },
-            attrs: {
-              fileType: "image",
-              scenario: field.config.meta.scenario,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "GALLERY":
-          return h(FormFieldFileInput, {
-            props: {
-              label: isLabelHidden ? null : field.config.label,
-              name: field.config.name,
-              value: field.value,
-            },
-            attrs: {
-              fileType: "image",
-              multiple: true,
-              scenario: field.config.meta.scenario,
-              withCaptions: field.config.meta.withCaptions,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "FILE":
-          return h(FormFieldFileInput, {
-            props: {
-              ...commonProps,
-            },
-            attrs: {
-              fileType: "file",
-              scenario: field.config.meta.scenario,
-            },
-            on: {
-              ...context.listeners,
-              change: handleChange,
-            },
-          });
-        case "REPEATER":
-          return h(RepeatedItemTree, {
-            props: {
-              field,
-              nameSuffix: context.props.nameSuffix,
-              defaultIsOpen: field.config.meta.defaultIsOpen,
-              maxItemsCount: field.config.meta.maximumItemsCount,
-            },
-          });
-        case "GROUP":
-          return h(FieldGroup, {
-            props: { field, defaultIsOpen: field.config.meta.defaultIsOpen },
-          });
-
-        default: {
-          const unknownFieldType = field.config.type;
-          console.warn("Cannot render Component for field", field.config);
-          return h("div", `Unknown field with type: ${unknownFieldType}`);
-        }
-      }
+    function is(...types: string[]): boolean {
+      return types.includes(props.field.config.type);
     }
 
-    return renderField(context.props.field);
+    return { label, name, is };
   },
 });
 </script>

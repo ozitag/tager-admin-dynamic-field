@@ -36,8 +36,7 @@
     </div>
     <div v-show="isOpen" class="item-form">
       <fieldset>
-        <component
-          :is="components.DynamicField"
+        <DynamicField
           v-for="field of item.value"
           :key="field.id"
           :field="field"
@@ -49,7 +48,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import {
+  Component,
+  defineAsyncComponent,
+  DefineComponent,
+  defineComponent,
+  PropType,
+  ref,
+} from "vue";
 
 import {
   ExpandMoreIcon,
@@ -61,7 +67,6 @@ import {
 } from "@tager/admin-ui";
 
 import { RepeaterField } from "../../../../typings/model";
-import DynamicField from "../../DynamicField.vue";
 
 import { moveItem, removeItem } from "./RepeatedItem.helpers";
 
@@ -69,8 +74,7 @@ interface Props {
   item: RepeaterField["value"][number];
   parentField: RepeaterField;
   index: number;
-  nameSuffix: number;
-  components: { DynamicField: typeof DynamicField };
+  nameSuffix: string;
 }
 
 export default defineComponent({
@@ -82,26 +86,17 @@ export default defineComponent({
     NorthIcon,
     SouthIcon,
     DeleteIcon,
+    DynamicField: defineAsyncComponent<Component>(
+      () => import("../../DynamicField.vue")
+    ),
   },
   props: {
-    /**
-     * Here we use hack: (https://github.com/vuejs/vue/issues/7492#issuecomment-369507267)
-     * because vue don't understand functional component in "components" option
-     */
-    components: {
-      type: Object,
-      default() {
-        return {
-          DynamicField,
-        };
-      },
-    },
     item: {
-      type: Object,
+      type: Object as PropType<Props["item"]>,
       required: true,
     },
     parentField: {
-      type: Object,
+      type: Object as PropType<Props["parentField"]>,
       required: true,
     },
     index: {
@@ -133,7 +128,6 @@ export default defineComponent({
       handleItemMove,
       isOpen,
       toggleItem,
-      nameSuffix: props.nameSuffix,
     };
   },
 });

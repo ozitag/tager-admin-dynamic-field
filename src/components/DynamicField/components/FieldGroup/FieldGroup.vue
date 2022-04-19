@@ -29,12 +29,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import {
+  Component,
+  defineAsyncComponent,
+  defineComponent,
+  PropType,
+} from "vue";
 
 import { useLocalStorage, ChevronRightIcon } from "@tager/admin-ui";
 
 import { GroupField } from "../../../../typings/model";
-import DynamicField from "../../DynamicField.vue";
 
 interface Props {
   field: GroupField;
@@ -45,7 +49,9 @@ export default defineComponent({
   name: "FieldGroup",
   components: {
     ChevronRightIcon,
-    DynamicField,
+    DynamicField: defineAsyncComponent<Component>(
+      () => import("../../DynamicField.vue")
+    ),
   },
   props: {
     field: {
