@@ -42,12 +42,12 @@
         <BaseButton
           variant="outline-primary"
           title="Add item"
-          :disabled="maxItemsCount && field.value.length >= maxItemsCount"
+          :disabled="maxItemsCount > 0 && field.value.length >= maxItemsCount"
           @click="addElement"
         >
           Add item
         </BaseButton>
-        <span v-if="maxItemsCount && field.value.length >= maxItemsCount">
+        <span v-if="maxItemsCount > 0 && field.value.length >= maxItemsCount">
           Maximum items count: <b>{{ maxItemsCount }}</b>
         </span>
       </div>
@@ -69,8 +69,8 @@ import RepeatedItemTable from "../RepeatedItemTable.vue";
 interface Props {
   field: RepeaterField;
   defaultIsOpen: boolean;
-  maxItemsCount?: number;
-  nameSuffix?: string;
+  maxItemsCount: number;
+  nameSuffix: string;
 }
 
 export default defineComponent({
