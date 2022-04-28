@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-dynamic-field",
-  "version": "1.0.0-rc.3s",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
@@ -10,8 +10,7 @@
     ".": "./dist/index.mjs"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "build:js": "vite build",
@@ -22,6 +21,9 @@
     "prepare": "yarn build:package",
     "storybook": "start-storybook --port 3000"
   },
+  "dependencies": {
+    "lodash.kebabcase": "^4.1.1"
+  },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.2",
     "@storybook/addon-essentials": "^6.4.21",
@@ -30,42 +32,39 @@
     "@storybook/manager-webpack5": "^6.4.21",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/vue3": "^6.4.21",
-    "@tager/admin-services": "^1.0.0-rc.25",
-    "@tager/admin-ui": "^1.0.0-rc.17",
+    "@tager/admin-services": "^1.0.0",
+    "@tager/admin-ui": "^1.0.0",
     "@types/lodash.kebabcase": "^4.1.7",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vue/eslint-config-typescript": "^10.0.0",
     "concurrently": "^7.1.0",
-    "core-js": "^3.21.1",
-    "eslint": "^8.13.0",
+    "core-js": "^3.22.3",
+    "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^8.6.0",
+    "eslint-plugin-vue": "^8.7.1",
     "msw": "^0.39.2",
     "msw-storybook-addon": "^1.6.3",
     "prettier": "^2.6.2",
-    "sass": "^1.50.0",
+    "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "storybook-vue3-router": "^2.2.1",
     "typescript": "^4.6.3",
-    "vite": "^2.9.1",
-    "vue": "3.2.31",
+    "vite": "^2.9.6",
+    "vue": "3.2.33",
     "vue-router": "^4.0.14",
-    "vue-tsc": "^0.34.2"
+    "vue-tsc": "^0.34.10"
   },
   "peerDependencies": {
     "@tager/admin-services": "^1.0.0",
     "@tager/admin-ui": "^1.0.0",
-    "vue": "^3.2.x",
-    "vue-router": "^4.0.x"
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.14"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "lodash.kebabcase": "^4.1.1"
   }
 }
