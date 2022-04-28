@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-dynamic-field",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3s",
   "license": "MIT",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
@@ -31,7 +31,7 @@
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/vue3": "^6.4.21",
     "@tager/admin-services": "^1.0.0-rc.25",
-    "@tager/admin-ui": "^1.0.0-rc.13",
+    "@tager/admin-ui": "^1.0.0-rc.17",
     "@types/lodash.kebabcase": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",

@@ -401,14 +401,47 @@ const repeaterField: RepeaterField = {
   value: [],
 };
 
-export const REPEATER: Story = () =>
+export const REPEATER: Story = (args) =>
   defineComponent({
     components: { DynamicField },
     setup() {
-      const field = ref<RepeaterField>(repeaterField);
+      const field = ref<RepeaterField>({
+        ...repeaterField,
+        config: {
+          ...repeaterField.config,
+          meta: {
+            ...repeaterField.config.meta,
+            view: args.isTable ? "TABLE" : undefined,
+          },
+        },
+      });
+
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `<DynamicField :field="field" : />`,
+  });
+
+const repeaterAsTableField: RepeaterField = {
+  id: createId(),
+  config: {
+    name: "users",
+    label: "Users",
+    type: "REPEATER",
+    fields: [stringField.config, textField.config],
+    meta: { defaultIsOpen: false, maximumItemsCount: 5, view: "TABLE" },
+  },
+  value: [],
+};
+
+export const REPEATER_AS_TABLE: Story = () =>
+  defineComponent({
+    components: { DynamicField },
+    setup() {
+      const field = ref<RepeaterField>(repeaterAsTableField);
+
+      return { field };
+    },
+    template: `<DynamicField :field="field" : />`,
   });
 
 const groupField: GroupField = {

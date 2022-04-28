@@ -2398,10 +2398,10 @@
     nanoid "^3.3.2"
     zod "^3.14.4"
 
-"@tager/admin-ui@^1.0.0-rc.13":
-  version "1.0.0-rc.13"
-  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.0-rc.13.tgz#b3e15249c35f14cb56824136c8baafd9db842771"
-  integrity sha512-rktEWTtSH/Uk1UMW9Mdb8+XgtEF9767TnkgkbeTfo9JHa2ycOHn8PVOk3EbpTaewzPXgWhNMSrPPSK5F4VUBGQ==
+"@tager/admin-ui@^1.0.0-rc.17":
+  version "1.0.0-rc.17"
+  resolved "https://registry.yarnpkg.com/@tager/admin-ui/-/admin-ui-1.0.0-rc.17.tgz#16d06f78a9e3d71c8cc5fe5f69355204428bc89c"
+  integrity sha512-/wHO4M2MHfn6Vx0j6JdY8abTE+j8Li/dohcFPCdGsD/PluQNoeFe9E+/2gKYpjaDmLZKJyAU/Baxb4PwfHkIrg==
   dependencies:
     "@ckeditor/ckeditor5-vue" "^3.0.0"
     "@floating-ui/dom" "^0.4.4"

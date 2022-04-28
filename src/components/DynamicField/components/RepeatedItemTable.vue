@@ -8,7 +8,7 @@
     <template
       v-for="fieldConfig of visibleFields"
       :key="fieldConfig.name"
-      #[getSlotName(field)]="{ row, rowIndex }"
+      #[getSlotName(fieldConfig)]="{ row, rowIndex }"
     >
       <td :style="{ width: columnWidth }">
         <DynamicField
@@ -100,7 +100,7 @@ export default defineComponent({
       default: "",
     },
   },
-  setup(props: Props, context) {
+  setup(props: Props) {
     type RowData = Record<string, FieldUnion>;
 
     const visibleFields = computed(() =>
