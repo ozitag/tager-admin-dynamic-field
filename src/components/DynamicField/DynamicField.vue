@@ -21,7 +21,7 @@
     :name="name"
     @update:value="handleUpdate"
   />
-  <FormFieldNumberInput
+  <FormField type="number"
     v-else-if="is('NUMBER')"
     :value="field.value"
     :label="label"
@@ -149,7 +149,6 @@ import {
   FormField,
   FormFieldFileInput,
   FormFieldRichTextInput,
-  FormFieldNumberInput,
   FormFieldCheckbox,
   FormFieldSelect,
   FormFieldMultiSelect,
@@ -177,7 +176,6 @@ export default defineComponent({
     FormField,
     FormFieldFileInput,
     FormFieldRichTextInput,
-    FormFieldNumberInput,
     FormFieldCheckbox,
     FormFieldSelect,
     FormFieldMultiSelect,
