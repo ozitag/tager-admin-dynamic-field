@@ -456,8 +456,9 @@ export const REPEATER_AS_BLOCK: Story = (args) =>
           meta: {
             ...repeaterField.config.meta,
             view: args.isTable ? "TABLE" : "BLOCK",
-            titleFormatter: (index, values) => {
-              return `${index}. ${values[0].value} - ${values[1].value}`;
+            titleFormatter: (values) => {
+              if (!values[0].value) return null;
+              return `${values[0].value} - ${values[1].value}`;
             },
           },
         },

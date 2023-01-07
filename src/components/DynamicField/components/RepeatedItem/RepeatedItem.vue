@@ -2,9 +2,13 @@
   <div class="menu-item">
     <div class="top">
       <button class="title-button" @click="toggleItem">
-        {{ title }}
+        <span class="title-button__index">
+          {{ index + 1 }}
+        </span>
+        <span class="title-button__title">
+          {{ title }}
+        </span>
       </button>
-
       <div>
         <BaseButton variant="icon" title="Move up" @click="toggleItem">
           <ExpandLessIcon v-if="isOpen" />
@@ -112,9 +116,7 @@ export default defineComponent({
   },
   setup(props: Props) {
     const isOpen = ref<boolean>(false);
-    const title = ref<string>(
-      props.parentField.config.label + " - #" + (props.index + 1)
-    );
+    const title = ref<string>(props.parentField.config.label);
 
     function toggleItem() {
       isOpen.value = !isOpen.value;
@@ -130,10 +132,14 @@ export default defineComponent({
 
     const updateValue = () => {
       if (props.parentField.config.meta?.titleFormatter) {
-        title.value = props.parentField.config.meta.titleFormatter(
-          props.index + 1,
+        const newValue = props.parentField.config.meta.titleFormatter(
           props.item.value
         );
+
+        title.value =
+          newValue === null ? props.parentField.config.label : newValue;
+      } else {
+        title.value = props.parentField.config.label;
       }
     };
 
@@ -174,12 +180,30 @@ export default defineComponent({
 
     .title-button {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      font-weight: bold;
+      align-items: center;
+
+      &__title {
+        display: block;
+        font-weight: bold;
+        transition: 0.3s all ease;
+      }
+
+      &__index {
+        border: 1px solid #aaa;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+      }
 
       &:hover {
-        color: #777;
+        .title-button__title {
+          color: #777;
+        }
       }
     }
   }
