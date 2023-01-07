@@ -48,7 +48,8 @@ export const STRING: Story = () =>
       const field = ref<StringField>(stringField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const urlField: UrlField = {
@@ -69,7 +70,8 @@ export const URL: Story = () =>
       const field = ref<UrlField>(urlField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const dateField: DateField = {
@@ -90,7 +92,8 @@ export const DATE: Story = () =>
       const field = ref<DateField>(dateField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const dateTimeField: DateTimeField = {
@@ -111,7 +114,8 @@ export const DATETIME: Story = () =>
       const field = ref<DateTimeField>(dateTimeField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const numberField: NumberField = {
@@ -132,7 +136,8 @@ export const NUMBER: Story = () =>
       const field = ref<NumberField>(numberField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const textField: TextField = {
@@ -154,7 +159,8 @@ export const TEXT: Story = () =>
       const field = ref<TextField>(textField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const htmlField: HtmlField = {
@@ -176,7 +182,8 @@ export const HTML: Story = () =>
       const field = ref<HtmlField>(htmlField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const booleanField: BooleanField = {
@@ -197,7 +204,8 @@ export const TRUE_FALSE: Story = () =>
       const field = ref<BooleanField>(booleanField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const selectField: SelectField = {
@@ -218,7 +226,8 @@ export const SELECT: Story = () =>
       const field = ref<SelectField>(selectField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const ajaxSelectField: AjaxSelectField = {
@@ -239,7 +248,8 @@ export const AJAX_SELECT: Story = () =>
       const field = ref<AjaxSelectField>(ajaxSelectField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const multiSelectField: MultiSelectField = {
@@ -260,7 +270,8 @@ export const MULTI_SELECT: Story = () =>
       const field = ref<MultiSelectField>(multiSelectField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const colorField: ColorField = {
@@ -281,7 +292,8 @@ export const COLOR: Story = () =>
       const field = ref<ColorField>(colorField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const buttonField: ButtonField = {
@@ -302,7 +314,8 @@ export const BUTTON: Story = () =>
       const field = ref<ButtonField>(buttonField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const mapField: MapField = {
@@ -323,7 +336,8 @@ export const MAP: Story = () =>
       const field = ref<MapField>(mapField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const imageField: ImageField = {
@@ -344,7 +358,8 @@ export const IMAGE: Story = () =>
       const field = ref<ImageField>(imageField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const galleryField: GalleryField = {
@@ -365,7 +380,8 @@ export const GALLERY: Story = () =>
       const field = ref<GalleryField>(galleryField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const fileField: FileField = {
@@ -386,7 +402,8 @@ export const FILE: Story = () =>
       const field = ref<FileField>(fileField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });
 
 const repeaterField: RepeaterField = {
@@ -396,7 +413,11 @@ const repeaterField: RepeaterField = {
     label: "Users",
     type: "REPEATER",
     fields: [stringField.config, textField.config],
-    meta: { defaultIsOpen: false, maximumItemsCount: 5 },
+    meta: {
+      defaultIsOpen: true,
+      maximumItemsCount: 5,
+      addLabel: "New Element",
+    },
   },
   value: [],
 };
@@ -418,7 +439,8 @@ export const REPEATER: Story = (args) =>
 
       return { field };
     },
-    template: `<DynamicField :field="field" : />`,
+    template: `
+          <DynamicField :field="field" :/>`,
   });
 
 const repeaterAsTableField: RepeaterField = {
@@ -428,7 +450,11 @@ const repeaterAsTableField: RepeaterField = {
     label: "Users",
     type: "REPEATER",
     fields: [stringField.config, textField.config],
-    meta: { defaultIsOpen: false, maximumItemsCount: 5, view: "TABLE" },
+    meta: {
+      defaultIsOpen: false,
+      maximumItemsCount: 5,
+      view: "TABLE",
+    },
   },
   value: [],
 };
@@ -441,7 +467,8 @@ export const REPEATER_AS_TABLE: Story = () =>
 
       return { field };
     },
-    template: `<DynamicField :field="field" : />`,
+    template: `
+          <DynamicField :field="field" :/>`,
   });
 
 const groupField: GroupField = {
@@ -451,7 +478,7 @@ const groupField: GroupField = {
     label: "User",
     type: "GROUP",
     fields: [stringField.config, textField.config],
-    meta: { defaultIsOpen: false },
+    meta: { defaultIsOpen: false, hideCount: true },
   },
   value: [stringField, textField],
 };
@@ -463,5 +490,6 @@ export const GROUP: Story = () =>
       const field = ref<GroupField>(groupField);
       return { field };
     },
-    template: `<DynamicField :field="field" />`,
+    template: `
+          <DynamicField :field="field"/>`,
   });

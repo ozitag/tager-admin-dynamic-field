@@ -1,24 +1,12 @@
 <template>
   <div class="repeated-field">
-    <button
-      type="button"
-      :class="['title-button', isOpen ? 'collapse' : 'expand']"
-      :title="isOpen ? 'Collapse' : 'Expand'"
-      @click="toggleChildren"
+    <ToggleSection
+      v-model:isOpen="isOpen"
+      :label="`${field.config.label}${
+        !hideCount ? ' (' + field.value.length + ')' : ''
+      }`"
+      @toggle="setIsOpen"
     >
-      <span
-        role="img"
-        :class="['icon-chevron-right', { 'icon-expand-more': isOpen }]"
-      >
-        <ChevronRightIcon />
-      </span>
-
-      <span class="title">
-        {{ field.config.label }} ({{ field.value.length }})
-      </span>
-    </button>
-
-    <div v-show="isOpen" class="content">
       <RepeatedItemTable
         v-if="isTable"
         :field="field"
@@ -41,25 +29,25 @@
       <div class="button-row">
         <BaseButton
           variant="outline-primary"
-          title="Add item"
           :disabled="maxItemsCount > 0 && field.value.length >= maxItemsCount"
           @click="addElement"
         >
-          Add item
+          {{ addLabel || i18n.t("dynamic-field:Add") }}
         </BaseButton>
         <span v-if="maxItemsCount > 0 && field.value.length >= maxItemsCount">
-          Maximum items count: <b>{{ maxItemsCount }}</b>
+          {{ i18n.t("dynamic-field:MaximumItemsCount") }}:
+          <b>{{ maxItemsCount }}</b>
         </span>
       </div>
-    </div>
+    </ToggleSection>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { createId } from "@tager/admin-services";
-import { useLocalStorage, ChevronRightIcon, BaseButton } from "@tager/admin-ui";
+import { createId, useI18n } from "@tager/admin-services";
+import { useLocalStorage, BaseButton, ToggleSection } from "@tager/admin-ui";
 
 import type { RepeaterField } from "../../../../typings/model";
 import { universalFieldUtils } from "../../../../services/fields";
@@ -71,11 +59,13 @@ interface Props {
   defaultIsOpen: boolean;
   maxItemsCount: number;
   nameSuffix: string;
+  hideCount: boolean;
+  addLabel?: string;
 }
 
 export default defineComponent({
   name: "RepeatedItemTree",
-  components: { RepeatedItem, RepeatedItemTable, ChevronRightIcon, BaseButton },
+  components: { RepeatedItem, RepeatedItemTable, BaseButton, ToggleSection },
   props: {
     field: {
       type: Object as PropType<Props["field"]>,
@@ -93,8 +83,17 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    hideCount: {
+      type: Boolean,
+      default: false,
+    },
+    addLabel: {
+      type: String,
+      default: null,
+    },
   },
   setup(props: Props) {
+    const i18n = useI18n();
     const pseudoUniqueKey = props.field.config.fields
       .map((field) => field.name)
       .join("").length;
@@ -103,10 +102,6 @@ export default defineComponent({
       `is_${props.field.config.name}_${pseudoUniqueKey}_open`,
       props.defaultIsOpen
     );
-
-    function toggleChildren() {
-      setIsOpen(!isOpen.value);
-    }
 
     function addElement() {
       const newNestedField = {
@@ -121,10 +116,11 @@ export default defineComponent({
     }
 
     return {
-      addElement,
-      toggleChildren,
-      nameSuffixValue: props.nameSuffix,
+      i18n,
       isOpen,
+      setIsOpen,
+      addElement,
+      nameSuffixValue: props.nameSuffix,
       isTable: props.field.config.meta.view === "TABLE",
     };
   },
@@ -193,6 +189,10 @@ export default defineComponent({
 .button-row {
   display: flex;
   align-items: center;
+
+  > button {
+    min-width: 150px;
+  }
 
   span {
     display: inline-block;

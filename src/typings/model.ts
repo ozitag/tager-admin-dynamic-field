@@ -310,6 +310,8 @@ export interface RepeaterFieldConfig extends FieldConfig {
     defaultIsOpen?: boolean;
     hidden?: boolean;
     maximumItemsCount?: number;
+    hideCount?: boolean;
+    addLabel?: string;
   };
 }
 

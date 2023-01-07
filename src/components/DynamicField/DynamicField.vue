@@ -21,8 +21,9 @@
     :name="name"
     @update:value="handleUpdate"
   />
-  <FormField type="number"
+  <FormField
     v-else-if="is('NUMBER')"
+    type="number"
     :value="field.value"
     :label="label"
     :name="name"
@@ -132,6 +133,8 @@
     :field="field"
     :name-suffix="nameSuffix"
     :name="name"
+    :add-label="field.config.meta.addLabel"
+    :hide-count="field.config.meta.hideCount"
     :default-is-open="field.config.meta.defaultIsOpen"
     :max-items-count="field.config.meta.maximumItemsCount"
   />
