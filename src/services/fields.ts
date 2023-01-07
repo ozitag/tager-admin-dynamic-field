@@ -87,6 +87,10 @@ import type {
   GroupFieldConfig,
   GroupField,
   GroupOutgoingValue,
+  MinMaxIncomingValue,
+  MinMaxFieldConfig,
+  MinMaxField,
+  MinMaxOutgoingValue,
 } from "../typings/model";
 
 interface FieldUtils<
@@ -265,6 +269,31 @@ const numberFieldUtils: NumberFieldUtilsType = {
       value: isNotNullish(incomingValue)
         ? String(incomingValue)
         : this.getDefaultFormFieldValue(),
+    };
+  },
+  getOutgoingValue(field) {
+    return field.value;
+  },
+};
+
+/** MIN_MAX **/
+type MinMaxFieldUtilsType = FieldUtils<
+  MinMaxIncomingValue,
+  MinMaxFieldConfig,
+  MinMaxField,
+  MinMaxOutgoingValue
+>;
+
+const minMaxFieldUtils: MinMaxFieldUtilsType = {
+  type: "MIN_MAX",
+  getDefaultFormFieldValue() {
+    return null;
+  },
+  createFormField(fieldConfig, incomingValue) {
+    return {
+      id: createId(),
+      config: fieldConfig,
+      value: incomingValue ?? this.getDefaultFormFieldValue(fieldConfig),
     };
   },
   getOutgoingValue(field) {
@@ -763,6 +792,7 @@ const FIELD_UTILS_LIST = [
   repeaterFieldUtils,
   groupFieldUtils,
   unknownFieldUtils,
+  minMaxFieldUtils,
 ];
 
 type FieldUtilsUnion = typeof FIELD_UTILS_LIST[number];
