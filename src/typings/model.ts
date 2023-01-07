@@ -10,7 +10,7 @@ export interface FieldConfig {
   readonly name: string;
   readonly label: string;
   readonly type: string;
-  readonly meta: Record<string, unknown>;
+  readonly meta?: Record<string, unknown>;
   readonly fields?: Array<FieldConfig>;
 }
 
@@ -27,7 +27,7 @@ export type FieldShortType<Value> = {
 
 export interface UnknownFieldConfig extends FieldConfig {
   type: "UNKNOWN";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -40,7 +40,7 @@ export type UnknownOutgoingValue = null;
 
 export interface StringFieldConfig extends FieldConfig {
   type: "STRING";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -53,7 +53,7 @@ export type StringOutgoingValue = string;
 
 export interface UrlFieldConfig extends FieldConfig {
   type: "URL";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -66,7 +66,7 @@ export type UrlOutgoingValue = string;
 
 export interface DateFieldConfig extends FieldConfig {
   type: "DATE";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -79,7 +79,7 @@ export type DateOutgoingValue = string;
 
 export interface DateTimeFieldConfig extends FieldConfig {
   type: "DATETIME";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -92,7 +92,7 @@ export type DateTimeOutgoingValue = string;
 
 export interface TextFieldConfig extends FieldConfig {
   type: "TEXT";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -105,7 +105,7 @@ export type TextOutgoingValue = string;
 
 export interface HtmlFieldConfig extends FieldConfig {
   type: "HTML";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -118,7 +118,7 @@ export type HtmlOutgoingValue = string;
 
 export interface NumberFieldConfig extends FieldConfig {
   type: "NUMBER";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -131,7 +131,7 @@ export type NumberOutgoingValue = string;
 
 export interface ImageFieldConfig extends FieldConfig {
   type: "IMAGE";
-  meta: {
+  meta?: {
     scenario?: Nullable<string>;
     hidden?: boolean;
   };
@@ -148,7 +148,7 @@ export type ImageOutgoingValue = Nullable<string>;
 
 export interface GalleryFieldConfig extends FieldConfig {
   type: "GALLERY";
-  meta: {
+  meta?: {
     scenario?: Nullable<string>;
     withCaptions?: boolean;
     hidden?: boolean;
@@ -172,7 +172,7 @@ export type GalleryOutgoingValue = Array<{
 
 export interface FileFieldConfig extends FieldConfig {
   type: "FILE";
-  meta: {
+  meta?: {
     scenario?: Nullable<string>;
     hidden?: boolean;
   };
@@ -189,6 +189,9 @@ export type FileOutgoingValue = Nullable<string>;
 
 export interface MinMaxFieldConfig extends FieldConfig {
   type: "MIN_MAX";
+  meta?: {
+    hidden?: boolean;
+  };
 }
 
 export type MinMaxField = Field<MinMaxFieldConfig, Nullable<MinMaxValue>>;
@@ -199,7 +202,7 @@ export type MinMaxOutgoingValue = MinMaxValue;
 
 export interface BooleanFieldConfig extends FieldConfig {
   type: "TRUE_FALSE";
-  meta: {
+  meta?: {
     hidden?: boolean;
     defaultValue?: boolean;
   };
@@ -268,7 +271,7 @@ export type MultiSelectOutgoingValue = Array<OptionValueType>;
 
 export interface ColorFieldConfig extends FieldConfig {
   type: "COLOR";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -287,7 +290,7 @@ type ButtonFieldValue = Nullable<{
 
 export interface ButtonFieldConfig extends FieldConfig {
   type: "BUTTON";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -305,7 +308,7 @@ type MapFieldValue = Nullable<{
 
 export interface MapFieldConfig extends FieldConfig {
   type: "MAP";
-  meta: {
+  meta?: {
     hidden?: boolean;
   };
 }
@@ -317,11 +320,12 @@ export type MapOutgoingValue = MapFieldValue;
 /** REPEATER */
 
 type RepeaterFieldConfigUnion = FieldConfigUnion & { width?: string };
+
 export interface RepeaterFieldConfig extends FieldConfig {
   type: "REPEATER";
   fields: Array<RepeaterFieldConfigUnion>;
-  meta: {
-    view?: "TABLE";
+  meta?: {
+    view?: "TABLE" | "BLOCK";
     defaultIsOpen?: boolean;
     hidden?: boolean;
     maximumItemsCount?: number;
@@ -346,7 +350,7 @@ export type RepeaterOutgoingValue = Array<
 export interface GroupFieldConfig extends FieldConfig {
   type: "GROUP";
   fields: Array<FieldConfigUnion>;
-  meta: {
+  meta?: {
     defaultIsOpen?: boolean;
     hidden?: boolean;
   };

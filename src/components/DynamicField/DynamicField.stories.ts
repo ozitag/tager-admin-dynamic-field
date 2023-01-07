@@ -445,7 +445,7 @@ const repeaterField: RepeaterField = {
   value: [],
 };
 
-export const REPEATER: Story = (args) =>
+export const REPEATER_AS_BLOCK: Story = (args) =>
   defineComponent({
     components: { DynamicField },
     setup() {
@@ -455,7 +455,7 @@ export const REPEATER: Story = (args) =>
           ...repeaterField.config,
           meta: {
             ...repeaterField.config.meta,
-            view: args.isTable ? "TABLE" : undefined,
+            view: args.isTable ? "TABLE" : "BLOCK",
           },
         },
       });

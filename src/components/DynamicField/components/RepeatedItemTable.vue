@@ -103,7 +103,7 @@ export default defineComponent({
 
     const visibleFields = computed(() =>
       props.field.config.fields.filter(
-        (fieldConfig) => !fieldConfig.meta.hidden
+        (fieldConfig) => !fieldConfig.meta?.hidden
       )
     );
 
