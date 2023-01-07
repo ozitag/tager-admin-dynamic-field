@@ -1,12 +1,12 @@
 <template>
-  <div class="repeated-field">
-    <ToggleSection
-      v-model:isOpen="isOpen"
-      :label="`${field.config.label}${
-        !hideCount ? ' (' + field.value.length + ')' : ''
-      }`"
-      @toggle="setIsOpen"
-    >
+  <ToggleSection
+    v-model:isOpen="isOpen"
+    :label="`${field.config.label}${
+      !hideCount ? ' (' + field.value.length + ')' : ''
+    }`"
+    @toggle="setIsOpen"
+  >
+    <div class="repeated-field-inner">
       <RepeatedItemTable
         v-if="isTable"
         :field="field"
@@ -39,8 +39,8 @@
           <b>{{ maxItemsCount }}</b>
         </span>
       </div>
-    </ToggleSection>
-  </div>
+    </div>
+  </ToggleSection>
 </template>
 
 <script lang="ts">
@@ -134,9 +134,7 @@ export default defineComponent({
   }
 }
 
-.repeated-field {
-  margin-bottom: 1rem;
-
+.repeated-field-inner {
   .title-button {
     display: inline-flex;
     align-items: center;
@@ -180,23 +178,23 @@ export default defineComponent({
     margin: 1rem 0 2rem 0;
     padding: 0 1.5rem;
   }
-}
 
-.nested-element-container {
-  margin-bottom: 0.7rem;
-}
-
-.button-row {
-  display: flex;
-  align-items: center;
-
-  > button {
-    min-width: 150px;
+  .nested-element-container {
+    margin-bottom: 0.7rem;
   }
 
-  span {
-    display: inline-block;
-    margin-left: 10px;
+  .button-row {
+    display: flex;
+    align-items: center;
+
+    > button {
+      min-width: 150px;
+    }
+
+    span {
+      display: inline-block;
+      margin-left: 10px;
+    }
   }
 }
 </style>
