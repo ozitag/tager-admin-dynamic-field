@@ -316,9 +316,10 @@ export type MapOutgoingValue = MapFieldValue;
 
 /** REPEATER */
 
+type RepeaterFieldConfigUnion = FieldConfigUnion & { width?: string };
 export interface RepeaterFieldConfig extends FieldConfig {
   type: "REPEATER";
-  fields: Array<FieldConfigUnion>;
+  fields: Array<RepeaterFieldConfigUnion>;
   meta: {
     view?: "TABLE";
     defaultIsOpen?: boolean;

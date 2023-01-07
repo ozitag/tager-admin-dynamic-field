@@ -228,7 +228,7 @@ export const MIN_MAX: Story = () =>
       return { field };
     },
     template: `
-      <DynamicField :field="field"/>`,
+          <DynamicField :field="field"/>`,
   });
 
 const selectField: SelectField = {
@@ -472,7 +472,7 @@ const repeaterAsTableField: RepeaterField = {
     name: "users",
     label: "Users",
     type: "REPEATER",
-    fields: [stringField.config, textField.config],
+    fields: [{ ...stringField.config, width: "30%" }, textField.config],
     meta: {
       defaultIsOpen: false,
       maximumItemsCount: 5,
@@ -501,7 +501,7 @@ const groupField: GroupField = {
     label: "User",
     type: "GROUP",
     fields: [stringField.config, textField.config],
-    meta: { defaultIsOpen: false, hideCount: true },
+    meta: { defaultIsOpen: false },
   },
   value: [stringField, textField],
 };

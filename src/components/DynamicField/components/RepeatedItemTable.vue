@@ -10,17 +10,15 @@
       :key="fieldConfig.name"
       #[getSlotName(fieldConfig)]="{ row, rowIndex }"
     >
-      <td :style="{ width: columnWidth }">
-        <DynamicField
-          :field="row[fieldConfig.name]"
-          is-label-hidden
-          :name-suffix="nameSuffix + '__' + rowIndex"
-        />
-      </td>
+      <DynamicField
+        :field="row[fieldConfig.name]"
+        is-label-hidden
+        :name-suffix="nameSuffix + '__' + rowIndex"
+      />
     </template>
 
     <template #cell(actions)="{ row, rowIndex }">
-      <td style="width: 140px; white-space: nowrap">
+      <div>
         <BaseButton
           variant="icon"
           :disabled="rowIndex === 0"
@@ -42,7 +40,7 @@
         >
           <DeleteIcon />
         </BaseButton>
-      </td>
+      </div>
     </template>
   </BaseTable>
 </template>
@@ -110,18 +108,30 @@ export default defineComponent({
     );
 
     const columnDefs = computed<Array<ColumnDefinition<RowData>>>(() => {
-      const definitions = visibleFields.value.map((fieldConfig, index) => ({
-        id: index + 1,
-        name: fieldConfig.label,
-        field: fieldConfig.name,
-        useCustomDataCell: true,
-      }));
+      const columnWidth = visibleFields.value.find((item) => item.width)
+        ? "auto"
+        : `calc(100% / ${visibleFields.value.length})`;
+
+      const definitions: Array<ColumnDefinition<RowData>> =
+        visibleFields.value.map((fieldConfig, index) => ({
+          id: index + 1,
+          name: fieldConfig.label,
+          field: fieldConfig.name,
+          style: { width: fieldConfig.width || columnWidth },
+          headStyle: { width: fieldConfig.width || columnWidth },
+        }));
 
       definitions.push({
         id: definitions.length + 1,
-        name: "Actions",
+        name: "",
         field: "actions",
-        useCustomDataCell: true,
+        style: {
+          width: "139px",
+          whiteSpace: "nowrap",
+        },
+        headStyle: {
+          width: "139px",
+        },
       });
 
       return definitions;
@@ -134,10 +144,6 @@ export default defineComponent({
           {}
         )
       )
-    );
-
-    const columnWidth = computed(
-      () => `calc(100% / ${visibleFields.value.length})`
     );
 
     function handleItemRemove(index: number) {
@@ -159,7 +165,6 @@ export default defineComponent({
       handleItemMove,
       handleItemRemove,
       getSlotName,
-      columnWidth,
     };
   },
 });
