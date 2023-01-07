@@ -1,5 +1,9 @@
 import type { Nullable, FileType } from "@tager/admin-services";
-import type { OptionType, SingleFileInputValueType } from "@tager/admin-ui";
+import type {
+  OptionType,
+  SingleFileInputValueType,
+  MinMaxValue,
+} from "@tager/admin-ui";
 
 /** Common */
 export interface FieldConfig {
@@ -181,6 +185,16 @@ export type FileField = Field<
 export type FileIncomingValue = Nullable<FileType>;
 export type FileOutgoingValue = Nullable<string>;
 
+/** MIN_MAX */
+
+export interface MinMaxFieldConfig extends FieldConfig {
+  type: "MIN_MAX";
+}
+
+export type MinMaxField = Field<MinMaxFieldConfig, Nullable<MinMaxValue>>;
+export type MinMaxIncomingValue = Nullable<MinMaxValue>;
+export type MinMaxOutgoingValue = MinMaxValue;
+
 /** BOOLEAN */
 
 export interface BooleanFieldConfig extends FieldConfig {
@@ -353,6 +367,7 @@ export type FieldConfigUnion =
   | ImageFieldConfig
   | GalleryFieldConfig
   | FileFieldConfig
+  | MinMaxFieldConfig
   | BooleanFieldConfig
   | SelectFieldConfig
   | AjaxSelectFieldConfig
@@ -374,6 +389,7 @@ export type FieldUnion =
   | ImageField
   | GalleryField
   | FileField
+  | MinMaxField
   | BooleanField
   | SelectField
   | AjaxSelectField
@@ -396,6 +412,7 @@ export type IncomingValueUnion =
   | ImageIncomingValue
   | GalleryIncomingValue
   | FileIncomingValue
+  | MinMaxIncomingValue
   | BooleanIncomingValue
   | SelectIncomingValue
   | AjaxSelectIncomingValue
@@ -418,6 +435,7 @@ export type OutgoingValueUnion =
   | ImageOutgoingValue
   | GalleryOutgoingValue
   | FileOutgoingValue
+  | MinMaxOutgoingValue
   | BooleanOutgoingValue
   | SelectOutgoingValue
   | AjaxSelectOutgoingValue

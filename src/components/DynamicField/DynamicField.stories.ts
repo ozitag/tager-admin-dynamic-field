@@ -16,6 +16,7 @@ import type {
   HtmlField,
   ImageField,
   MapField,
+  MinMaxField,
   MultiSelectField,
   NumberField,
   RepeaterField,
@@ -206,6 +207,28 @@ export const TRUE_FALSE: Story = () =>
     },
     template: `
           <DynamicField :field="field"/>`,
+  });
+
+const minMaxField: MinMaxField = {
+  id: createId(),
+  config: {
+    name: "min_max",
+    label: "Car Price",
+    type: "MIN_MAX",
+    meta: {},
+  },
+  value: { min: 0, max: 1000 },
+};
+
+export const MIN_MAX: Story = () =>
+  defineComponent({
+    components: { DynamicField },
+    setup() {
+      const field = ref<MinMaxField>(minMaxField);
+      return { field };
+    },
+    template: `
+      <DynamicField :field="field"/>`,
   });
 
 const selectField: SelectField = {

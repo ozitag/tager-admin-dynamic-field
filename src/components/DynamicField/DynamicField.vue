@@ -52,6 +52,13 @@
     :name="name"
     @update:checked="handleUpdate"
   />
+  <FormFieldMinMax
+    v-else-if="is('MIN_MAX')"
+    :value="field.value"
+    :label="label"
+    :name="name"
+    @update:value="handleUpdate"
+  />
   <FormFieldSelect
     v-else-if="is('SELECT')"
     :value="field.value"
@@ -160,6 +167,7 @@ import {
   DateTimeInput,
   MapField,
   AjaxSelect,
+  FormFieldMinMax,
 } from "@tager/admin-ui";
 
 import type { FieldUnion } from "../../typings/model";
@@ -183,6 +191,7 @@ export default defineComponent({
     FormFieldSelect,
     FormFieldMultiSelect,
     FormFieldColorInput,
+    FormFieldMinMax,
     ButtonField,
     DateTimeInput,
     MapField,
