@@ -213,7 +213,8 @@ export default defineComponent({
       default: "",
     },
   },
-  setup(props: Props) {
+  emit: ["change"],
+  setup(props: Props, { emit }) {
     const label = computed(() =>
       props.isLabelHidden ? null : props.field.config.label
     );
@@ -227,6 +228,7 @@ export default defineComponent({
     function handleUpdate(newValue: unknown) {
       // eslint-disable-next-line vue/no-mutating-props
       props.field.value = newValue as FieldUnion["value"];
+      emit("change", props.field.value);
     }
 
     return { label, name, is, handleUpdate };

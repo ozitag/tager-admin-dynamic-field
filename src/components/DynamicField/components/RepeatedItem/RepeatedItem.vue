@@ -2,7 +2,7 @@
   <div class="menu-item">
     <div class="top">
       <button class="title-button" @click="toggleItem">
-        <h4>{{ parentField.config.label }} - #{{ index + 1 }}</h4>
+        {{ title }}
       </button>
 
       <div>
@@ -41,6 +41,7 @@
           :key="field.id"
           :field="field"
           :name-suffix="nameSuffix + '__' + index"
+          @change="onChange"
         />
       </fieldset>
     </div>
@@ -50,8 +51,10 @@
 <script lang="ts">
 import {
   type Component,
+  computed,
   defineAsyncComponent,
   defineComponent,
+  onMounted,
   type PropType,
   ref,
 } from "vue";
@@ -109,6 +112,9 @@ export default defineComponent({
   },
   setup(props: Props) {
     const isOpen = ref<boolean>(false);
+    const title = ref<string>(
+      props.parentField.config.label + " - #" + (props.index + 1)
+    );
 
     function toggleItem() {
       isOpen.value = !isOpen.value;
@@ -122,11 +128,30 @@ export default defineComponent({
       moveItem(props.parentField, props.index, direction);
     }
 
+    const updateValue = () => {
+      if (props.parentField.config.meta?.titleFormatter) {
+        title.value = props.parentField.config.meta.titleFormatter(
+          props.index + 1,
+          props.item.value
+        );
+      }
+    };
+
+    onMounted(() => {
+      updateValue();
+    });
+
+    const onChange = () => {
+      updateValue();
+    };
+
     return {
       handleItemRemove,
       handleItemMove,
       isOpen,
       toggleItem,
+      title,
+      onChange,
     };
   },
 });
@@ -151,6 +176,7 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       justify-content: center;
+      font-weight: bold;
 
       &:hover {
         color: #777;

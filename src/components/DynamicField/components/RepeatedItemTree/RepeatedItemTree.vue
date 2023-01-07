@@ -121,7 +121,7 @@ export default defineComponent({
       setIsOpen,
       addElement,
       nameSuffixValue: props.nameSuffix,
-      isTable: props.field.config.meta.view === "TABLE",
+      isTable: props.field.config.meta?.view === "TABLE",
     };
   },
 });

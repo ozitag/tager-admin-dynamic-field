@@ -331,6 +331,7 @@ export interface RepeaterFieldConfig extends FieldConfig {
     maximumItemsCount?: number;
     hideCount?: boolean;
     addLabel?: string;
+    titleFormatter?: (index: number, fields: Array<FieldUnion>) => string;
   };
 }
 
