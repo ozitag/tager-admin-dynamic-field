@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-dynamic-field",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",

@@ -135,11 +135,12 @@
     :scenario="field.config.meta.scenario"
     @update:value="handleUpdate"
   />
-  <RepeatedItemTree
+  <RepeaterField
     v-else-if="is('REPEATER')"
     :field="field"
     :name-suffix="nameSuffix"
     :name="name"
+    :no-toggle="field.config.meta.noToggle"
     :add-label="field.config.meta.addLabel"
     :hide-count="field.config.meta.hideCount"
     :default-is-open="field.config.meta.defaultIsOpen"
@@ -149,6 +150,7 @@
     v-else-if="is('GROUP')"
     :field="field"
     :default-is-open="field.config.meta.defaultIsOpen"
+    :no-toggle="field.config.meta.noToggle"
   />
   <div v-else>Unknown field with type: {{ field.config.type }}</div>
 </template>
@@ -171,9 +173,8 @@ import {
 } from "@tager/admin-ui";
 
 import type { FieldUnion } from "../../typings/model";
-
-import RepeatedItemTree from "./components/RepeatedItemTree";
-import FieldGroup from "./components/FieldGroup";
+import RepeaterField from "../RepeaterField";
+import FieldGroup from "../GroupField";
 
 interface Props {
   field: FieldUnion;
@@ -196,7 +197,7 @@ export default defineComponent({
     DateTimeInput,
     MapField,
     AjaxSelect,
-    RepeatedItemTree,
+    RepeaterField,
     FieldGroup,
   },
   props: {
@@ -235,5 +236,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped></style>

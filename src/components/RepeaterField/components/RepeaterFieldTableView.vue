@@ -68,8 +68,7 @@ import type {
   FieldUnion,
   RepeaterField,
 } from "../../../typings/model";
-
-import { moveItem, removeItem } from "./RepeatedItem";
+import { moveItem, removeItem } from "../RepeaterField.helpers";
 
 interface Props {
   field: RepeaterField;
@@ -85,7 +84,7 @@ export default defineComponent({
     SouthIcon,
     DeleteIcon,
     DynamicField: defineAsyncComponent<Component>(
-      () => import("../DynamicField.vue")
+      () => import("../../DynamicField/DynamicField.vue")
     ),
   },
   props: {

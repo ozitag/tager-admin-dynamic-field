@@ -55,7 +55,6 @@
 <script lang="ts">
 import {
   type Component,
-  computed,
   defineAsyncComponent,
   defineComponent,
   onMounted,
@@ -72,9 +71,8 @@ import {
   DeleteIcon,
 } from "@tager/admin-ui";
 
-import type { RepeaterField } from "../../../../typings/model";
-
-import { moveItem, removeItem } from "./RepeatedItem.helpers";
+import type { RepeaterField } from "../../../typings/model";
+import { moveItem, removeItem } from "../RepeaterField.helpers";
 
 interface Props {
   item: RepeaterField["value"][number];
@@ -93,7 +91,7 @@ export default defineComponent({
     SouthIcon,
     DeleteIcon,
     DynamicField: defineAsyncComponent<Component>(
-      () => import("../../DynamicField.vue")
+      () => import("../../DynamicField/DynamicField.vue")
     ),
   },
   props: {

@@ -482,6 +482,7 @@ const repeaterAsTableField: RepeaterField = {
       maximumItemsCount: 5,
       view: "TABLE",
       hideCount: true,
+      noToggle: true,
     },
   },
   value: [],

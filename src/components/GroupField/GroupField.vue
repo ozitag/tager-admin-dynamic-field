@@ -1,5 +1,13 @@
 <template>
+  <template v-if="noToggle">
+    <DynamicField
+      v-for="nestedField in field.value"
+      :key="nestedField.config.name"
+      :field="nestedField"
+    />
+  </template>
   <ToggleSection
+    v-else
     v-model:isOpen="isOpen"
     :label="field.config.label"
     @toggle="setIsOpen"
@@ -22,7 +30,7 @@ import {
 
 import { useLocalStorage, ToggleSection } from "@tager/admin-ui";
 
-import type { GroupField } from "../../../../typings/model";
+import type { GroupField } from "../../typings/model";
 
 interface Props {
   field: GroupField;
@@ -30,11 +38,11 @@ interface Props {
 }
 
 export default defineComponent({
-  name: "FieldGroup",
+  name: "GroupField",
   components: {
     ToggleSection,
     DynamicField: defineAsyncComponent<Component>(
-      () => import("../../DynamicField.vue")
+      () => import("../DynamicField/DynamicField.vue")
     ),
   },
   props: {
@@ -43,6 +51,10 @@ export default defineComponent({
       required: true,
     },
     defaultIsOpen: {
+      type: Boolean,
+      default: false,
+    },
+    noToggle: {
       type: Boolean,
       default: false,
     },

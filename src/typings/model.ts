@@ -3,12 +3,13 @@ import type {
   OptionType,
   SingleFileInputValueType,
   MinMaxValue,
+  BaseOptionType,
 } from "@tager/admin-ui";
 
 /** Common */
 export interface FieldConfig {
   readonly name: string;
-  readonly label: string;
+  readonly label?: string;
   readonly type: string;
   readonly meta?: Record<string, unknown>;
   readonly fields?: Array<FieldConfig>;
@@ -220,13 +221,13 @@ export type CommonOptionType = OptionType<OptionValueType>;
 export interface SelectFieldConfig extends FieldConfig {
   type: "SELECT";
   meta: {
-    options: Nullable<Array<CommonOptionType>>;
+    options: Nullable<Array<BaseOptionType>>;
     hidden?: boolean;
     searchable?: boolean;
   };
 }
 
-export type SelectField = Field<SelectFieldConfig, Nullable<CommonOptionType>>;
+export type SelectField = Field<SelectFieldConfig, Nullable<BaseOptionType>>;
 export type SelectIncomingValue = Nullable<OptionValueType>;
 export type SelectOutgoingValue = Nullable<OptionValueType>;
 
@@ -254,7 +255,7 @@ export type AjaxSelectOutgoingValue = Nullable<OptionValueType>;
 export interface MultiSelectFieldConfig extends FieldConfig {
   type: "MULTI_SELECT";
   meta: {
-    options: Nullable<Array<CommonOptionType>>;
+    options: Nullable<Array<BaseOptionType>>;
     hidden?: boolean;
     maximumItemsCount?: number;
   };
@@ -262,7 +263,7 @@ export interface MultiSelectFieldConfig extends FieldConfig {
 
 export type MultiSelectField = Field<
   MultiSelectFieldConfig,
-  Array<CommonOptionType>
+  Array<BaseOptionType>
 >;
 export type MultiSelectIncomingValue = Nullable<Array<OptionValueType>>;
 export type MultiSelectOutgoingValue = Array<OptionValueType>;
@@ -327,6 +328,7 @@ export interface RepeaterFieldConfig extends FieldConfig {
   meta?: {
     view?: "TABLE" | "BLOCK";
     defaultIsOpen?: boolean;
+    noToggle?: boolean;
     hidden?: boolean;
     maximumItemsCount?: number;
     hideCount?: boolean;
@@ -353,6 +355,7 @@ export interface GroupFieldConfig extends FieldConfig {
   fields: Array<FieldConfigUnion>;
   meta?: {
     defaultIsOpen?: boolean;
+    noToggle?: boolean;
     hidden?: boolean;
   };
 }
