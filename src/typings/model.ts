@@ -13,6 +13,7 @@ export interface FieldConfig {
   readonly type: string;
   readonly meta?: Record<string, unknown>;
   readonly fields?: Array<FieldConfig>;
+  readonly checkVisible?: (values: Record<string, unknown>) => boolean;
 }
 
 export interface Field<Config extends FieldConfig, Value = unknown> {
@@ -334,6 +335,7 @@ export interface RepeaterFieldConfig extends FieldConfig {
     hideCount?: boolean;
     addLabel?: string;
     titleFormatter?: (fields: Array<FieldUnion>) => string | null;
+    checkVisible?: (fields: Array<FieldUnion>) => boolean;
   };
 }
 

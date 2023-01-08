@@ -40,13 +40,14 @@
     </div>
     <div v-show="isOpen" class="item-form">
       <fieldset>
-        <DynamicField
-          v-for="field of item.value"
-          :key="field.id"
-          :field="field"
-          :name-suffix="nameSuffix + '__' + index"
-          @change="onChange"
-        />
+        <template v-for="field of item.value" :key="field.id">
+          <DynamicField
+            v-if="checkVisible(field)"
+            :field="field"
+            :name-suffix="nameSuffix + '__' + index"
+            @change="onChange"
+          />
+        </template>
       </fieldset>
     </div>
   </div>
@@ -114,7 +115,7 @@ export default defineComponent({
   },
   setup(props: Props) {
     const isOpen = ref<boolean>(false);
-    const title = ref<string>(props.parentField.config.label);
+    const title = ref<string | null>(props.parentField.config.label || null);
 
     function toggleItem() {
       isOpen.value = !isOpen.value;
@@ -135,9 +136,9 @@ export default defineComponent({
         );
 
         title.value =
-          newValue === null ? props.parentField.config.label : newValue;
+          newValue === null ? props.parentField.config.label || null : newValue;
       } else {
-        title.value = props.parentField.config.label;
+        title.value = props.parentField.config.label || null;
       }
     };
 
@@ -149,7 +150,18 @@ export default defineComponent({
       updateValue();
     };
 
+    const checkVisible = (field: RepeaterField): boolean => {
+      const values: Record<string, unknown> = {};
+
+      props.item.value.forEach((fieldValue) => {
+        values[fieldValue.config.name] = fieldValue.value;
+      });
+
+      return !(field.config.checkVisible && !field.config.checkVisible(values));
+    };
+
     return {
+      checkVisible,
       handleItemRemove,
       handleItemMove,
       isOpen,

@@ -98,7 +98,10 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .button-row {
-  margin-top: 1rem;
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+
   display: flex;
   align-items: center;
 

@@ -1,5 +1,5 @@
 <template>
-  <ul class="nested-element-list">
+  <ul v-if="field.value && field.value.length" class="nested-element-list">
     <li v-for="(nestedElement, index) of field.value" :key="nestedElement.id">
       <RepeaterFieldBlockItem
         :item="nestedElement"
@@ -62,7 +62,7 @@ export default defineComponent({
       const definitions: Array<ColumnDefinition<RowData>> =
         visibleFields.value.map((fieldConfig, index) => ({
           id: index + 1,
-          name: fieldConfig.label,
+          name: fieldConfig.label || "",
           field: fieldConfig.name,
           style: { width: fieldConfig.width || columnWidth },
           headStyle: { width: fieldConfig.width || columnWidth },
@@ -105,7 +105,33 @@ export default defineComponent({
       return `cell(${kebabCase(fieldConfig.name)})`;
     }
 
+    const checkVisible = (index: number): boolean => {
+      const result: Array<{
+        field: string;
+        value: any;
+      }> = [];
+
+      props.field.value[index].value.forEach((item) => {
+        result.push({
+          field: item.config.name,
+          value: item.value,
+        });
+      });
+
+      const rowField = props.field.value[index];
+      // console.log(props.field.config.fields[index]?.checkVisible);
+      /*
+      if(item.config.checkVisible){
+
+      }*/
+
+      // console.log(props.field);
+
+      return true;
+    };
+
     return {
+      checkVisible,
       columnDefs,
       rowData,
       visibleFields,
