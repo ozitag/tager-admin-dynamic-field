@@ -7,6 +7,7 @@
       :name-suffix="nameSuffix"
       :hide-count="hideCount"
       :add-label="addLabel"
+      :disabled="disabled"
     />
   </div>
   <ToggleSection
@@ -21,6 +22,7 @@
       :name-suffix="nameSuffix"
       :hide-count="hideCount"
       :add-label="addLabel"
+      :disabled="disabled"
     />
   </ToggleSection>
 </template>
@@ -58,6 +60,10 @@ export default defineComponent({
       required: true,
     },
     defaultIsOpen: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },

@@ -13,6 +13,7 @@
       <DynamicField
         :field="row[fieldConfig.name]"
         is-label-hidden
+        :disabled="disabled"
         :name-suffix="nameSuffix + '__' + rowIndex"
       />
     </template>
@@ -21,21 +22,23 @@
       <div>
         <BaseButton
           variant="icon"
-          :disabled="rowIndex === 0"
+          :disabled="rowIndex === 0 || disabled"
           @click="handleItemMove(rowIndex, 'up')"
         >
           <NorthIcon />
         </BaseButton>
         <BaseButton
           variant="icon"
-          :disabled="rowIndex === field.value.length - 1"
+          :disabled="rowIndex === field.value.length - 1 || disabled"
           @click="handleItemMove(rowIndex, 'down')"
         >
           <SouthIcon />
         </BaseButton>
         <BaseButton
           variant="icon"
-          :disabled="row.canBeDeleted ? !row.canBeDeleted.value : false"
+          :disabled="
+            disabled || (row.canBeDeleted ? !row.canBeDeleted.value : false)
+          "
           @click="handleItemRemove(rowIndex)"
         >
           <DeleteIcon />
@@ -91,6 +94,10 @@ export default defineComponent({
     field: {
       type: Object as PropType<Props["field"]>,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     nameSuffix: {
       type: String,

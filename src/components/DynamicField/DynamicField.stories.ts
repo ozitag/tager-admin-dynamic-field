@@ -2,6 +2,7 @@ import { defineComponent, ref } from "vue";
 import type { Story } from "@storybook/vue3";
 
 import { createId } from "@tager/admin-services";
+import { BaseCheckbox } from "@tager/admin-ui";
 
 import type {
   AjaxSelectField,
@@ -450,8 +451,10 @@ const repeaterField: RepeaterField = {
 
 export const REPEATER_AS_BLOCK: Story = (args) =>
   defineComponent({
-    components: { DynamicField },
+    components: { DynamicField, BaseCheckbox },
     setup() {
+      const disabled = ref<boolean>(false);
+
       const field = ref<RepeaterField>({
         ...repeaterField,
         config: {
@@ -467,10 +470,15 @@ export const REPEATER_AS_BLOCK: Story = (args) =>
         },
       });
 
-      return { field };
+      return { field, disabled };
     },
     template: `
-          <DynamicField :field="field" :/>`,
+          <div>
+          <DynamicField :field="field" :disabled="disabled"/>
+          <div>
+            Disabled:&nbsp;&nbsp;<BaseCheckbox v-model:checked="disabled"/>
+          </div>
+          </div>`,
   });
 
 const repeaterAsTableField: RepeaterField = {
@@ -485,7 +493,7 @@ const repeaterAsTableField: RepeaterField = {
       maximumItemsCount: 5,
       view: "TABLE",
       hideCount: true,
-      noToggle: true,
+      noToggle: false,
     },
   },
   value: [],
@@ -493,14 +501,21 @@ const repeaterAsTableField: RepeaterField = {
 
 export const REPEATER_AS_TABLE: Story = () =>
   defineComponent({
-    components: { DynamicField },
+    components: { DynamicField, BaseCheckbox },
     setup() {
+      const disabled = ref<boolean>(false);
+
       const field = ref<RepeaterField>(repeaterAsTableField);
 
-      return { field };
+      return { field, disabled };
     },
     template: `
-          <DynamicField :field="field" :/>`,
+          <div>
+          <DynamicField :field="field" :disabled="disabled"/>
+          <div>
+            Disabled:&nbsp;&nbsp;<BaseCheckbox v-model:checked="disabled"/>
+          </div>
+          </div>`,
   });
 
 const groupField: GroupField = {

@@ -3,17 +3,21 @@
     <RepeatedItemTableView
       v-if="isTable"
       :field="field"
+      :disabled="disabled"
       :name-suffix="nameSuffixValue"
     />
     <RepeaterFieldBlockView
       v-else
       :field="field"
+      :disabled="disabled"
       :name-suffix="nameSuffixValue"
     />
     <div class="button-row">
       <BaseButton
         variant="outline-primary"
-        :disabled="maxItemsCount > 0 && field.value.length >= maxItemsCount"
+        :disabled="
+          disabled || (maxItemsCount > 0 && field.value.length >= maxItemsCount)
+        "
         @click="addElement"
       >
         {{ addLabel || i18n.t("dynamic-field:Add") }}
@@ -53,6 +57,10 @@ export default defineComponent({
     field: {
       type: Object as PropType<Props["field"]>,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     maxItemsCount: {
       type: Number,

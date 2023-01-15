@@ -6,6 +6,7 @@
         :index="index"
         :parent-field="field"
         :name-suffix="nameSuffix"
+        :disabled="disabled"
       />
     </li>
   </ul>
@@ -13,8 +14,6 @@
 <script lang="ts">
 import { computed, defineComponent, type PropType } from "vue";
 import kebabCase from "lodash.kebabcase";
-
-import { type ColumnDefinition } from "@tager/admin-ui";
 
 import type {
   FieldConfigUnion,
@@ -40,6 +39,10 @@ export default defineComponent({
       type: Object as PropType<Props["field"]>,
       required: true,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     nameSuffix: {
       type: String,
       default: "",
@@ -53,36 +56,6 @@ export default defineComponent({
         (fieldConfig) => !fieldConfig.meta?.hidden
       )
     );
-
-    const columnDefs = computed<Array<ColumnDefinition<RowData>>>(() => {
-      const columnWidth = visibleFields.value.find((item) => item.width)
-        ? "auto"
-        : `calc(100% / ${visibleFields.value.length})`;
-
-      const definitions: Array<ColumnDefinition<RowData>> =
-        visibleFields.value.map((fieldConfig, index) => ({
-          id: index + 1,
-          name: fieldConfig.label || "",
-          field: fieldConfig.name,
-          style: { width: fieldConfig.width || columnWidth },
-          headStyle: { width: fieldConfig.width || columnWidth },
-        }));
-
-      definitions.push({
-        id: definitions.length + 1,
-        name: "",
-        field: "actions",
-        style: {
-          width: "139px",
-          whiteSpace: "nowrap",
-        },
-        headStyle: {
-          width: "139px",
-        },
-      });
-
-      return definitions;
-    });
 
     const rowData = computed<Array<RowData>>(() =>
       props.field.value.map((entity) =>
@@ -105,34 +78,7 @@ export default defineComponent({
       return `cell(${kebabCase(fieldConfig.name)})`;
     }
 
-    const checkVisible = (index: number): boolean => {
-      const result: Array<{
-        field: string;
-        value: any;
-      }> = [];
-
-      props.field.value[index].value.forEach((item) => {
-        result.push({
-          field: item.config.name,
-          value: item.value,
-        });
-      });
-
-      const rowField = props.field.value[index];
-      // console.log(props.field.config.fields[index]?.checkVisible);
-      /*
-      if(item.config.checkVisible){
-
-      }*/
-
-      // console.log(props.field);
-
-      return true;
-    };
-
     return {
-      checkVisible,
-      columnDefs,
       rowData,
       visibleFields,
       handleItemMove,

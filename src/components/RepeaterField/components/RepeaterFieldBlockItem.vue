@@ -18,7 +18,7 @@
         <BaseButton
           variant="icon"
           title="Move up"
-          :disabled="index === 0"
+          :disabled="index === 0 || disabled"
           @click="handleItemMove('up')"
         >
           <NorthIcon />
@@ -27,13 +27,18 @@
         <BaseButton
           variant="icon"
           title="Move down"
-          :disabled="index === parentField.value.length - 1"
+          :disabled="index === parentField.value.length - 1 || disabled"
           @click="handleItemMove('down')"
         >
           <SouthIcon />
         </BaseButton>
 
-        <BaseButton variant="icon" title="Delete" @click="handleItemRemove">
+        <BaseButton
+          variant="icon"
+          :disabled="disabled"
+          title="Delete"
+          @click="handleItemRemove"
+        >
           <DeleteIcon />
         </BaseButton>
       </div>
@@ -45,6 +50,7 @@
             v-if="checkVisible(field)"
             :field="field"
             :name-suffix="nameSuffix + '__' + index"
+            :disabled="disabled"
             @change="onChange"
           />
         </template>
@@ -103,6 +109,10 @@ export default defineComponent({
     parentField: {
       type: Object as PropType<Props["parentField"]>,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     index: {
       type: Number,
@@ -222,7 +232,7 @@ export default defineComponent({
     border-top: 1px solid #ccc;
 
     fieldset {
-      padding: 1rem 1rem 0 1rem;
+      padding: 1rem;
       border: 0;
     }
 
