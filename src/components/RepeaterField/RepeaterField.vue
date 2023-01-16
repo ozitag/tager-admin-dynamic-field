@@ -1,6 +1,6 @@
 <template>
   <div v-if="noToggle">
-    <InputLabel v-if="label">{{ label }}</InputLabel>
+    <InputLabel v-if="!noLabel && label">{{ label }}</InputLabel>
     <RepeatedItemTreeInner
       :field="field"
       :max-items-count="maxItemsCount"
@@ -8,6 +8,7 @@
       :hide-count="hideCount"
       :add-label="addLabel"
       :disabled="disabled"
+      :no-move-actions="noMoveActions"
     />
   </div>
   <ToggleSection
@@ -23,6 +24,7 @@
       :hide-count="hideCount"
       :add-label="addLabel"
       :disabled="disabled"
+      :no-move-actions="noMoveActions"
     />
   </ToggleSection>
 </template>
@@ -41,9 +43,11 @@ import RepeatedItemTreeInner from "./RepeaterFieldInner.vue";
 interface Props {
   field: RepeaterField;
   defaultIsOpen: boolean;
+  noMoveActions: boolean;
   maxItemsCount: number;
   nameSuffix: string;
   hideCount: boolean;
+  noLabel: boolean;
   addLabel?: string;
 }
 
@@ -60,6 +64,14 @@ export default defineComponent({
       required: true,
     },
     defaultIsOpen: {
+      type: Boolean,
+      default: false,
+    },
+    noMoveActions: {
+      type: Boolean,
+      default: false,
+    },
+    noLabel: {
       type: Boolean,
       default: false,
     },

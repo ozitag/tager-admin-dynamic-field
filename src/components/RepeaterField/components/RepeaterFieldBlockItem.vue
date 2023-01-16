@@ -16,6 +16,7 @@
         </BaseButton>
 
         <BaseButton
+          v-if="!noMoveActions"
           variant="icon"
           title="Move up"
           :disabled="index === 0 || disabled"
@@ -25,6 +26,7 @@
         </BaseButton>
 
         <BaseButton
+          v-if="!noMoveActions"
           variant="icon"
           title="Move down"
           :disabled="index === parentField.value.length - 1 || disabled"
@@ -109,6 +111,10 @@ export default defineComponent({
     parentField: {
       type: Object as PropType<Props["parentField"]>,
       required: true,
+    },
+    noMoveActions: {
+      type: Boolean,
+      default: false,
     },
     disabled: {
       type: Boolean,

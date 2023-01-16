@@ -487,9 +487,51 @@ const repeaterAsTableField: RepeaterField = {
     name: "users",
     label: "Users",
     type: "REPEATER",
-    fields: [{ ...stringField.config, width: "30%" }, textField.config],
+    fields: [
+      {
+        name: "type",
+        type: "SELECT",
+        label: "Type",
+        meta: {
+          options: [
+            { label: "Skip", value: "skip" },
+            { label: "Ok", value: "ok" },
+          ],
+        },
+        width: "200px",
+      },
+      {
+        name: "event",
+        type: "STRING",
+        label: "Event Name",
+        width: "250px",
+      },
+      {
+        name: "params",
+        type: "REPEATER",
+        label: "Params",
+        meta: {
+          view: "TABLE",
+          noToggle: true,
+          noMoveActions: true,
+        },
+        fields: [
+          {
+            name: "param",
+            type: "STRING",
+            label: "Param",
+          },
+          {
+            name: "value",
+            type: "STRING",
+            label: "Value",
+          },
+        ],
+      },
+    ],
     meta: {
       defaultIsOpen: false,
+      noMoveActions: true,
       maximumItemsCount: 5,
       view: "TABLE",
       hideCount: true,

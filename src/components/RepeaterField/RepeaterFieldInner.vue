@@ -5,12 +5,14 @@
       :field="field"
       :disabled="disabled"
       :name-suffix="nameSuffixValue"
+      :no-move-actions="noMoveActions"
     />
     <RepeaterFieldBlockView
       v-else
       :field="field"
       :disabled="disabled"
       :name-suffix="nameSuffixValue"
+      :no-move-actions="noMoveActions"
     />
     <div class="button-row">
       <BaseButton
@@ -45,6 +47,7 @@ import RepeaterFieldBlockView from "./components/RepeaterFieldBlockView.vue";
 interface Props {
   field: RepeaterField;
   maxItemsCount: number;
+  noMoveActions: boolean;
   nameSuffix: string;
   hideCount: boolean;
   addLabel?: string;
@@ -57,6 +60,10 @@ export default defineComponent({
     field: {
       type: Object as PropType<Props["field"]>,
       required: true,
+    },
+    noMoveActions: {
+      type: Boolean,
+      default: false,
     },
     disabled: {
       type: Boolean,

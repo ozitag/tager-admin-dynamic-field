@@ -329,6 +329,7 @@ export interface RepeaterFieldConfig extends FieldConfig {
   meta?: {
     view?: "TABLE" | "BLOCK";
     defaultIsOpen?: boolean;
+    noMoveActions?: boolean;
     noToggle?: boolean;
     hidden?: boolean;
     maximumItemsCount?: number;

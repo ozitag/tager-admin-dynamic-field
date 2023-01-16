@@ -7,6 +7,7 @@
         :parent-field="field"
         :name-suffix="nameSuffix"
         :disabled="disabled"
+        :no-move-actions="noMoveActions"
       />
     </li>
   </ul>
@@ -38,6 +39,10 @@ export default defineComponent({
     field: {
       type: Object as PropType<Props["field"]>,
       required: true,
+    },
+    noMoveActions: {
+      type: Boolean,
+      default: false,
     },
     disabled: {
       type: Boolean,

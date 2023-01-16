@@ -21,6 +21,7 @@
     <template #cell(actions)="{ row, rowIndex }">
       <div>
         <BaseButton
+          v-if="!noMoveActions"
           variant="icon"
           :disabled="rowIndex === 0 || disabled"
           @click="handleItemMove(rowIndex, 'up')"
@@ -28,6 +29,7 @@
           <NorthIcon />
         </BaseButton>
         <BaseButton
+          v-if="!noMoveActions"
           variant="icon"
           :disabled="rowIndex === field.value.length - 1 || disabled"
           @click="handleItemMove(rowIndex, 'down')"
@@ -76,6 +78,8 @@ import { moveItem, removeItem } from "../RepeaterField.helpers";
 interface Props {
   field: RepeaterField;
   nameSuffix?: string;
+  noMoveActions?: boolean;
+  disabed?: boolean;
 }
 
 export default defineComponent({
@@ -94,6 +98,10 @@ export default defineComponent({
     field: {
       type: Object as PropType<Props["field"]>,
       required: true,
+    },
+    noMoveActions: {
+      type: Boolean,
+      default: false,
     },
     disabled: {
       type: Boolean,
@@ -132,11 +140,11 @@ export default defineComponent({
         name: "",
         field: "actions",
         style: {
-          width: "139px",
+          width: props.noMoveActions ? "30px" : "139px",
           whiteSpace: "nowrap",
         },
         headStyle: {
-          width: "139px",
+          width: props.noMoveActions ? "30px" : "139px",
         },
       });
 

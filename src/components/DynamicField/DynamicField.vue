@@ -145,6 +145,8 @@
     :hide-count="field.config.meta.hideCount"
     :default-is-open="field.config.meta.defaultIsOpen"
     :max-items-count="field.config.meta.maximumItemsCount"
+    :no-move-actions="field.config.meta.noMoveActions"
+    :no-label="isLabelHidden"
   />
   <FieldGroup
     v-else-if="is('GROUP')"
