@@ -1,5 +1,5 @@
 <template>
-  <div v-if="noToggle">
+  <div v-if="noToggle" class="repeater-field">
     <InputLabel v-if="!noLabel && label">{{ label }}</InputLabel>
     <RepeatedItemTreeInner
       :field="field"
@@ -9,6 +9,7 @@
       :add-label="addLabel"
       :disabled="disabled"
       :no-move-actions="noMoveActions"
+      :is-empty-hidden="isEmptyHidden"
     />
   </div>
   <ToggleSection
@@ -25,6 +26,7 @@
       :add-label="addLabel"
       :disabled="disabled"
       :no-move-actions="noMoveActions"
+      :is-empty-hidden="isEmptyHidden"
     />
   </ToggleSection>
 </template>
@@ -99,6 +101,10 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    isEmptyHidden: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props: Props) {
     const i18n = useI18n();
@@ -143,3 +149,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.repeater-field:not(:first-child){
+  margin-top: 1.5rem;
+}
+</style>

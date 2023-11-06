@@ -334,6 +334,7 @@ export interface RepeaterFieldConfig extends FieldConfig {
     hidden?: boolean;
     maximumItemsCount?: number;
     hideCount?: boolean;
+    isEmptyHidden?: boolean;
     addLabel?: string;
     titleFormatter?: (fields: Array<FieldUnion>) => string | null;
     checkVisible?: (fields: Array<FieldUnion>) => boolean;

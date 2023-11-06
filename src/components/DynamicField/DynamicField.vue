@@ -146,6 +146,7 @@
     :default-is-open="field.config.meta.defaultIsOpen"
     :max-items-count="field.config.meta.maximumItemsCount"
     :no-move-actions="field.config.meta.noMoveActions"
+    :is-empty-hidden="field.config.meta.isEmptyHidden"
     :no-label="isLabelHidden"
   />
   <FieldGroup

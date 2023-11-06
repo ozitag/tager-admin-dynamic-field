@@ -1,14 +1,14 @@
 <template>
   <div class="repeated-field-inner">
     <RepeatedItemTableView
-      v-if="isTable"
+      v-if="isTable && !isResultsHidden"
       :field="field"
       :disabled="disabled"
       :name-suffix="nameSuffixValue"
       :no-move-actions="noMoveActions"
     />
     <RepeaterFieldBlockView
-      v-else
+      v-if="isBlock"
       :field="field"
       :disabled="disabled"
       :name-suffix="nameSuffixValue"
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
+import {computed, defineComponent, type PropType} from "vue";
 
 import { createId, useI18n } from "@tager/admin-services";
 import { BaseButton } from "@tager/admin-ui";
@@ -50,6 +50,7 @@ interface Props {
   noMoveActions: boolean;
   nameSuffix: string;
   hideCount: boolean;
+  isEmptyHidden?: boolean;
   addLabel?: string;
 }
 
@@ -66,6 +67,10 @@ export default defineComponent({
       default: false,
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    isEmptyHidden: {
       type: Boolean,
       default: false,
     },
@@ -101,11 +106,17 @@ export default defineComponent({
       props.field.value.push(newNestedField);
     }
 
+    const isResultsHidden = computed<boolean>(() => {
+      return props.field.value.length === 0 && props.isEmptyHidden;
+    });
+
     return {
       i18n,
       addElement,
       nameSuffixValue: props.nameSuffix,
+      isResultsHidden,
       isTable: props.field.config.meta?.view === "TABLE",
+      isBlock: props.field.config.meta?.view === "BLOCK",
     };
   },
 });
