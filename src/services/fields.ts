@@ -313,7 +313,7 @@ type BooleanFieldUtilsType = FieldUtils<
 const booleanFieldUtils: BooleanFieldUtilsType = {
   type: "TRUE_FALSE",
   getDefaultFormFieldValue(config) {
-    return config?.meta.defaultValue ?? false;
+    return config?.meta?.defaultValue ?? false;
   },
   createFormField(fieldConfig, incomingValue) {
     return {
@@ -403,9 +403,9 @@ const multiSelectFieldUtils: MultiSelectFieldUtilsType = {
     const options = fieldConfig.meta.options ?? [];
     const selectedValues = incomingValue ?? [];
 
-    const selectedOptions = options.filter((option) =>
-      selectedValues.includes(option.value)
-    );
+    const selectedOptions = selectedValues.map(item => {
+      return options.find(_item => _item.value === item);
+    }).filter(isNotNullish)
 
     return {
       id: createId(),
@@ -414,7 +414,7 @@ const multiSelectFieldUtils: MultiSelectFieldUtilsType = {
     };
   },
   getOutgoingValue(field) {
-    return field.value.map((option) => option.value);
+    return field.value.map((option) => option.value) as MultiSelectOutgoingValue;
   },
 };
 

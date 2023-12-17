@@ -26,7 +26,7 @@ import type {
   TextField,
   UrlField,
 } from "../../typings/model";
-import { brandOptions } from "../../msw/fixtures/brand-options";
+import {brandOptions, selectedBrandOptions} from "../../msw/fixtures/brand-options";
 
 import DynamicField from "./DynamicField.vue";
 
@@ -287,7 +287,7 @@ const multiSelectField: MultiSelectField = {
     type: "MULTI_SELECT",
     meta: { maximumItemsCount: 5, options: brandOptions },
   },
-  value: [],
+  value: selectedBrandOptions,
 };
 
 export const MULTI_SELECT: Story = () =>
