@@ -381,7 +381,7 @@ const ajaxSelectFieldUtils: AjaxSelectFieldUtilsType = {
     };
   },
   getOutgoingValue(field) {
-    return field.value?.value ?? null;
+    return field.value ?? null;
   },
 };
 

@@ -246,10 +246,10 @@ export interface AjaxSelectFieldConfig extends FieldConfig {
 
 export type AjaxSelectField = Field<
   AjaxSelectFieldConfig,
-  Nullable<CommonOptionType>
+  Nullable<OptionType<OptionValueType>>
 >;
-export type AjaxSelectIncomingValue = Nullable<CommonOptionType>;
-export type AjaxSelectOutgoingValue = Nullable<OptionValueType>;
+export type AjaxSelectIncomingValue = Nullable<OptionType<OptionValueType>>;
+export type AjaxSelectOutgoingValue = Nullable<OptionType<OptionValueType>>;
 
 /** MULTI_SELECT */
 

@@ -263,9 +263,12 @@ const ajaxSelectField: AjaxSelectField = {
     name: "brand",
     label: "Brand",
     type: "AJAX_SELECT",
-    meta: { requestUrl: "/admin/brands", valueField: "id", labelField: "name" },
+    meta: { requestUrl: "http://localhost:7001/api/games/ajax-search", valueField: "value", labelField: "label" },
   },
-  value: null,
+  value: {
+      "value": "1",
+      "label": "Hello"
+  },
 };
 
 export const AJAX_SELECT: Story = () =>
