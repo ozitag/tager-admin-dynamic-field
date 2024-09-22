@@ -151,7 +151,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.repeater-field:not(:first-child){
-  margin-top: 1.5rem;
+.repeater-field:not(:last-child){
+  margin-bottom: 1.5rem;
 }
 </style>
