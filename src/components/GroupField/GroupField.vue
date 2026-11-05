@@ -8,7 +8,7 @@
   </template>
   <ToggleSection
     v-else
-    v-model:isOpen="isOpen"
+    v-model:is-open="isOpen"
     :label="field.config.label"
     @toggle="setIsOpen"
   >

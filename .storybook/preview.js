@@ -1,6 +1,7 @@
 import { initialize as initializeMSW, mswDecorator } from "msw-storybook-addon";
 import { app } from "@storybook/vue3";
 import vueRouter from "storybook-vue3-router";
+
 import {
   configStore,
   i18n,

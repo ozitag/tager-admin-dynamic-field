@@ -14,7 +14,7 @@
   </div>
   <ToggleSection
     v-else
-    v-model:isOpen="isOpen"
+    v-model:is-open="isOpen"
     :label="label"
     @toggle="setIsOpen"
   >

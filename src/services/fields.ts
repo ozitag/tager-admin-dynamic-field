@@ -649,7 +649,7 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
             (field) => field.name === nestedFieldConfig.name
           );
 
-          // eslint-disable-next-line @typescript-eslint/no-use-before-define
+           
           const field = universalFieldUtils.createFormField(
             nestedFieldConfig,
             foundNestedIncomingField?.value
@@ -677,7 +677,7 @@ const repeaterFieldUtils: RepeaterFieldUtilsType = {
       entity.value.map((entityField) => {
         return {
           name: entityField.config.name,
-          // eslint-disable-next-line @typescript-eslint/no-use-before-define
+           
           value: universalFieldUtils.getOutgoingValue(entityField),
         };
       })
