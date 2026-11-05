@@ -129,7 +129,7 @@ export default defineComponent({
       const definitions: Array<ColumnDefinition<RowData>> =
         visibleFields.value.map((fieldConfig, index) => ({
           id: index + 1,
-          name: fieldConfig.label,
+          name: fieldConfig.label ?? "",
           field: fieldConfig.name,
           style: { width: fieldConfig.width || columnWidth },
           headStyle: { width: fieldConfig.width || columnWidth },

@@ -48,9 +48,7 @@ jobs:
         run: yarn install --frozen-lockfile --ignore-engines
 
       - name: Type check
-        # Информационный шаг: осталось 45 ошибок типов, пока не блокируем релиз.
-        # build:package терпит их и всё равно генерирует .d.ts.
-        continue-on-error: true
+        # Блокирующий шаг: ошибок типов в пакете нет, держим это состояние.
         run: yarn emit-declarations
 
       - name: Publish to npm

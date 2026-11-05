@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build:js": "vite build",
-    "build:package": "yarn build:js && (yarn emit-declarations || echo 'vue-tsc: type errors found, declarations emitted anyway')",
+    "build:package": "yarn build:js && yarn emit-declarations",
     "emit-declarations": "vue-tsc --project tsconfig.json --emitDeclarationOnly",
     "tager:update": "yarn upgrade --latest --scope @tager",
     "yalc:clean": "yalc remove --all",

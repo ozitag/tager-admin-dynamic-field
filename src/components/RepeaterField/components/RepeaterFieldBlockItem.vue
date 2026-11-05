@@ -80,7 +80,7 @@ import {
   DeleteIcon,
 } from "@tager/admin-ui";
 
-import type { RepeaterField } from "../../../typings/model";
+import type { FieldUnion, RepeaterField } from "../../../typings/model";
 import { moveItem, removeItem } from "../RepeaterField.helpers";
 
 interface Props {
@@ -166,7 +166,7 @@ export default defineComponent({
       updateValue();
     };
 
-    const checkVisible = (field: RepeaterField): boolean => {
+    const checkVisible = (field: FieldUnion): boolean => {
       const values: Record<string, unknown> = {};
 
       props.item.value.forEach((fieldValue) => {

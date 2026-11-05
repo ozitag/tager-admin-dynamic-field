@@ -1,13 +1,13 @@
 <template>
   <FormField
-    v-if="is('STRING', 'URL')"
+    v-if="is(field, 'STRING', 'URL')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <FormField
-    v-else-if="is('DATE')"
+    v-else-if="is(field, 'DATE')"
     :value="field.value"
     :label="label"
     :name="name"
@@ -15,14 +15,14 @@
     @update:value="handleUpdate"
   />
   <DateTimeInput
-    v-else-if="is('DATETIME')"
+    v-else-if="is(field, 'DATETIME')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <FormField
-    v-else-if="is('NUMBER')"
+    v-else-if="is(field, 'NUMBER')"
     type="number"
     :value="field.value"
     :label="label"
@@ -30,7 +30,7 @@
     @update:value="handleUpdate"
   />
   <FormField
-    v-else-if="is('TEXT')"
+    v-else-if="is(field, 'TEXT')"
     :value="field.value"
     :label="label"
     :name="name"
@@ -39,28 +39,28 @@
     @update:value="handleUpdate"
   />
   <FormFieldRichTextInput
-    v-else-if="is('HTML')"
+    v-else-if="is(field, 'HTML')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <FormFieldCheckbox
-    v-else-if="is('TRUE_FALSE')"
+    v-else-if="is(field, 'TRUE_FALSE')"
     :checked="field.value"
     :label="label"
     :name="name"
     @update:checked="handleUpdate"
   />
   <FormFieldMinMax
-    v-else-if="is('MIN_MAX')"
+    v-else-if="is(field, 'MIN_MAX')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <FormFieldSelect
-    v-else-if="is('SELECT')"
+    v-else-if="is(field, 'SELECT')"
     :value="field.value"
     :label="label"
     :name="name"
@@ -69,7 +69,7 @@
     @update:value="handleUpdate"
   />
   <AjaxSelect
-    v-else-if="is('AJAX_SELECT')"
+    v-else-if="is(field, 'AJAX_SELECT')"
     :value="field.value"
     :request-url="field.config.meta.requestUrl"
     :value-field="field.config.meta.valueField"
@@ -77,7 +77,7 @@
     @update:value="handleUpdate"
   />
   <FormFieldMultiSelect
-    v-else-if="is('MULTI_SELECT')"
+    v-else-if="is(field, 'MULTI_SELECT')"
     :selected-options="field.value"
     :label="label"
     :name="name"
@@ -86,74 +86,74 @@
     @update:selected-options="handleUpdate"
   />
   <FormFieldColorInput
-    v-else-if="is('COLOR')"
+    v-else-if="is(field, 'COLOR')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <ButtonField
-    v-else-if="is('BUTTON')"
+    v-else-if="is(field, 'BUTTON')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <MapField
-    v-else-if="is('MAP')"
+    v-else-if="is(field, 'MAP')"
     :value="field.value"
     :label="label"
     :name="name"
     @update:value="handleUpdate"
   />
   <FormFieldFileInput
-    v-else-if="is('IMAGE')"
+    v-else-if="is(field, 'IMAGE')"
     :value="field.value"
     :label="label"
     :name="name"
     file-type="image"
-    :scenario="field.config.meta.scenario"
+    :scenario="field.config.meta?.scenario"
     @update:value="handleUpdate"
   />
   <FormFieldFileInput
-    v-else-if="is('GALLERY')"
+    v-else-if="is(field, 'GALLERY')"
     :value="field.value"
     :label="label"
     :name="name"
     file-type="image"
     multiple
-    :scenario="field.config.meta.scenario"
-    :with-captions="field.config.meta.withCaptions"
+    :scenario="field.config.meta?.scenario"
+    :with-captions="field.config.meta?.withCaptions"
     @update:value="handleUpdate"
   />
   <FormFieldFileInput
-    v-else-if="is('FILE')"
+    v-else-if="is(field, 'FILE')"
     :value="field.value"
     :label="label"
     :name="name"
     file-type="file"
-    :scenario="field.config.meta.scenario"
+    :scenario="field.config.meta?.scenario"
     @update:value="handleUpdate"
   />
   <RepeaterField
-    v-else-if="is('REPEATER')"
+    v-else-if="is(field, 'REPEATER')"
     :field="field"
     :name-suffix="nameSuffix"
     :name="name"
-    :no-toggle="field.config.meta.noToggle"
-    :add-label="field.config.meta.addLabel"
-    :hide-count="field.config.meta.hideCount"
-    :default-is-open="field.config.meta.defaultIsOpen"
-    :max-items-count="field.config.meta.maximumItemsCount"
-    :no-move-actions="field.config.meta.noMoveActions"
-    :is-empty-hidden="field.config.meta.isEmptyHidden"
+    :no-toggle="field.config.meta?.noToggle"
+    :add-label="field.config.meta?.addLabel"
+    :hide-count="field.config.meta?.hideCount"
+    :default-is-open="field.config.meta?.defaultIsOpen"
+    :max-items-count="field.config.meta?.maximumItemsCount"
+    :no-move-actions="field.config.meta?.noMoveActions"
+    :is-empty-hidden="field.config.meta?.isEmptyHidden"
     :no-label="isLabelHidden"
   />
   <FieldGroup
-    v-else-if="is('GROUP')"
+    v-else-if="is(field, 'GROUP')"
     :field="field"
-    :default-is-open="field.config.meta.defaultIsOpen"
-    :no-toggle="field.config.meta.noToggle"
+    :default-is-open="field.config.meta?.defaultIsOpen"
+    :no-toggle="field.config.meta?.noToggle"
   />
   <div v-else>Unknown field with type: {{ field.config.type }}</div>
 </template>
@@ -178,6 +178,9 @@ import {
 import type { FieldUnion } from "../../typings/model";
 import RepeaterField from "../RepeaterField";
 import FieldGroup from "../GroupField";
+
+type FieldType = FieldUnion["config"]["type"];
+type FieldOfType<T extends FieldType> = Extract<FieldUnion, { config: { type: T } }>;
 
 interface Props {
   field: FieldUnion;
@@ -225,8 +228,11 @@ export default defineComponent({
 
     const name = computed(() => props.field.config.name + props.nameSuffix);
 
-    function is(...types: string[]): boolean {
-      return types.includes(props.field.config.type);
+    function is<T extends FieldType>(
+      field: FieldUnion,
+      ...types: Array<T>
+    ): field is FieldOfType<T> {
+      return (types as Array<string>).includes(field.config.type);
     }
 
     function handleUpdate(newValue: unknown) {

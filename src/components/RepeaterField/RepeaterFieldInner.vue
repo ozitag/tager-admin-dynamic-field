@@ -50,7 +50,7 @@ interface Props {
   noMoveActions: boolean;
   nameSuffix: string;
   hideCount: boolean;
-  isEmptyHidden?: boolean;
+  isEmptyHidden: boolean;
   addLabel?: string;
 }
 
