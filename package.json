@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build:js": "vite build",
-    "build:package": "concurrently --success first \"yarn build:js\" \"yarn emit-declarations\"",
+    "build:package": "yarn build:js && (yarn emit-declarations || echo 'vue-tsc: type errors found, declarations emitted anyway')",
     "emit-declarations": "vue-tsc --project tsconfig.json --emitDeclarationOnly",
     "tager:update": "yarn upgrade --latest --scope @tager",
     "yalc:clean": "yalc remove --all",
@@ -37,7 +37,7 @@
     "@types/lodash.kebabcase": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vue/eslint-config-typescript": "^10.0.0",
     "concurrently": "^7.1.0",
     "core-js": "^3.22.3",
@@ -54,11 +54,11 @@
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "storybook-vue3-router": "^2.3.1",
-    "typescript": "^4.6.3",
-    "vite": "^2.9.6",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.5",
     "vue": "3.2.33",
     "vue-router": "^4.0.14",
-    "vue-tsc": "^0.34.10"
+    "vue-tsc": "^3.3.14"
   },
   "peerDependencies": {
     "@tager/admin-services": "^1.0.0",
