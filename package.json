@@ -1,6 +1,6 @@
 {
   "name": "@tager/admin-dynamic-field",
-  "version": "1.1.7",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
@@ -34,8 +34,8 @@
     "@storybook/manager-webpack5": "^6.5.15",
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/vue3": "^6.5.15",
-    "@tager/admin-services": "^1.1.11",
-    "@tager/admin-ui": "^1.0.54",
+    "@tager/admin-services": "^2.0.1",
+    "@tager/admin-ui": "^2.0.4",
     "@types/lodash.kebabcase": "^4.1.7",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/eslint-config-typescript": "^14.9.0",
@@ -57,15 +57,15 @@
     "storybook-vue3-router": "^2.3.1",
     "typescript": "^5.9.3",
     "vite": "^6.4.5",
-    "vue": "3.2.33",
+    "vue": "^3.5.0",
     "vue-eslint-parser": "^10.4.1",
     "vue-router": "^4.0.14",
     "vue-tsc": "^3.3.14"
   },
   "peerDependencies": {
-    "@tager/admin-services": "^1.0.0",
-    "@tager/admin-ui": "^1.0.0",
-    "vue": "^3.2.33",
+    "@tager/admin-services": "^2.0.0",
+    "@tager/admin-ui": "^2.0.0",
+    "vue": "^3.4.0",
     "vue-router": "^4.0.14"
   },
   "publishConfig": {

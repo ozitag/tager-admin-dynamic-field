@@ -82,7 +82,7 @@
     :label="label"
     :name="name"
     :max-selected-count="field.config.meta.maximumItemsCount"
-    :options="field.config.meta.options"
+    :options="field.config.meta.options ?? undefined"
     @update:selected-options="handleUpdate"
   />
   <FormFieldColorInput
@@ -112,7 +112,7 @@
     :label="label"
     :name="name"
     file-type="image"
-    :scenario="field.config.meta?.scenario"
+    :scenario="field.config.meta?.scenario ?? undefined"
     @update:value="handleUpdate"
   />
   <FormFieldFileInput
@@ -122,7 +122,7 @@
     :name="name"
     file-type="image"
     multiple
-    :scenario="field.config.meta?.scenario"
+    :scenario="field.config.meta?.scenario ?? undefined"
     :with-captions="field.config.meta?.withCaptions"
     @update:value="handleUpdate"
   />
@@ -132,7 +132,7 @@
     :label="label"
     :name="name"
     file-type="file"
-    :scenario="field.config.meta?.scenario"
+    :scenario="field.config.meta?.scenario ?? undefined"
     @update:value="handleUpdate"
   />
   <RepeaterField
@@ -222,8 +222,10 @@ export default defineComponent({
   },
   emit: ["change"],
   setup(props: Props, { emit }) {
+    // Компоненты admin-ui объявляют label как string | undefined. Пока типы
+    // пакета не были настоящими, сюда проходил и null.
     const label = computed(() =>
-      props.isLabelHidden ? null : props.field.config.label
+      props.isLabelHidden ? undefined : (props.field.config.label ?? undefined)
     );
 
     const name = computed(() => props.field.config.name + props.nameSuffix);

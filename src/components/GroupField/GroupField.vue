@@ -9,7 +9,7 @@
   <ToggleSection
     v-else
     v-model:is-open="isOpen"
-    :label="field.config.label"
+    :label="field.config.label ?? ''"
     @toggle="setIsOpen"
   >
     <DynamicField
